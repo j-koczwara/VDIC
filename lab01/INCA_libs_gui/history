@@ -1,0 +1,18 @@
+//
+// File created by:  xrun
+// Do not modify this file
+
+s1::(24Oct2021:19:35:25):( xrun -compile -l xrun_compile.log -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright )
+s2::(24Oct2021:19:35:25):( xrun -elaborate -l xrun_elaborate.log -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright )
+s3::(24Oct2021:19:35:25):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log )
+s4::(24Oct2021:19:38:16):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log "-s " )
+s5::(24Oct2021:19:41:56):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log -s )
+s6::(24Oct2021:20:26:04):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log -s )
+s7::(24Oct2021:20:31:27):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log -s )
+s8::(24Oct2021:22:00:17):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log -s )
+s9::(24Oct2021:22:12:06):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log -s )
+s10::(24Oct2021:22:13:08):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log -s )
+s11::(24Oct2021:22:39:04):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log -s )
+s12::(24Oct2021:22:42:33):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log -s )
+s13::(24Oct2021:22:43:56):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log -s )
+s14::(24Oct2021:22:47:09):( xrun -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright -l xrun_gui.log -s )

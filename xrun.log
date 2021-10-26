@@ -1,0 +1,45 @@
+xrun: 19.09-s003: (c) Copyright 1995-2019 Cadence Design Systems, Inc.
+TOOL:	xrun	19.09-s003: Started on Oct 24, 2021 at 22:46:58 CEST
+xrun
+	+elaborate
+	+sv
+	-f /home/student/jkoczwara/VDIC/.dvt/lab01.build
+		-F lab01/tb.f
+			-F lab01/dut.f
+				alu/mtm_Alu.vp
+			alu_tb.sv
+file: lab01/alu/mtm_Alu.vp
+	module worklib.mtm_Alu:vp
+		errors: 0, warnings: 0
+		errors: 0, warnings: 0
+		errors: 0, warnings: 0
+		errors: 0, warnings: 0
+file: lab01/alu_tb.sv
+	module worklib.top:sv
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Top level design units:
+		top
+xmelab: *W,DSEMEL: This SystemVerilog design will be simulated as per IEEE 1800-2009 SystemVerilog simulation semantics. Use -disable_sem2009 option for turning off SV 2009 simulation semantics.
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+			streams:   7, words:  3942
+			streams:   9, words: 25571
+			streams:   7, words:  3261
+		worklib.top:sv <0x04b32ff4>
+			streams:  10, words: 11978
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 5       5
+		Registers:              88      88
+		Scalar wires:            7       -
+		Vectored wires:          2       -
+		Always blocks:          12      12
+		Initial blocks:          3       3
+		Pseudo assignments:      1       1
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.top:sv
+TOOL:	xrun	19.09-s003: Exiting on Oct 24, 2021 at 22:47:00 CEST  (total: 00:00:02)
