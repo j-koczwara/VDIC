@@ -1,4 +1,4 @@
-TOOL:	xrun	19.09-s003: Started on Oct 24, 2021 at 19:35:24 CEST
+TOOL:	xrun	19.09-s003: Started on Oct 28, 2021 at 01:48:54 CEST
 xrun
 	-compile
 	-l xrun_compile.log
@@ -11,9 +11,7 @@ xrun
 	+nowarnDSEM2009
 	+nowarnDSEMEL
 	+nowarnCGDEFN
-	-xmlibdirname INCA_libs_gui
-	+access+r
-	+gui
+	-xmlibdirname INCA_libs
 	+overwrite
 	-nocopyright
 file: ./alu/mtm_Alu.vp
@@ -25,4 +23,4 @@ file: ./alu/mtm_Alu.vp
 file: ./alu_tb.sv
 	module worklib.top:sv
 		errors: 0, warnings: 0
-TOOL:	xrun	19.09-s003: Exiting on Oct 24, 2021 at 19:35:25 CEST  (total: 00:00:01)
+TOOL:	xrun	19.09-s003: Exiting on Oct 28, 2021 at 01:48:54 CEST  (total: 00:00:00)

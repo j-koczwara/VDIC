@@ -1,4 +1,4 @@
-TOOL:	xrun	19.09-s003: Started on Oct 24, 2021 at 22:47:09 CEST
+TOOL:	xrun	19.09-s003: Started on Oct 28, 2021 at 01:45:06 CEST
 xrun
 	-F tb.f
 		-F ./dut.f
@@ -17,30 +17,25 @@ xrun
 	-l xrun_gui.log
 	-s
 Recompiling... reason: file './alu_tb.sv' is newer than expected.
-	expected: Sun Oct 24 22:43:35 2021
-	actual:   Sun Oct 24 22:46:55 2021
-file: ./alu_tb.sv
-	module worklib.top:sv
-		errors: 0, warnings: 0
+	expected: Thu Oct 28 01:44:16 2021
+	actual:   Thu Oct 28 01:44:51 2021
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Top level design units:
 		top
 	Building instance overlay tables: .................... Done
-	Generating native compiled code:
-		worklib.top:sv <0x1dd5ac98>
-			streams:  11, words: 14133
 	Building instance specific data structures.
 	Loading native compiled code:     .................... Done
 	Design hierarchy summary:
 		                 Instances  Unique
 		Modules:                 5       5
-		Registers:              88      88
+		Registers:             136     136
 		Scalar wires:            7       -
 		Vectored wires:          2       -
 		Always blocks:          12      12
 		Initial blocks:          3       3
 		Pseudo assignments:      1       1
+		Assertions:              4       4
 		Simulation timescale:  1ps
 	Writing initial simulation snapshot: worklib.top:sv
 xmsim: *W,XCLGNOPTM: The SystemVerilog constraint solver Xceligen options 'seed_only_rand and process_alternate_rng and ignore_worklib_name' are not specified and will default to 0. The recommended value for each of them is 1 which will become the default in a future release.
@@ -55,21 +50,2157 @@ Relinquished control to SimVision...
 xcelium> input -quiet .reinvoke.sim
 xcelium> file delete .reinvoke.sim
 xcelium> run
-Simulation complete via $finish(1) at time 331330 NS + 0
-./alu_tb.sv:123 		$finish;
-xcelium> probe -create -shm top.op_set
-Created probe 7
-xcelium> reset
-SVSEED default: 1
-xmsim: *W,RNDXCELON: Xceligen, the new SystemVerilog constraint solver is used. Disabling Xceligen and using the legacy constraint solver is possible with "xrun/xmsim -xceligen on=0 ...".
-Loaded snapshot worklib.top:sv
-xcelium> run
-Simulation complete via $finish(1) at time 331330 NS + 0
-./alu_tb.sv:123 		$finish;
-xcelium> ...Regained control from SimVision
--------------------------------------
-
-xcelium> 
-xmsim: *W,CMUSEX: Control-D in interactive input - one more to exit.
+Data test  passed for A=-2071669239 B=-1309649309 C=-2139073023, expected=-2139073023
+Flag test  passed for A=-2071669239 B=-1309649309 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-2071669239 B=-1309649309 op_set=0, Flag=0001, expected=0001
+Test passed for A=112818957 B=0 op_set=7, error=001001
+Data test  passed for A=1189058957 B=-1295874971 C=46301189, expected=46301189
+Flag test  passed for A=1189058957 B=-1295874971 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1189058957 B=-1295874971 op_set=0, Flag=0000, expected=0000
+Test passed for A=-1992863214 B=15983361 op_set=2, error=001001
+Test passed for A=1177417612 B=0 op_set=2, error=001001
+Data test  passed for A=2097015289 B=0 C=-2097015289, expected=-2097015289
+Flag test  passed for A=2097015289 B=0 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=2097015289 B=0 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=0 B=-482925370 C=0, expected=0
+Flag test  passed for A=0 B=-482925370 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=-482925370 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=-487095099 B=-720121174 C=-1072463744, expected=-1072463744
+Flag test  passed for A=-487095099 B=-720121174 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-487095099 B=-720121174 op_set=0, Flag=0001, expected=0001
+Test passed for A=1924134885 B=-1143836041 op_set=1, error=010010
+Data test  passed for A=1206705039 B=2033215986 C=2147286015, expected=2147286015
+Flag test  passed for A=1206705039 B=2033215986 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1206705039 B=2033215986 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-411658546 B=-201295128 C=210363418, expected=210363418
+Flag test  passed for A=-411658546 B=-201295128 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-411658546 B=-201295128 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=-490058043 B=777537884 C=-287682595, expected=-287682595
+Flag test  passed for A=-490058043 B=777537884 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-490058043 B=777537884 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1767155667 B=-1297668507 C=-1834811355, expected=-1834811355
+Flag test  passed for A=-1767155667 B=-1297668507 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1767155667 B=-1297668507 op_set=0, Flag=0001, expected=0001
+Test passed for A=-1309711773 B=91457290 op_set=2, error=001001
+Data test  passed for A=-1069866368 B=274997536 C=-794868832, expected=-794868832
+Flag test  passed for A=-1069866368 B=274997536 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1069866368 B=274997536 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=1433945514 B=-825439075 C=-537080385, expected=-537080385
+Flag test  passed for A=1433945514 B=-825439075 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1433945514 B=-825439075 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-887079274 B=0 C=-887079274, expected=-887079274
+Flag test  passed for A=-887079274 B=0 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-887079274 B=0 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1987856365 B=-2034485235 C=-1883260897, expected=-1883260897
+Flag test  passed for A=-1987856365 B=-2034485235 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1987856365 B=-2034485235 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1 B=-1448618413 op_set=3, error=001001
+Test passed for A=-1 B=899669355 op_set=4, error=010010
+Data test  passed for A=-2129180158 B=-682213714 C=-2129262078, expected=-2129262078
+Flag test  passed for A=-2129180158 B=-682213714 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-2129180158 B=-682213714 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=251652381 B=-406490417 C=-154838036, expected=-154838036
+Flag test  passed for A=251652381 B=-406490417 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=251652381 B=-406490417 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1 B=293882147 C=293882146, expected=293882146
+Flag test  passed for A=-1 B=293882147 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=293882147 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=84501770 B=-1 C=-84501771, expected=-84501771
+Flag test  passed for A=84501770 B=-1 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=84501770 B=-1 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=-445445430 B=0 C=-445445430, expected=-445445430
+Flag test  passed for A=-445445430 B=0 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-445445430 B=0 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-1640936388 C=-1, expected=-1
+Flag test  passed for A=-1 B=-1640936388 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1640936388 op_set=1, Flag=0001, expected=0001
+Test passed for A=2036907506 B=-1 op_set=0, error=100100
+Data test  passed for A=549761857 B=-330615592 C=-321931303, expected=-321931303
+Flag test  passed for A=549761857 B=-330615592 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=549761857 B=-330615592 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1008792440 B=-997584247 C=-2006376687, expected=-2006376687
+Flag test  passed for A=1008792440 B=-997584247 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=1008792440 B=-997584247 op_set=5, Flag=0001, expected=0001
+Test passed for A=0 B=1665923526 op_set=1, error=100100
+Data test  passed for A=-562756932 B=353361194 C=335872040, expected=335872040
+Flag test  passed for A=-562756932 B=353361194 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-562756932 B=353361194 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-2049467893 B=0 C=0, expected=0
+Flag test  passed for A=-2049467893 B=0 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=-2049467893 B=0 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=-1198014863 B=1123172741 C=-1973779692, expected=-1973779692
+Flag test  passed for A=-1198014863 B=1123172741 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-1198014863 B=1123172741 op_set=5, Flag=1101, expected=1101
+Test passed for A=670192975 B=-1647550405 op_set=3, error=001001
+Data test  passed for A=486945594 B=-1 C=-486945595, expected=-486945595
+Flag test  passed for A=486945594 B=-1 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=486945594 B=-1 op_set=5, Flag=0001, expected=0001
+Test passed for A=-1088212354 B=178932501 op_set=5, error=010010
+Test passed for A=1822182361 B=824379234 op_set=3, error=001001
+Data test  passed for A=-1 B=641071948 C=641071948, expected=641071948
+Flag test  passed for A=-1 B=641071948 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1 B=641071948 op_set=0, Flag=0000, expected=0000
+Test passed for A=1335973279 B=-1 op_set=1, error=010010
+Test passed for A=2087561720 B=-607297353 op_set=0, error=100100
+Data test  passed for A=0 B=-1367501732 C=0, expected=0
+Flag test  passed for A=0 B=-1367501732 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=-1367501732 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=-1379155877 B=1155413897 C=-1760397522, expected=-1760397522
+Flag test  passed for A=-1379155877 B=1155413897 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-1379155877 B=1155413897 op_set=5, Flag=1101, expected=1101
+Data test  passed for A=-1532087735 B=-400343344 C=-1932431079, expected=-1932431079
+Flag test  passed for A=-1532087735 B=-400343344 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-1532087735 B=-400343344 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=-335626025 B=-1 C=-1, expected=-1
+Flag test  passed for A=-335626025 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-335626025 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1463288751 B=1260466070 C=134294544, expected=134294544
+Flag test  passed for A=-1463288751 B=1260466070 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1463288751 B=1260466070 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=102596364 B=-517157182 C=-619753546, expected=-619753546
+Flag test  passed for A=102596364 B=-517157182 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=102596364 B=-517157182 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=1683484104 B=-1149085065 C=1462398127, expected=1462398127
+Flag test  passed for A=1683484104 B=-1149085065 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=1683484104 B=-1149085065 op_set=5, Flag=0100, expected=0100
+Data test  passed for A=519236925 B=0 C=519236925, expected=519236925
+Flag test  passed for A=519236925 B=0 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=519236925 B=0 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=151837458 B=-1090191234 C=151257106, expected=151257106
+Flag test  passed for A=151837458 B=-1090191234 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=151837458 B=-1090191234 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=921010541 B=484042553 C=1056827261, expected=1056827261
+Flag test  passed for A=921010541 B=484042553 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=921010541 B=484042553 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=5, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=5, Flag=0010, expected=0010
+Data test  passed for A=265457439 B=-370411821 C=-635869260, expected=-635869260
+Flag test  passed for A=265457439 B=-370411821 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=265457439 B=-370411821 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=1121529733 B=-1139505032 C=2033932531, expected=2033932531
+Flag test  passed for A=1121529733 B=-1139505032 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=1121529733 B=-1139505032 op_set=5, Flag=0100, expected=0100
+Data test  passed for A=769284443 B=613108553 C=769350491, expected=769350491
+Flag test  passed for A=769284443 B=613108553 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=769284443 B=613108553 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=0 B=-1611485633 C=-1611485633, expected=-1611485633
+Flag test  passed for A=0 B=-1611485633 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1611485633 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=353152810 B=739599192 C=1025372026, expected=1025372026
+Flag test  passed for A=353152810 B=739599192 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=353152810 B=739599192 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1019266938 B=-954594162 C=-952157042, expected=-952157042
+Flag test  passed for A=-1019266938 B=-954594162 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1019266938 B=-954594162 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-835718500 B=2100664826 C=1277530264, expected=1277530264
+Flag test  passed for A=-835718500 B=2100664826 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-835718500 B=2100664826 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=0 B=-1820476378 C=-1820476378, expected=-1820476378
+Flag test  passed for A=0 B=-1820476378 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1820476378 op_set=4, Flag=0001, expected=0001
+Test passed for A=966137715 B=-779373405 op_set=7, error=001001
+Data test  passed for A=-1 B=0 C=1, expected=1
+Flag test  passed for A=-1 B=0 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=0 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=-1751537617 B=-640511309 C=1902918370, expected=1902918370
+Flag test  passed for A=-1751537617 B=-640511309 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-1751537617 B=-640511309 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=-1344776609 B=573115716 C=570950724, expected=570950724
+Flag test  passed for A=-1344776609 B=573115716 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1344776609 B=573115716 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=2079915511 B=-442812725 C=1637102786, expected=1637102786
+Flag test  passed for A=2079915511 B=-442812725 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=2079915511 B=-442812725 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=757652314 B=349159721 C=1039129467, expected=1039129467
+Flag test  passed for A=757652314 B=349159721 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=757652314 B=349159721 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=0 B=-159194387 C=-159194387, expected=-159194387
+Flag test  passed for A=0 B=-159194387 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-159194387 op_set=1, Flag=0001, expected=0001
+Test passed for A=1022433657 B=573701956 op_set=5, error=010010
+Data test  passed for A=352914218 B=1442229675 C=1089315457, expected=1089315457
+Flag test  passed for A=352914218 B=1442229675 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=352914218 B=1442229675 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=124768014 B=1851633116 C=1976401130, expected=1976401130
+Flag test  passed for A=124768014 B=1851633116 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=124768014 B=1851633116 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=-849429350 B=-18910467 C=-2097409, expected=-2097409
+Flag test  passed for A=-849429350 B=-18910467 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-849429350 B=-18910467 op_set=1, Flag=0001, expected=0001
+Test passed for A=-504298813 B=722398550 op_set=7, error=001001
+Data test  passed for A=662301006 B=-1 C=662301005, expected=662301005
+Flag test  passed for A=662301006 B=-1 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=662301006 B=-1 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=-1277594009 B=-2060372982 C=957000305, expected=957000305
+Flag test  passed for A=-1277594009 B=-2060372982 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-1277594009 B=-2060372982 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=1534048694 B=-1 C=-1, expected=-1
+Flag test  passed for A=1534048694 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1534048694 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1676768712 B=0 C=-1676768712, expected=-1676768712
+Flag test  passed for A=-1676768712 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1676768712 B=0 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=1020364665 B=-601111368 C=-1621476033, expected=-1621476033
+Flag test  passed for A=1020364665 B=-601111368 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=1020364665 B=-601111368 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=1249165204 B=1237736851 C=-11428353, expected=-11428353
+Flag test  passed for A=1249165204 B=1237736851 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=1249165204 B=1237736851 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=-2109789180 B=-1397241255 C=712547925, expected=712547925
+Flag test  passed for A=-2109789180 B=-1397241255 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-2109789180 B=-1397241255 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=1842047451 B=-1493377459 C=-268435489, expected=-268435489
+Flag test  passed for A=1842047451 B=-1493377459 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1842047451 B=-1493377459 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1823520729 B=-1230756243 C=1240690324, expected=1240690324
+Flag test  passed for A=1823520729 B=-1230756243 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=1823520729 B=-1230756243 op_set=5, Flag=0100, expected=0100
+Test passed for A=1698384330 B=1528245686 op_set=3, error=010010
+Data test  passed for A=-1559815610 B=41196292 C=-1518619318, expected=-1518619318
+Flag test  passed for A=-1559815610 B=41196292 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1559815610 B=41196292 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=2077385207 B=-1 C=2077385206, expected=2077385206
+Flag test  passed for A=2077385207 B=-1 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=2077385207 B=-1 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=882378601 B=0 C=882378601, expected=882378601
+Flag test  passed for A=882378601 B=0 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=882378601 B=0 op_set=4, Flag=0000, expected=0000
+Test passed for A=-630277452 B=-1 op_set=3, error=001001
+Data test  passed for A=1140952456 B=343726376 C=67143944, expected=67143944
+Flag test  passed for A=1140952456 B=343726376 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1140952456 B=343726376 op_set=0, Flag=0000, expected=0000
+Test passed for A=-473616185 B=-1755538386 op_set=7, error=001001
+Data test  passed for A=-2072517624 B=239158556 C=-1983291116, expected=-1983291116
+Flag test  passed for A=-2072517624 B=239158556 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-2072517624 B=239158556 op_set=5, Flag=1101, expected=1101
+Data test  passed for A=-22567171 B=345900841 C=368468012, expected=368468012
+Flag test  passed for A=-22567171 B=345900841 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-22567171 B=345900841 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=-1 B=-1908961252 C=-1, expected=-1
+Flag test  passed for A=-1 B=-1908961252 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1908961252 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1632123331 B=0 C=0, expected=0
+Flag test  passed for A=-1632123331 B=0 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=-1632123331 B=0 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=860792678 B=-1 C=860792678, expected=860792678
+Flag test  passed for A=860792678 B=-1 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=860792678 B=-1 op_set=0, Flag=0000, expected=0000
+Test passed for A=-1202338704 B=-1175124877 op_set=5, error=100100
+Test passed for A=792376158 B=2101836282 op_set=2, error=001001
+Data test  passed for A=0 B=-588250951 C=-588250951, expected=-588250951
+Flag test  passed for A=0 B=-588250951 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-588250951 op_set=5, Flag=0001, expected=0001
+Test passed for A=0 B=461857079 op_set=4, error=100100
+Data test  passed for A=-1 B=1614356928 C=1614356927, expected=1614356927
+Flag test  passed for A=-1 B=1614356928 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=1614356928 op_set=4, Flag=1000, expected=1000
+Test passed for A=321232678 B=0 op_set=5, error=010010
+Data test  passed for A=0 B=1050248061 C=1050248061, expected=1050248061
+Flag test  passed for A=0 B=1050248061 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1050248061 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=1851723740 B=-1 C=1851723740, expected=1851723740
+Flag test  passed for A=1851723740 B=-1 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1851723740 B=-1 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1130452870 B=1006894968 C=87808, expected=87808
+Flag test  passed for A=1130452870 B=1006894968 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1130452870 B=1006894968 op_set=0, Flag=0000, expected=0000
+Test passed for A=1022176121 B=0 op_set=7, error=100100
+Data test  passed for A=194251031 B=-789219167 C=-604669513, expected=-604669513
+Flag test  passed for A=194251031 B=-789219167 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=194251031 B=-789219167 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1131909510 B=-1 C=-1131909511, expected=-1131909511
+Flag test  passed for A=1131909510 B=-1 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=1131909510 B=-1 op_set=5, Flag=0001, expected=0001
+Test passed for A=-1469868464 B=2056018421 op_set=0, error=010010
+Data test  passed for A=-1801811415 B=1622242753 C=-179568662, expected=-179568662
+Flag test  passed for A=-1801811415 B=1622242753 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1801811415 B=1622242753 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-488278843 B=-872303464 C=-384024621, expected=-384024621
+Flag test  passed for A=-488278843 B=-872303464 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-488278843 B=-872303464 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=632453963 B=-1181990285 C=-549536322, expected=-549536322
+Flag test  passed for A=632453963 B=-1181990285 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=632453963 B=-1181990285 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-165484820 B=-984607094 C=-819122274, expected=-819122274
+Flag test  passed for A=-165484820 B=-984607094 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-165484820 B=-984607094 op_set=5, Flag=1001, expected=1001
+Test passed for A=660132174 B=-733249368 op_set=4, error=010010
+Data test  passed for A=-792032095 B=118208782 C=-673823313, expected=-673823313
+Flag test  passed for A=-792032095 B=118208782 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-792032095 B=118208782 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1 B=355448106 C=355448106, expected=355448106
+Flag test  passed for A=-1 B=355448106 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1 B=355448106 op_set=0, Flag=0000, expected=0000
+Test passed for A=358227242 B=-961153907 op_set=2, error=001001
+Test passed for A=1333133214 B=-1670519240 op_set=3, error=001001
+Test passed for A=1684333512 B=1696810442 op_set=1, error=100100
+Data test  passed for A=899729771 B=-474501433 C=564168771, expected=564168771
+Flag test  passed for A=899729771 B=-474501433 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=899729771 B=-474501433 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1527504310 B=1560649146 C=1493278130, expected=1493278130
+Flag test  passed for A=1527504310 B=1560649146 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1527504310 B=1560649146 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1069235071 B=-1 C=1069235071, expected=1069235071
+Flag test  passed for A=1069235071 B=-1 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1069235071 B=-1 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-114846478 B=423960882 C=-110643726, expected=-110643726
+Flag test  passed for A=-114846478 B=423960882 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-114846478 B=423960882 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-556900675 B=1112526212 C=555625537, expected=555625537
+Flag test  passed for A=-556900675 B=1112526212 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-556900675 B=1112526212 op_set=4, Flag=1000, expected=1000
+Test passed for A=-230054684 B=1698942922 op_set=3, error=001001
+Data test  passed for A=1420327337 B=-795498335 C=624829002, expected=624829002
+Flag test  passed for A=1420327337 B=-795498335 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1420327337 B=-795498335 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=1197844878 B=-41194757 C=-1239039635, expected=-1239039635
+Flag test  passed for A=1197844878 B=-41194757 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=1197844878 B=-41194757 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=0 B=-2048582133 C=-2048582133, expected=-2048582133
+Flag test  passed for A=0 B=-2048582133 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-2048582133 op_set=4, Flag=0001, expected=0001
+Test passed for A=-142438161 B=-1 op_set=3, error=100100
+Data test  passed for A=459334966 B=-1 C=459334965, expected=459334965
+Flag test  passed for A=459334966 B=-1 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=459334966 B=-1 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=-1 B=-1162786699 C=-1162786699, expected=-1162786699
+Flag test  passed for A=-1 B=-1162786699 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1162786699 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-941074801 B=902676331 C=-38398470, expected=-38398470
+Flag test  passed for A=-941074801 B=902676331 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-941074801 B=902676331 op_set=4, Flag=0001, expected=0001
+Test passed for A=1147529096 B=-683690834 op_set=3, error=001001
+Test passed for A=1307804059 B=1228817810 op_set=7, error=001001
+Test passed for A=340057896 B=-1769676755 op_set=7, error=001001
+Data test  passed for A=632774475 B=-513167166 C=-436207669, expected=-436207669
+Flag test  passed for A=632774475 B=-513167166 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=632774475 B=-513167166 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1893927394 B=112395533 C=-1883244769, expected=-1883244769
+Flag test  passed for A=-1893927394 B=112395533 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1893927394 B=112395533 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1987706348 B=0 C=1987706348, expected=1987706348
+Flag test  passed for A=1987706348 B=0 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1987706348 B=0 op_set=4, Flag=0000, expected=0000
+Test passed for A=201563416 B=1756240849 op_set=1, error=100100
+Data test  passed for A=-1598020543 B=-1648401349 C=-50380806, expected=-50380806
+Flag test  passed for A=-1598020543 B=-1648401349 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-1598020543 B=-1648401349 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=1816459736 B=703588691 C=675604816, expected=675604816
+Flag test  passed for A=1816459736 B=703588691 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1816459736 B=703588691 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1424399786 B=-1381227941 C=43171845, expected=43171845
+Flag test  passed for A=-1424399786 B=-1381227941 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-1424399786 B=-1381227941 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=-244909342 B=-2106334716 C=-1861425374, expected=-1861425374
+Flag test  passed for A=-244909342 B=-2106334716 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-244909342 B=-2106334716 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=0 B=967574387 C=967574387, expected=967574387
+Flag test  passed for A=0 B=967574387 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=0 B=967574387 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=-330255144 B=155077906 C=485333050, expected=485333050
+Flag test  passed for A=-330255144 B=155077906 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-330255144 B=155077906 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=4, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=4, Flag=0010, expected=0010
+Test passed for A=-603765576 B=-1669262791 op_set=7, error=001001
+Data test  passed for A=-1 B=-225986843 C=-225986844, expected=-225986844
+Flag test  passed for A=-1 B=-225986843 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-1 B=-225986843 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=-792339295 B=361303851 C=-707928149, expected=-707928149
+Flag test  passed for A=-792339295 B=361303851 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-792339295 B=361303851 op_set=1, Flag=0001, expected=0001
+Test passed for A=0 B=-1 op_set=7, error=001001
+Test passed for A=330650919 B=1356200353 op_set=3, error=001001
+Data test  passed for A=-1886622177 B=0 C=-1886622177, expected=-1886622177
+Flag test  passed for A=-1886622177 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1886622177 B=0 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-2111686140 B=741155672 C=-1442125484, expected=-1442125484
+Flag test  passed for A=-2111686140 B=741155672 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-2111686140 B=741155672 op_set=5, Flag=1101, expected=1101
+Data test  passed for A=-883130218 B=175018772 C=1058148990, expected=1058148990
+Flag test  passed for A=-883130218 B=175018772 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-883130218 B=175018772 op_set=5, Flag=1000, expected=1000
+Test passed for A=-886935402 B=-659758415 op_set=5, error=010010
+Data test  passed for A=2058427381 B=1454637997 C=2125798397, expected=2125798397
+Flag test  passed for A=2058427381 B=1454637997 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=2058427381 B=1454637997 op_set=1, Flag=0000, expected=0000
+Test passed for A=-1816059353 B=1112145796 op_set=7, error=001001
+Data test  passed for A=-743906137 B=-203970841 C=-201333017, expected=-201333017
+Flag test  passed for A=-743906137 B=-203970841 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-743906137 B=-203970841 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1529194935 B=1843772379 C=616567369, expected=616567369
+Flag test  passed for A=-1529194935 B=1843772379 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1529194935 B=1843772379 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1689915337 B=0 C=1689915337, expected=1689915337
+Flag test  passed for A=1689915337 B=0 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1689915337 B=0 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-792961375 B=0 C=-792961375, expected=-792961375
+Flag test  passed for A=-792961375 B=0 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-792961375 B=0 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=356965674 B=0 C=356965674, expected=356965674
+Flag test  passed for A=356965674 B=0 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=356965674 B=0 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=2099922426 B=-1561976763 C=633068107, expected=633068107
+Flag test  passed for A=2099922426 B=-1561976763 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=2099922426 B=-1561976763 op_set=5, Flag=0100, expected=0100
+Data test  passed for A=1101071747 B=-1099611524 C=-702465, expected=-702465
+Flag test  passed for A=1101071747 B=-1099611524 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1101071747 B=-1099611524 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1186589582 B=-11584258 op_set=5, error=100100
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=4, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=4, Flag=0010, expected=0010
+Test passed for A=-1210078609 B=1128664454 op_set=7, error=001001
+Test passed for A=2015568368 B=477206328 op_set=2, error=001001
+Data test  passed for A=-1 B=544641344 C=544641344, expected=544641344
+Flag test  passed for A=-1 B=544641344 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1 B=544641344 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1811319256 B=2064493046 C=-419154994, expected=-419154994
+Flag test  passed for A=-1811319256 B=2064493046 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-1811319256 B=2064493046 op_set=5, Flag=1101, expected=1101
+Data test  passed for A=0 B=-490792251 C=-490792251, expected=-490792251
+Flag test  passed for A=0 B=-490792251 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-490792251 op_set=1, Flag=0001, expected=0001
+Test passed for A=1613246912 B=979525492 op_set=7, error=001001
+Test passed for A=484340025 B=-664114512 op_set=3, error=001001
+Test passed for A=183252245 B=0 op_set=3, error=001001
+Data test  passed for A=0 B=-256815391 C=-256815391, expected=-256815391
+Flag test  passed for A=0 B=-256815391 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-256815391 op_set=1, Flag=0001, expected=0001
+Test passed for A=199400727 B=-1584665021 op_set=5, error=100100
+Data test  passed for A=-1019870074 B=311937829 C=-742928473, expected=-742928473
+Flag test  passed for A=-1019870074 B=311937829 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1019870074 B=311937829 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1626774977 B=-962747763 C=1083474049, expected=1083474049
+Flag test  passed for A=1626774977 B=-962747763 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1626774977 B=-962747763 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=375094060 B=101342476 C=476436536, expected=476436536
+Flag test  passed for A=375094060 B=101342476 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=375094060 B=101342476 op_set=4, Flag=0000, expected=0000
+Test passed for A=-1196562831 B=-1646166981 op_set=2, error=001001
+Test passed for A=1533076918 B=-69221641 op_set=1, error=010010
+Test passed for A=-1367844772 B=716765013 op_set=3, error=001001
+Data test  passed for A=-1876280800 B=-804580704 C=1071700096, expected=1071700096
+Flag test  passed for A=-1876280800 B=-804580704 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-1876280800 B=-804580704 op_set=5, Flag=0000, expected=0000
+Test passed for A=962595186 B=-633500492 op_set=2, error=001001
+Data test  passed for A=-1 B=1854600669 C=-1, expected=-1
+Flag test  passed for A=-1 B=1854600669 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=1854600669 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-2032340979 C=-2032340979, expected=-2032340979
+Flag test  passed for A=-1 B=-2032340979 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-2032340979 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=632330571 B=-1127464327 C=612368457, expected=612368457
+Flag test  passed for A=632330571 B=-1127464327 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=632330571 B=-1127464327 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1109339525 B=1206023055 C=-1903617, expected=-1903617
+Flag test  passed for A=-1109339525 B=1206023055 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1109339525 B=1206023055 op_set=1, Flag=0001, expected=0001
+Test passed for A=-2117887485 B=1908484579 op_set=3, error=001001
+Data test  passed for A=244466461 B=-1 C=-1, expected=-1
+Flag test  passed for A=244466461 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=244466461 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=571580228 B=0 C=0, expected=0
+Flag test  passed for A=571580228 B=0 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=571580228 B=0 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=-895697771 B=-266521376 C=-90325771, expected=-90325771
+Flag test  passed for A=-895697771 B=-266521376 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-895697771 B=-266521376 op_set=1, Flag=0001, expected=0001
+Test passed for A=-157189907 B=695866706 op_set=5, error=100100
+Data test  passed for A=-1 B=1188870029 C=-1, expected=-1
+Flag test  passed for A=-1 B=1188870029 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=1188870029 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1453341614 B=-1 C=-1, expected=-1
+Flag test  passed for A=-1453341614 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1453341614 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1108993924 B=594214214 C=34137348, expected=34137348
+Flag test  passed for A=1108993924 B=594214214 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1108993924 B=594214214 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-969239924 B=0 C=-969239924, expected=-969239924
+Flag test  passed for A=-969239924 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-969239924 B=0 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1 B=0 C=-1, expected=-1
+Flag test  passed for A=-1 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=0 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=1212710288 B=0 C=1212710288, expected=1212710288
+Flag test  passed for A=1212710288 B=0 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1212710288 B=0 op_set=4, Flag=0000, expected=0000
+Test passed for A=199934231 B=-1 op_set=0, error=100100
+Data test  passed for A=0 B=1115379588 C=1115379588, expected=1115379588
+Flag test  passed for A=0 B=1115379588 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1115379588 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-715408214 B=1047465852 C=1762874066, expected=1762874066
+Flag test  passed for A=-715408214 B=1047465852 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-715408214 B=1047465852 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=-1336802720 B=-1 C=-1336802721, expected=-1336802721
+Flag test  passed for A=-1336802720 B=-1 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-1336802720 B=-1 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=0 B=1565150650 C=1565150650, expected=1565150650
+Flag test  passed for A=0 B=1565150650 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1565150650 op_set=4, Flag=0000, expected=0000
+Test passed for A=-979279733 B=0 op_set=7, error=100100
+Data test  passed for A=-1630945219 B=636617547 C=-994327672, expected=-994327672
+Flag test  passed for A=-1630945219 B=636617547 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1630945219 B=636617547 op_set=4, Flag=0001, expected=0001
+Test passed for A=-1368903588 B=596669767 op_set=1, error=010010
+Data test  passed for A=-1666221511 B=-637171020 C=-1744500176, expected=-1744500176
+Flag test  passed for A=-1666221511 B=-637171020 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1666221511 B=-637171020 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-1 B=1750197712 C=1750197713, expected=1750197713
+Flag test  passed for A=-1 B=1750197712 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=1750197712 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=-1776136148 B=-1 C=-1776136149, expected=-1776136149
+Flag test  passed for A=-1776136148 B=-1 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-1776136148 B=-1 op_set=4, Flag=1001, expected=1001
+Test passed for A=1182549388 B=65648391 op_set=2, error=001001
+Test passed for A=-1 B=-1 op_set=5, error=010010
+Data test  passed for A=0 B=144046353 C=144046353, expected=144046353
+Flag test  passed for A=0 B=144046353 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=0 B=144046353 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=1953169384 B=0 C=1953169384, expected=1953169384
+Flag test  passed for A=1953169384 B=0 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1953169384 B=0 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1511547317 B=-1 C=-1511547318, expected=-1511547318
+Flag test  passed for A=-1511547317 B=-1 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-1511547317 B=-1 op_set=4, Flag=1001, expected=1001
+Test passed for A=971276659 B=1982421996 op_set=1, error=010010
+Test passed for A=1376710564 B=1692493257 op_set=4, error=010010
+Test passed for A=0 B=-276598049 op_set=5, error=100100
+Data test  passed for A=864249191 B=1319125405 C=-2111592700, expected=-2111592700
+Flag test  passed for A=864249191 B=1319125405 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=864249191 B=1319125405 op_set=4, Flag=0101, expected=0101
+Test passed for A=-323413287 B=268482336 op_set=1, error=010010
+Data test  passed for A=-1 B=1236365203 C=-1, expected=-1
+Flag test  passed for A=-1 B=1236365203 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=1236365203 op_set=1, Flag=0001, expected=0001
+Test passed for A=1907646947 B=-1790213590 op_set=1, error=010010
+Data test  passed for A=-1361629603 B=-1 C=1361629602, expected=1361629602
+Flag test  passed for A=-1361629603 B=-1 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-1361629603 B=-1 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=490708282 B=1109830020 C=1600538302, expected=1600538302
+Flag test  passed for A=490708282 B=1109830020 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=490708282 B=1109830020 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=0 B=-1784043477 C=-1784043477, expected=-1784043477
+Flag test  passed for A=0 B=-1784043477 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1784043477 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=479035193 B=-1988158446 C=1827773657, expected=1827773657
+Flag test  passed for A=479035193 B=-1988158446 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=479035193 B=-1988158446 op_set=5, Flag=0100, expected=0100
+Test passed for A=-1451294638 B=-1 op_set=2, error=001001
+Test passed for A=746883417 B=-399796528 op_set=1, error=100100
+Data test  passed for A=1274358167 B=1837860827 C=-1182748302, expected=-1182748302
+Flag test  passed for A=1274358167 B=1837860827 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=1274358167 B=1837860827 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=-2139522048 B=-2015081457 C=140363791, expected=140363791
+Flag test  passed for A=-2139522048 B=-2015081457 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-2139522048 B=-2015081457 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=-1259809175 B=-1 C=1259809174, expected=1259809174
+Flag test  passed for A=-1259809175 B=-1 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-1259809175 B=-1 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=1660766661 B=1742157263 C=-892043372, expected=-892043372
+Flag test  passed for A=1660766661 B=1742157263 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=1660766661 B=1742157263 op_set=4, Flag=0101, expected=0101
+Test passed for A=1211753872 B=-1461397423 op_set=3, error=001001
+Data test  passed for A=-1258707863 B=998493559 C=-260214304, expected=-260214304
+Flag test  passed for A=-1258707863 B=998493559 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1258707863 B=998493559 op_set=4, Flag=0001, expected=0001
+Test passed for A=1306348955 B=-1 op_set=2, error=001001
+Data test  passed for A=0 B=-502359356 C=-502359356, expected=-502359356
+Flag test  passed for A=0 B=-502359356 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-502359356 op_set=4, Flag=0001, expected=0001
+Test passed for A=1551413688 B=-605621577 op_set=2, error=001001
+Data test  passed for A=-1015484794 B=0 C=0, expected=0
+Flag test  passed for A=-1015484794 B=0 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=-1015484794 B=0 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=-1739761104 B=1005409143 C=-1549797049, expected=-1549797049
+Flag test  passed for A=-1739761104 B=1005409143 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-1739761104 B=1005409143 op_set=5, Flag=1101, expected=1101
+Data test  passed for A=1779824084 B=59213575 C=1805121495, expected=1805121495
+Flag test  passed for A=1779824084 B=59213575 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1779824084 B=59213575 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=990615414 B=1956752873 C=2141962239, expected=2141962239
+Flag test  passed for A=990615414 B=1956752873 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=990615414 B=1956752873 op_set=1, Flag=0000, expected=0000
+Test passed for A=1172474763 B=15884033 op_set=7, error=001001
+Test passed for A=-1 B=1837140955 op_set=0, error=100100
+Data test  passed for A=1629331394 B=-487793979 C=1611438784, expected=1611438784
+Flag test  passed for A=1629331394 B=-487793979 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1629331394 B=-487793979 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1742210512 B=0 C=-1742210512, expected=-1742210512
+Flag test  passed for A=-1742210512 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1742210512 B=0 op_set=4, Flag=0001, expected=0001
+Test passed for A=-676141905 B=-1291658650 op_set=3, error=100100
+Data test  passed for A=-187142423 B=2084679672 C=-2023145201, expected=-2023145201
+Flag test  passed for A=-187142423 B=2084679672 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-187142423 B=2084679672 op_set=5, Flag=1101, expected=1101
+Data test  passed for A=-2089374714 B=-142248209 C=2063344373, expected=2063344373
+Flag test  passed for A=-2089374714 B=-142248209 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-2089374714 B=-142248209 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=1894725601 B=-894141291 C=1506100404, expected=1506100404
+Flag test  passed for A=1894725601 B=-894141291 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=1894725601 B=-894141291 op_set=5, Flag=0100, expected=0100
+Data test  passed for A=-143507730 B=810437984 C=666930254, expected=666930254
+Flag test  passed for A=-143507730 B=810437984 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-143507730 B=810437984 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=-224633115 B=-1809782232 C=-2034415347, expected=-2034415347
+Flag test  passed for A=-224633115 B=-1809782232 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-224633115 B=-1809782232 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=0 B=-252793119 C=-252793119, expected=-252793119
+Flag test  passed for A=0 B=-252793119 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-252793119 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1145286025 B=924128622 op_set=7, error=001001
+Data test  passed for A=1084945793 B=-1 C=1084945793, expected=1084945793
+Flag test  passed for A=1084945793 B=-1 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1084945793 B=-1 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1788852693 B=876074344 C=538415424, expected=538415424
+Flag test  passed for A=1788852693 B=876074344 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1788852693 B=876074344 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=2019717616 B=-713555798 C=1561693882, expected=1561693882
+Flag test  passed for A=2019717616 B=-713555798 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=2019717616 B=-713555798 op_set=5, Flag=0100, expected=0100
+Test passed for A=127910671 B=-119781135 op_set=7, error=001001
+Test passed for A=-1097089923 B=1194235278 op_set=4, error=010010
+Data test  passed for A=-726276439 B=2011935215 C=-1556755642, expected=-1556755642
+Flag test  passed for A=-726276439 B=2011935215 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-726276439 B=2011935215 op_set=5, Flag=1101, expected=1101
+Data test  passed for A=-677233489 B=620927818 C=-56305671, expected=-56305671
+Flag test  passed for A=-677233489 B=620927818 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-677233489 B=620927818 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=1557269945 B=0 C=0, expected=0
+Flag test  passed for A=1557269945 B=0 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=1557269945 B=0 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=853295461 B=684074833 C=987654005, expected=987654005
+Flag test  passed for A=853295461 B=684074833 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=853295461 B=684074833 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-231380252 B=-1 C=-231380252, expected=-231380252
+Flag test  passed for A=-231380252 B=-1 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-231380252 B=-1 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=353623338 B=-1092991875 C=-739368537, expected=-739368537
+Flag test  passed for A=353623338 B=-1092991875 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=353623338 B=-1092991875 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=753819481 B=0 C=753819481, expected=753819481
+Flag test  passed for A=753819481 B=0 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=753819481 B=0 op_set=4, Flag=0000, expected=0000
+Test passed for A=1925424101 B=1994288109 op_set=7, error=001001
+Data test  passed for A=-458751799 B=-1599157183 C=-2057908982, expected=-2057908982
+Flag test  passed for A=-458751799 B=-1599157183 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-458751799 B=-1599157183 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=1472319919 B=0 C=-1472319919, expected=-1472319919
+Flag test  passed for A=1472319919 B=0 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=1472319919 B=0 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=-307815205 B=-426317619 C=-460977975, expected=-460977975
+Flag test  passed for A=-307815205 B=-426317619 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-307815205 B=-426317619 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=0 B=940810096 C=940810096, expected=940810096
+Flag test  passed for A=0 B=940810096 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=0 B=940810096 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=-2094607354 B=-783802206 C=-2130706430, expected=-2130706430
+Flag test  passed for A=-2094607354 B=-783802206 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-2094607354 B=-783802206 op_set=0, Flag=0001, expected=0001
+Test passed for A=1587035581 B=-1252663702 op_set=0, error=010010
+Data test  passed for A=-1 B=-1835182043 C=-1, expected=-1
+Flag test  passed for A=-1 B=-1835182043 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1835182043 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-1136688008 C=-1, expected=-1
+Flag test  passed for A=-1 B=-1136688008 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1136688008 op_set=1, Flag=0001, expected=0001
+Test passed for A=2071693814 B=-1 op_set=1, error=010010
+Test passed for A=0 B=1682310600 op_set=5, error=010010
+Data test  passed for A=-2029195762 B=-1182296973 C=-2130410494, expected=-2130410494
+Flag test  passed for A=-2029195762 B=-1182296973 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-2029195762 B=-1182296973 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=108069644 B=-1 C=108069643, expected=108069643
+Flag test  passed for A=108069644 B=-1 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=108069644 B=-1 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=-1393763239 B=0 C=-1393763239, expected=-1393763239
+Flag test  passed for A=-1393763239 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1393763239 B=0 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=1554149305 B=-642203469 C=2098614522, expected=2098614522
+Flag test  passed for A=1554149305 B=-642203469 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=1554149305 B=-642203469 op_set=5, Flag=0100, expected=0100
+Test passed for A=2052046836 B=-1158356363 op_set=3, error=001001
+Test passed for A=24285954 B=-1 op_set=1, error=010010
+Test passed for A=50067717 B=656163662 op_set=5, error=010010
+Data test  passed for A=1551454648 B=-2072006136 C=671506512, expected=671506512
+Flag test  passed for A=1551454648 B=-2072006136 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=1551454648 B=-2072006136 op_set=5, Flag=0100, expected=0100
+Data test  passed for A=1189565325 B=-676032849 C=-1865598174, expected=-1865598174
+Flag test  passed for A=1189565325 B=-676032849 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=1189565325 B=-676032849 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=-1507815348 B=1031978363 C=-475836985, expected=-475836985
+Flag test  passed for A=-1507815348 B=1031978363 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1507815348 B=1031978363 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1610242496 B=313066277 C=1923308773, expected=1923308773
+Flag test  passed for A=-1610242496 B=313066277 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1610242496 B=313066277 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=-2031372787 B=-1199828880 C=-1090537859, expected=-1090537859
+Flag test  passed for A=-2031372787 B=-1199828880 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-2031372787 B=-1199828880 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=382466349 B=-1797334999 C=-1414868650, expected=-1414868650
+Flag test  passed for A=382466349 B=-1797334999 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=382466349 B=-1797334999 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-1736767440 C=-1736767440, expected=-1736767440
+Flag test  passed for A=-1 B=-1736767440 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1736767440 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-791713119 B=650067789 C=9382401, expected=9382401
+Flag test  passed for A=-791713119 B=650067789 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-791713119 B=650067789 op_set=0, Flag=0000, expected=0000
+Test passed for A=0 B=-1 op_set=4, error=010010
+Data test  passed for A=2055712757 B=-1360343971 C=-17829891, expected=-17829891
+Flag test  passed for A=2055712757 B=-1360343971 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=2055712757 B=-1360343971 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-901246316 B=0 C=-901246316, expected=-901246316
+Flag test  passed for A=-901246316 B=0 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-901246316 B=0 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-1252481430 C=-1252481431, expected=-1252481431
+Flag test  passed for A=-1 B=-1252481430 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-1 B=-1252481430 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=0 B=1583375804 C=1583375804, expected=1583375804
+Flag test  passed for A=0 B=1583375804 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1583375804 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=0 B=-599586632 C=0, expected=0
+Flag test  passed for A=0 B=-599586632 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=-599586632 op_set=0, Flag=0010, expected=0010
+Test passed for A=-818897762 B=-42400006 op_set=2, error=100100
+Test passed for A=-2080742393 B=-909394797 op_set=5, error=100100
+Data test  passed for A=1540610999 B=584446277 C=2125057276, expected=2125057276
+Flag test  passed for A=1540610999 B=584446277 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1540610999 B=584446277 op_set=4, Flag=0000, expected=0000
+Test passed for A=-1399594919 B=-1821192666 op_set=2, error=001001
+Data test  passed for A=-1270253976 B=-1889278946 C=-1083443586, expected=-1083443586
+Flag test  passed for A=-1270253976 B=-1889278946 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1270253976 B=-1889278946 op_set=1, Flag=0001, expected=0001
+Test passed for A=-935791472 B=0 op_set=1, error=100100
+Data test  passed for A=1553557433 B=0 C=-1553557433, expected=-1553557433
+Flag test  passed for A=1553557433 B=0 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=1553557433 B=0 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=1434853291 B=1747376592 C=2108088315, expected=2108088315
+Flag test  passed for A=1434853291 B=1747376592 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1434853291 B=1747376592 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=934897007 B=1818914264 C=2147184127, expected=2147184127
+Flag test  passed for A=934897007 B=1818914264 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=934897007 B=1818914264 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=0 B=-1563654075 C=0, expected=0
+Flag test  passed for A=0 B=-1563654075 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=-1563654075 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=-1 B=1188472717 C=1188472718, expected=1188472718
+Flag test  passed for A=-1 B=1188472717 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=1188472717 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=1173562251 B=2116325884 C=2146939903, expected=2146939903
+Flag test  passed for A=1173562251 B=2116325884 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1173562251 B=2116325884 op_set=1, Flag=0000, expected=0000
+Test passed for A=0 B=211258649 op_set=3, error=001001
+Test passed for A=1387606949 B=-1623617986 op_set=3, error=001001
+Test passed for A=-108281613 B=-1401410472 op_set=3, error=001001
+Data test  passed for A=0 B=1644522436 C=1644522436, expected=1644522436
+Flag test  passed for A=0 B=1644522436 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1644522436 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=775308124 B=54150406 C=36847876, expected=36847876
+Flag test  passed for A=775308124 B=54150406 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=775308124 B=54150406 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-853716838 B=202774808 C=-853583462, expected=-853583462
+Flag test  passed for A=-853716838 B=202774808 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-853716838 B=202774808 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-487561531 B=1427493290 C=939931759, expected=939931759
+Flag test  passed for A=-487561531 B=1427493290 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-487561531 B=1427493290 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=1641797059 B=1496639922 C=-145157137, expected=-145157137
+Flag test  passed for A=1641797059 B=1496639922 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=1641797059 B=1496639922 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=104030988 B=-185594135 C=-81563147, expected=-81563147
+Flag test  passed for A=104030988 B=-185594135 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=104030988 B=-185594135 op_set=4, Flag=0001, expected=0001
+Test passed for A=-1 B=2083371512 op_set=1, error=100100
+Data test  passed for A=1149480329 B=931951471 C=2081431800, expected=2081431800
+Flag test  passed for A=1149480329 B=931951471 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1149480329 B=931951471 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=232868635 B=-694081363 C=-538874945, expected=-538874945
+Flag test  passed for A=232868635 B=-694081363 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=232868635 B=-694081363 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=0 B=877511016 C=0, expected=0
+Flag test  passed for A=0 B=877511016 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=877511016 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=0 B=-1829170651 C=-1829170651, expected=-1829170651
+Flag test  passed for A=0 B=-1829170651 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1829170651 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=1743280079 B=1440583083 C=2013126639, expected=2013126639
+Flag test  passed for A=1743280079 B=1440583083 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1743280079 B=1440583083 op_set=1, Flag=0000, expected=0000
+Test passed for A=-1919626725 B=-1069859200 op_set=7, error=001001
+Test passed for A=785832285 B=1093533058 op_set=2, error=001001
+Data test  passed for A=-2110504444 B=-1 C=2110504443, expected=2110504443
+Flag test  passed for A=-2110504444 B=-1 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-2110504444 B=-1 op_set=5, Flag=0000, expected=0000
+Test passed for A=732407127 B=-1 op_set=7, error=001001
+Data test  passed for A=456559414 B=426378034 C=461278006, expected=461278006
+Flag test  passed for A=456559414 B=426378034 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=456559414 B=426378034 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1125963655 B=-229921052 C=-1355884707, expected=-1355884707
+Flag test  passed for A=-1125963655 B=-229921052 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-1125963655 B=-229921052 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=-1958548458 B=-713036630 C=-545264450, expected=-545264450
+Flag test  passed for A=-1958548458 B=-713036630 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1958548458 B=-713036630 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1615881664 B=-1755740114 C=923345518, expected=923345518
+Flag test  passed for A=1615881664 B=-1755740114 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=1615881664 B=-1755740114 op_set=5, Flag=0100, expected=0100
+Data test  passed for A=1181038476 B=-1195326863 C=-14288387, expected=-14288387
+Flag test  passed for A=1181038476 B=-1195326863 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=1181038476 B=-1195326863 op_set=4, Flag=0001, expected=0001
+Test passed for A=-1 B=2113835003 op_set=7, error=001001
+Data test  passed for A=1582571964 B=-294623012 C=1287948952, expected=1287948952
+Flag test  passed for A=1582571964 B=-294623012 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1582571964 B=-294623012 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=-522189631 B=1979392491 C=-1793385174, expected=-1793385174
+Flag test  passed for A=-522189631 B=1979392491 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-522189631 B=1979392491 op_set=5, Flag=1101, expected=1101
+Test passed for A=1520253877 B=0 op_set=2, error=001001
+Test passed for A=-990040439 B=-944577905 op_set=0, error=100100
+Data test  passed for A=-666490192 B=-374039853 C=-939259248, expected=-939259248
+Flag test  passed for A=-666490192 B=-374039853 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-666490192 B=-374039853 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-350420266 B=-1 C=-1, expected=-1
+Flag test  passed for A=-350420266 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-350420266 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1052455806 B=224621850 C=-827833956, expected=-827833956
+Flag test  passed for A=-1052455806 B=224621850 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1052455806 B=224621850 op_set=4, Flag=0001, expected=0001
+Test passed for A=0 B=954640241 op_set=7, error=001001
+Data test  passed for A=-1 B=-343407401 C=-1, expected=-1
+Flag test  passed for A=-1 B=-343407401 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-343407401 op_set=1, Flag=0001, expected=0001
+Test passed for A=-2023584242 B=-121170703 op_set=3, error=001001
+Data test  passed for A=45957893 B=-1 C=45957893, expected=45957893
+Flag test  passed for A=45957893 B=-1 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=45957893 B=-1 op_set=0, Flag=0000, expected=0000
+Test passed for A=-1 B=238742300 op_set=7, error=001001
+Data test  passed for A=1276692376 B=-160397076 C=-25636868, expected=-25636868
+Flag test  passed for A=1276692376 B=-160397076 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1276692376 B=-160397076 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-1790847446 C=-1790847446, expected=-1790847446
+Flag test  passed for A=-1 B=-1790847446 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1790847446 op_set=0, Flag=0001, expected=0001
+Test passed for A=-1294906779 B=462554423 op_set=3, error=001001
+Test passed for A=-2114308605 B=0 op_set=4, error=010010
+Data test  passed for A=-22160131 B=0 C=-22160131, expected=-22160131
+Flag test  passed for A=-22160131 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-22160131 B=0 op_set=4, Flag=0001, expected=0001
+Test passed for A=-1619390914 B=-197511960 op_set=5, error=010010
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=4, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=4, Flag=0010, expected=0010
+Data test  passed for A=152456466 B=-1268056984 C=-1115600518, expected=-1115600518
+Flag test  passed for A=152456466 B=-1268056984 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=152456466 B=-1268056984 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-491126587 B=-14668034 C=-501219132, expected=-501219132
+Flag test  passed for A=-491126587 B=-14668034 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-491126587 B=-14668034 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=453971254 B=2040465907 C=2074021367, expected=2074021367
+Flag test  passed for A=453971254 B=2040465907 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=453971254 B=2040465907 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1 B=2111679483 C=2111679482, expected=2111679482
+Flag test  passed for A=-1 B=2111679483 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=2111679483 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=-1249018773 B=197902103 C=25771011, expected=25771011
+Flag test  passed for A=-1249018773 B=197902103 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1249018773 B=197902103 op_set=0, Flag=0000, expected=0000
+Test passed for A=-2016397809 B=-1 op_set=0, error=100100
+Data test  passed for A=-1 B=0 C=-1, expected=-1
+Flag test  passed for A=-1 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=0 op_set=4, Flag=0001, expected=0001
+Test passed for A=0 B=352322858 op_set=7, error=001001
+Data test  passed for A=-1 B=-748261722 C=-748261723, expected=-748261723
+Flag test  passed for A=-1 B=-748261722 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-1 B=-748261722 op_set=4, Flag=1001, expected=1001
+Test passed for A=-361355564 B=-441708341 op_set=5, error=100100
+Test passed for A=41413380 B=-95931660 op_set=5, error=100100
+Data test  passed for A=-253071135 B=1122221445 C=1088565377, expected=1088565377
+Flag test  passed for A=-253071135 B=1122221445 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-253071135 B=1122221445 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-593922887 B=-455141687 C=-1049064574, expected=-1049064574
+Flag test  passed for A=-593922887 B=-455141687 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-593922887 B=-455141687 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=0 B=-1335914912 C=-1335914912, expected=-1335914912
+Flag test  passed for A=0 B=-1335914912 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1335914912 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=-1553714618 B=510970684 C=40108548, expected=40108548
+Flag test  passed for A=-1553714618 B=510970684 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1553714618 B=510970684 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=461725495 B=739005784 C=1066229631, expected=1066229631
+Flag test  passed for A=461725495 B=739005784 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=461725495 B=739005784 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=970348403 B=-2022125042 C=-1051776639, expected=-1051776639
+Flag test  passed for A=970348403 B=-2022125042 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=970348403 B=-2022125042 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=1852646364 B=406831920 C=-2035489012, expected=-2035489012
+Flag test  passed for A=1852646364 B=406831920 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=1852646364 B=406831920 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=1749415376 B=7595264 C=-1741820112, expected=-1741820112
+Flag test  passed for A=1749415376 B=7595264 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=1749415376 B=7595264 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=5, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=5, Flag=0010, expected=0010
+Data test  passed for A=2087621112 B=-793142623 C=1414203561, expected=1414203561
+Flag test  passed for A=2087621112 B=-793142623 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=2087621112 B=-793142623 op_set=5, Flag=0100, expected=0100
+Data test  passed for A=700456787 B=1280872344 C=580415557, expected=580415557
+Flag test  passed for A=700456787 B=1280872344 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=700456787 B=1280872344 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=804207967 B=-1010920825 C=61739015, expected=61739015
+Flag test  passed for A=804207967 B=-1010920825 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=804207967 B=-1010920825 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-44082438 B=379179309 C=337203240, expected=337203240
+Flag test  passed for A=-44082438 B=379179309 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-44082438 B=379179309 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=0 B=-1200225680 C=-1200225680, expected=-1200225680
+Flag test  passed for A=0 B=-1200225680 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1200225680 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1993359342 B=105963276 C=-1887396066, expected=-1887396066
+Flag test  passed for A=-1993359342 B=105963276 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1993359342 B=105963276 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=115043085 B=181211925 C=249527069, expected=249527069
+Flag test  passed for A=115043085 B=181211925 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=115043085 B=181211925 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=540084032 B=1248038292 C=707954260, expected=707954260
+Flag test  passed for A=540084032 B=1248038292 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=540084032 B=1248038292 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=706454356 B=-1067318656 C=131584, expected=131584
+Flag test  passed for A=706454356 B=-1067318656 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=706454356 B=-1067318656 op_set=0, Flag=0000, expected=0000
+Test passed for A=0 B=160240915 op_set=4, error=100100
+Test passed for A=-1 B=-157950227 op_set=5, error=100100
+Data test  passed for A=0 B=-1132982152 C=-1132982152, expected=-1132982152
+Flag test  passed for A=0 B=-1132982152 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1132982152 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=332664103 B=-1343412641 C=-1073926273, expected=-1073926273
+Flag test  passed for A=332664103 B=-1343412641 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=332664103 B=-1343412641 op_set=1, Flag=0001, expected=0001
+Test passed for A=297818915 B=1435954091 op_set=7, error=001001
+Test passed for A=474093368 B=290671906 op_set=5, error=010010
+Test passed for A=-471118649 B=-1052745086 op_set=5, error=100100
+Data test  passed for A=-477224249 B=-1837128668 C=-2113003516, expected=-2113003516
+Flag test  passed for A=-477224249 B=-1837128668 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-477224249 B=-1837128668 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=1839427547 B=-2073750520 C=-303595557, expected=-303595557
+Flag test  passed for A=1839427547 B=-2073750520 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1839427547 B=-2073750520 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1 B=985821045 op_set=4, error=100100
+Test passed for A=-1 B=-1 op_set=0, error=100100
+Data test  passed for A=-1408917416 B=-1470469552 C=-1476386736, expected=-1476386736
+Flag test  passed for A=-1408917416 B=-1470469552 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1408917416 B=-1470469552 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-779576669 B=1380180900 C=-741606489, expected=-741606489
+Flag test  passed for A=-779576669 B=1380180900 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-779576669 B=1380180900 op_set=1, Flag=0001, expected=0001
+Test passed for A=851697509 B=1966872554 op_set=7, error=001001
+Test passed for A=57686278 B=0 op_set=1, error=100100
+Data test  passed for A=-1376567205 B=-464129848 C=912437357, expected=912437357
+Flag test  passed for A=-1376567205 B=-464129848 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-1376567205 B=-464129848 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=610744648 B=-1678183881 C=6303744, expected=6303744
+Flag test  passed for A=610744648 B=-1678183881 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=610744648 B=-1678183881 op_set=0, Flag=0000, expected=0000
+Test passed for A=-628542795 B=0 op_set=4, error=100100
+Data test  passed for A=1101976963 B=0 C=0, expected=0
+Flag test  passed for A=1101976963 B=0 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=1101976963 B=0 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=0 B=1302258587 C=1302258587, expected=1302258587
+Flag test  passed for A=0 B=1302258587 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1302258587 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=446750005 B=1477858224 C=402673968, expected=402673968
+Flag test  passed for A=446750005 B=1477858224 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=446750005 B=1477858224 op_set=0, Flag=0000, expected=0000
+Test passed for A=-35683589 B=663599951 op_set=7, error=001001
+Data test  passed for A=-1553274810 B=820121441 C=-1921571045, expected=-1921571045
+Flag test  passed for A=-1553274810 B=820121441 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-1553274810 B=820121441 op_set=5, Flag=1101, expected=1101
+Data test  passed for A=-1399371687 B=720466773 C=-1359512739, expected=-1359512739
+Flag test  passed for A=-1399371687 B=720466773 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1399371687 B=720466773 op_set=1, Flag=0001, expected=0001
+Test passed for A=-2050076661 B=0 op_set=3, error=001001
+Data test  passed for A=-372101933 B=340111656 C=712213589, expected=712213589
+Flag test  passed for A=-372101933 B=340111656 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-372101933 B=340111656 op_set=5, Flag=1000, expected=1000
+Test passed for A=1960602089 B=743930200 op_set=2, error=001001
+Data test  passed for A=1641801155 B=1781273556 C=1811937239, expected=1811937239
+Flag test  passed for A=1641801155 B=1781273556 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1641801155 B=1781273556 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=1379499428 B=1059450750 C=2134769662, expected=2134769662
+Flag test  passed for A=1379499428 B=1059450750 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1379499428 B=1059450750 op_set=1, Flag=0000, expected=0000
+Test passed for A=1797889494 B=-2014394353 op_set=2, error=010010
+Data test  passed for A=1349185440 B=-1 C=1349185439, expected=1349185439
+Flag test  passed for A=1349185440 B=-1 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1349185440 B=-1 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=-1055980414 B=-1 C=-1055980414, expected=-1055980414
+Flag test  passed for A=-1055980414 B=-1 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1055980414 B=-1 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-1145291145 B=580717381 C=580651589, expected=580651589
+Flag test  passed for A=-1145291145 B=580717381 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1145291145 B=580717381 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1164701579 B=-60355848 C=-1207697296, expected=-1207697296
+Flag test  passed for A=-1164701579 B=-60355848 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1164701579 B=-60355848 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=1664236486 B=906058092 C=1999862766, expected=1999862766
+Flag test  passed for A=1664236486 B=906058092 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1664236486 B=906058092 op_set=1, Flag=0000, expected=0000
+Test passed for A=-1471260592 B=-1 op_set=2, error=001001
+Data test  passed for A=415064881 B=-837747044 C=-1252811925, expected=-1252811925
+Flag test  passed for A=415064881 B=-837747044 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=415064881 B=-837747044 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=-567124804 B=-672981329 C=-105856525, expected=-105856525
+Flag test  passed for A=-567124804 B=-672981329 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-567124804 B=-672981329 op_set=5, Flag=1001, expected=1001
+Test passed for A=0 B=-2027082738 op_set=2, error=001001
+Data test  passed for A=-1 B=-1260099991 C=-1, expected=-1
+Flag test  passed for A=-1 B=-1260099991 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1260099991 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-648331086 B=-1 C=-1, expected=-1
+Flag test  passed for A=-648331086 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-648331086 B=-1 op_set=1, Flag=0001, expected=0001
+Test passed for A=-283074850 B=-1024953211 op_set=2, error=001001
+Test passed for A=1432096682 B=336064808 op_set=7, error=001001
+Data test  passed for A=1628362178 B=1293945242 C=1090519426, expected=1090519426
+Flag test  passed for A=1628362178 B=1293945242 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1628362178 B=1293945242 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1776767443 B=-586081606 C=1224806546, expected=1224806546
+Flag test  passed for A=1776767443 B=-586081606 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1776767443 B=-586081606 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=0 B=-34898693 C=-34898693, expected=-34898693
+Flag test  passed for A=0 B=-34898693 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-34898693 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=954602353 C=954602352, expected=954602352
+Flag test  passed for A=-1 B=954602353 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=954602353 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=1330184606 B=815586145 C=524544, expected=524544
+Flag test  passed for A=1330184606 B=815586145 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1330184606 B=815586145 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1 B=-931021679 C=-931021678, expected=-931021678
+Flag test  passed for A=-1 B=-931021679 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-1 B=-931021679 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=-530540352 B=749298521 C=-320209959, expected=-320209959
+Flag test  passed for A=-530540352 B=749298521 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-530540352 B=749298521 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1085033346 B=706573140 op_set=0, error=010010
+Test passed for A=-1528944567 B=1945796071 op_set=3, error=001001
+Test passed for A=-1 B=-1376911269 op_set=7, error=001001
+Data test  passed for A=1258209173 B=0 C=1258209173, expected=1258209173
+Flag test  passed for A=1258209173 B=0 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1258209173 B=0 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1147975049 B=-119923983 C=-69510409, expected=-69510409
+Flag test  passed for A=-1147975049 B=-119923983 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1147975049 B=-119923983 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1932287974 B=-673075537 C=1259212437, expected=1259212437
+Flag test  passed for A=1932287974 B=-673075537 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1932287974 B=-673075537 op_set=4, Flag=1000, expected=1000
+Test passed for A=37282052 B=-1989910510 op_set=5, error=010010
+Test passed for A=-503058236 B=536576319 op_set=1, error=100100
+Test passed for A=760060762 B=-798563168 op_set=7, error=010010
+Data test  passed for A=973695860 B=1569109947 C=2140143615, expected=2140143615
+Flag test  passed for A=973695860 B=1569109947 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=973695860 B=1569109947 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-244758302 B=-269267745 C=-513718078, expected=-513718078
+Flag test  passed for A=-244758302 B=-269267745 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-244758302 B=-269267745 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-871112040 B=1339813279 C=-2084041977, expected=-2084041977
+Flag test  passed for A=-871112040 B=1339813279 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-871112040 B=1339813279 op_set=5, Flag=1101, expected=1101
+Test passed for A=135777040 B=2031192562 op_set=7, error=001001
+Data test  passed for A=1438394283 B=0 C=1438394283, expected=1438394283
+Flag test  passed for A=1438394283 B=0 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1438394283 B=0 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=1510608820 B=-1442272172 C=68336648, expected=68336648
+Flag test  passed for A=1510608820 B=-1442272172 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1510608820 B=-1442272172 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=1156029321 B=-1984572397 C=-828543076, expected=-828543076
+Flag test  passed for A=1156029321 B=-1984572397 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=1156029321 B=-1984572397 op_set=4, Flag=0001, expected=0001
+Test passed for A=1443664300 B=451150645 op_set=3, error=001001
+Data test  passed for A=502669115 B=-1700781003 C=413140017, expected=413140017
+Flag test  passed for A=502669115 B=-1700781003 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=502669115 B=-1700781003 op_set=0, Flag=0000, expected=0000
+Test passed for A=0 B=396987695 op_set=2, error=001001
+Data test  passed for A=442603828 B=-1428118955 C=-1159611531, expected=-1159611531
+Flag test  passed for A=442603828 B=-1428118955 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=442603828 B=-1428118955 op_set=1, Flag=0001, expected=0001
+Test passed for A=-562888004 B=-110821646 op_set=5, error=010010
+Test passed for A=-1 B=-520978239 op_set=5, error=100100
+Test passed for A=-1262392215 B=-1 op_set=2, error=010010
+Test passed for A=-624326987 B=-199195928 op_set=5, error=010010
+Data test  passed for A=-1 B=-1996214766 C=-1, expected=-1
+Flag test  passed for A=-1 B=-1996214766 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1996214766 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=462917431 B=1464737198 C=1001819767, expected=1001819767
+Flag test  passed for A=462917431 B=1464737198 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=462917431 B=1464737198 op_set=5, Flag=0000, expected=0000
+Test passed for A=-1877455328 B=-316976934 op_set=2, error=001001
+Data test  passed for A=1983075820 B=-1 C=1983075820, expected=1983075820
+Flag test  passed for A=1983075820 B=-1 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1983075820 B=-1 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=253645086 B=-190719255 C=-444364341, expected=-444364341
+Flag test  passed for A=253645086 B=-190719255 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=253645086 B=-190719255 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=-1354408354 B=1045441916 C=775949404, expected=775949404
+Flag test  passed for A=-1354408354 B=1045441916 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1354408354 B=1045441916 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=583020869 B=-976530293 C=-406096433, expected=-406096433
+Flag test  passed for A=583020869 B=-976530293 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=583020869 B=-976530293 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=155964178 B=469286199 C=313322021, expected=313322021
+Flag test  passed for A=155964178 B=469286199 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=155964178 B=469286199 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=-1044130173 B=-257228575 C=786901598, expected=786901598
+Flag test  passed for A=-1044130173 B=-257228575 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-1044130173 B=-257228575 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=1733287886 B=-1523164086 C=1038515324, expected=1038515324
+Flag test  passed for A=1733287886 B=-1523164086 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=1733287886 B=-1523164086 op_set=5, Flag=0100, expected=0100
+Data test  passed for A=1791849429 B=1721305037 C=-781812830, expected=-781812830
+Flag test  passed for A=1791849429 B=1721305037 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=1791849429 B=1721305037 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=-234557724 B=-97350412 C=-97063180, expected=-97063180
+Flag test  passed for A=-234557724 B=-97350412 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-234557724 B=-97350412 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1986089964 B=224542490 C=2137227262, expected=2137227262
+Flag test  passed for A=1986089964 B=224542490 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1986089964 B=224542490 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-240963869 B=-165378836 C=-140005649, expected=-140005649
+Flag test  passed for A=-240963869 B=-165378836 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-240963869 B=-165378836 op_set=1, Flag=0001, expected=0001
+Test passed for A=2043052531 B=377964333 op_set=2, error=001001
+Data test  passed for A=773033308 B=1854752221 C=1081718913, expected=1081718913
+Flag test  passed for A=773033308 B=1854752221 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=773033308 B=1854752221 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=0 B=-166541076 C=-166541076, expected=-166541076
+Flag test  passed for A=0 B=-166541076 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-166541076 op_set=4, Flag=0001, expected=0001
+Test passed for A=-942114161 B=0 op_set=5, error=100100
+Test passed for A=1010009464 B=-1 op_set=3, error=001001
+Data test  passed for A=-1 B=332527399 C=332527399, expected=332527399
+Flag test  passed for A=-1 B=332527399 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1 B=332527399 op_set=0, Flag=0000, expected=0000
+Test passed for A=2110394363 B=-1 op_set=7, error=001001
+Data test  passed for A=165659411 B=105487116 C=271146527, expected=271146527
+Flag test  passed for A=165659411 B=105487116 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=165659411 B=105487116 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=0 B=1572313019 C=1572313019, expected=1572313019
+Flag test  passed for A=0 B=1572313019 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1572313019 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=-1 B=-211694874 C=-211694874, expected=-211694874
+Flag test  passed for A=-1 B=-211694874 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-211694874 op_set=0, Flag=0001, expected=0001
+Test passed for A=-1529333175 B=894794602 op_set=3, error=001001
+Data test  passed for A=-2056194550 B=-1945710056 C=293062690, expected=293062690
+Flag test  passed for A=-2056194550 B=-1945710056 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-2056194550 B=-1945710056 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=0 B=388329774 C=0, expected=0
+Flag test  passed for A=0 B=388329774 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=388329774 op_set=0, Flag=0010, expected=0010
+Test passed for A=-555100995 B=862161254 op_set=2, error=001001
+Data test  passed for A=-1157224330 B=983049589 C=973086836, expected=973086836
+Flag test  passed for A=-1157224330 B=983049589 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1157224330 B=983049589 op_set=0, Flag=0000, expected=0000
+Test passed for A=-944489841 B=1255380373 op_set=2, error=001001
+Data test  passed for A=1034472827 B=0 C=1034472827, expected=1034472827
+Flag test  passed for A=1034472827 B=0 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1034472827 B=0 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1102845316 B=-1208733585 C=-1074267521, expected=-1074267521
+Flag test  passed for A=-1102845316 B=-1208733585 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1102845316 B=-1208733585 op_set=1, Flag=0001, expected=0001
+Test passed for A=-461222711 B=0 op_set=2, error=001001
+Data test  passed for A=-455597879 B=1513578932 C=1057981053, expected=1057981053
+Flag test  passed for A=-455597879 B=1513578932 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-455597879 B=1513578932 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=1833477594 B=-693196627 C=1141416072, expected=1141416072
+Flag test  passed for A=1833477594 B=-693196627 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1833477594 B=-693196627 op_set=0, Flag=0000, expected=0000
+Test passed for A=-1 B=0 op_set=3, error=001001
+Data test  passed for A=1875898847 B=112255757 C=1988154604, expected=1988154604
+Flag test  passed for A=1875898847 B=112255757 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1875898847 B=112255757 op_set=4, Flag=0000, expected=0000
+Test passed for A=1102931843 B=-1463368623 op_set=2, error=001001
+Data test  passed for A=41585924 B=-1069124992 C=-1027539068, expected=-1027539068
+Flag test  passed for A=41585924 B=-1069124992 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=41585924 B=-1069124992 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=0 B=-51051271 C=0, expected=0
+Flag test  passed for A=0 B=-51051271 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=-51051271 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=58322182 B=-452576566 C=16787458, expected=16787458
+Flag test  passed for A=58322182 B=-452576566 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=58322182 B=-452576566 op_set=0, Flag=0000, expected=0000
+Test passed for A=-275946273 B=1694088137 op_set=5, error=010010
+Data test  passed for A=-666269520 B=1958478825 C=1342701728, expected=1342701728
+Flag test  passed for A=-666269520 B=1958478825 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-666269520 B=1958478825 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=134841616 B=1865688542 C=134219024, expected=134219024
+Flag test  passed for A=134841616 B=1865688542 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=134841616 B=1865688542 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-698756948 B=77134601 C=-621622347, expected=-621622347
+Flag test  passed for A=-698756948 B=77134601 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-698756948 B=77134601 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=1811424215 B=818122593 C=-1665420488, expected=-1665420488
+Flag test  passed for A=1811424215 B=818122593 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=1811424215 B=818122593 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=-2033700339 B=0 C=0, expected=0
+Flag test  passed for A=-2033700339 B=0 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=-2033700339 B=0 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=-1 B=1220786065 C=1220786066, expected=1220786066
+Flag test  passed for A=-1 B=1220786065 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=1220786065 op_set=5, Flag=1000, expected=1000
+Test passed for A=1299708314 B=398296879 op_set=2, error=001001
+Test passed for A=656433998 B=1540719543 op_set=7, error=001001
+Test passed for A=-484150586 B=785804125 op_set=2, error=001001
+Test passed for A=-838603620 B=-1 op_set=2, error=001001
+Data test  passed for A=397705007 B=-1574255036 C=-1212219537, expected=-1212219537
+Flag test  passed for A=397705007 B=-1574255036 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=397705007 B=-1574255036 op_set=1, Flag=0001, expected=0001
+Test passed for A=-843105637 B=-1323302814 op_set=2, error=001001
+Test passed for A=-1 B=1955249129 op_set=2, error=001001
+Data test  passed for A=390562606 B=-963636595 C=-1354199201, expected=-1354199201
+Flag test  passed for A=390562606 B=-963636595 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=390562606 B=-963636595 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=1664026566 B=0 C=1664026566, expected=1664026566
+Flag test  passed for A=1664026566 B=0 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1664026566 B=0 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-719539030 B=0 C=719539030, expected=719539030
+Flag test  passed for A=-719539030 B=0 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-719539030 B=0 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=0 B=-803344224 C=-803344224, expected=-803344224
+Flag test  passed for A=0 B=-803344224 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-803344224 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=468242231 B=-127914256 C=-596156487, expected=-596156487
+Flag test  passed for A=468242231 B=-127914256 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=468242231 B=-127914256 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=-194205464 B=-427549491 C=-469497656, expected=-469497656
+Flag test  passed for A=-194205464 B=-427549491 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-194205464 B=-427549491 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=1049548157 B=742400344 C=1791948501, expected=1791948501
+Flag test  passed for A=1049548157 B=742400344 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1049548157 B=742400344 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=-2091015674 B=-1801376215 C=-2147409408, expected=-2147409408
+Flag test  passed for A=-2091015674 B=-1801376215 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-2091015674 B=-1801376215 op_set=0, Flag=0001, expected=0001
+Test passed for A=1649107908 B=-340724009 op_set=2, error=001001
+Data test  passed for A=-1364798371 B=650580813 C=-1360537763, expected=-1360537763
+Flag test  passed for A=-1364798371 B=650580813 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1364798371 B=650580813 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=968869747 B=-1 C=968869746, expected=968869746
+Flag test  passed for A=968869747 B=-1 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=968869747 B=-1 op_set=4, Flag=1000, expected=1000
+Test passed for A=-1076483457 B=-1492945842 op_set=2, error=001001
+Data test  passed for A=1557947833 B=-262314784 C=1295633049, expected=1295633049
+Flag test  passed for A=1557947833 B=-262314784 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1557947833 B=-262314784 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=-1663647175 B=1090211713 C=-587214919, expected=-587214919
+Flag test  passed for A=-1663647175 B=1090211713 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1663647175 B=1090211713 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=419136305 C=419136305, expected=419136305
+Flag test  passed for A=-1 B=419136305 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1 B=419136305 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1206644623 B=2136178174 C=929533551, expected=929533551
+Flag test  passed for A=1206644623 B=2136178174 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=1206644623 B=2136178174 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=-1362038691 B=-2020964337 C=-1344604065, expected=-1344604065
+Flag test  passed for A=-1362038691 B=-2020964337 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1362038691 B=-2020964337 op_set=1, Flag=0001, expected=0001
+Test passed for A=429640499 B=881775977 op_set=2, error=010010
+Data test  passed for A=-849915238 B=779233628 C=206700568, expected=206700568
+Flag test  passed for A=-849915238 B=779233628 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-849915238 B=779233628 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=619251529 B=1775073235 C=1155821706, expected=1155821706
+Flag test  passed for A=619251529 B=1775073235 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=619251529 B=1775073235 op_set=5, Flag=0000, expected=0000
+Test passed for A=-1653376454 B=0 op_set=3, error=001001
+Data test  passed for A=1819604440 B=0 C=1819604440, expected=1819604440
+Flag test  passed for A=1819604440 B=0 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1819604440 B=0 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=-1139011976 B=483079481 C=470287416, expected=470287416
+Flag test  passed for A=-1139011976 B=483079481 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1139011976 B=483079481 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1831837659 B=-2070489591 C=-2138030079, expected=-2138030079
+Flag test  passed for A=-1831837659 B=-2070489591 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1831837659 B=-2070489591 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-1422415786 B=-1775474644 C=-1086330754, expected=-1086330754
+Flag test  passed for A=-1422415786 B=-1775474644 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1422415786 B=-1775474644 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-375710509 C=-375710509, expected=-375710509
+Flag test  passed for A=-1 B=-375710509 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-375710509 op_set=0, Flag=0001, expected=0001
+Test passed for A=224608026 B=6115584 op_set=7, error=001001
+Test passed for A=1443717036 B=-195522840 op_set=3, error=001001
+Data test  passed for A=-1234544532 B=-801357664 C=-2035902196, expected=-2035902196
+Flag test  passed for A=-1234544532 B=-801357664 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-1234544532 B=-801357664 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=1757499345 B=7147264 C=1764646609, expected=1764646609
+Flag test  passed for A=1757499345 B=7147264 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1757499345 B=7147264 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=-313689894 B=-1 C=-1, expected=-1
+Flag test  passed for A=-313689894 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-313689894 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=0 B=1813612504 C=1813612504, expected=1813612504
+Flag test  passed for A=0 B=1813612504 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1813612504 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=4, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=4, Flag=0010, expected=0010
+Data test  passed for A=1616755648 B=-1505162164 C=-430063668, expected=-430063668
+Flag test  passed for A=1616755648 B=-1505162164 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1616755648 B=-1505162164 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-389041967 B=-1464136623 C=-1467285423, expected=-1467285423
+Flag test  passed for A=-389041967 B=-1464136623 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-389041967 B=-1464136623 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-1461588399 B=-1566261691 C=1267117206, expected=1267117206
+Flag test  passed for A=-1461588399 B=-1566261691 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-1461588399 B=-1566261691 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=-1 B=1501783987 C=1501783988, expected=1501783988
+Flag test  passed for A=-1 B=1501783987 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=1501783987 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=-1088354690 B=-1068906880 C=19447810, expected=19447810
+Flag test  passed for A=-1088354690 B=-1068906880 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-1088354690 B=-1068906880 op_set=5, Flag=0000, expected=0000
+Test passed for A=2119914492 B=606525256 op_set=0, error=010010
+Test passed for A=-1732977615 B=1403565479 op_set=7, error=001001
+Data test  passed for A=1102183811 B=-1614724545 C=1578058940, expected=1578058940
+Flag test  passed for A=1102183811 B=-1614724545 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=1102183811 B=-1614724545 op_set=5, Flag=0100, expected=0100
+Data test  passed for A=168192 B=-1307210652 C=32768, expected=32768
+Flag test  passed for A=168192 B=-1307210652 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=168192 B=-1307210652 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1062376318 B=-1 C=1062376318, expected=1062376318
+Flag test  passed for A=1062376318 B=-1 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1062376318 B=-1 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=2022170609 B=1194195854 C=2142240767, expected=2142240767
+Flag test  passed for A=2022170609 B=1194195854 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=2022170609 B=1194195854 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1 B=1327713694 C=1327713694, expected=1327713694
+Flag test  passed for A=-1 B=1327713694 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1 B=1327713694 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1948785128 B=612604745 C=-1336180383, expected=-1336180383
+Flag test  passed for A=1948785128 B=612604745 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=1948785128 B=612604745 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=0 B=-2056652278 C=-2056652278, expected=-2056652278
+Flag test  passed for A=0 B=-2056652278 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-2056652278 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=800594783 B=-1463826351 C=-663231568, expected=-663231568
+Flag test  passed for A=800594783 B=-1463826351 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=800594783 B=-1463826351 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-1529248183 C=-1529248183, expected=-1529248183
+Flag test  passed for A=-1 B=-1529248183 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1529248183 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-1404003240 B=-1352831906 C=-1352795042, expected=-1352795042
+Flag test  passed for A=-1404003240 B=-1352831906 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1404003240 B=-1352831906 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1747066321 B=-1043375485 C=1504525490, expected=1504525490
+Flag test  passed for A=-1747066321 B=-1043375485 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-1747066321 B=-1043375485 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=-905034604 B=-1 C=-905034605, expected=-905034605
+Flag test  passed for A=-905034604 B=-1 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-905034604 B=-1 op_set=4, Flag=1001, expected=1001
+Test passed for A=-916331374 B=506619708 op_set=3, error=001001
+Data test  passed for A=-1 B=590355270 C=590355271, expected=590355271
+Flag test  passed for A=-1 B=590355270 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=590355270 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=0 B=-1212667281 C=-1212667281, expected=-1212667281
+Flag test  passed for A=0 B=-1212667281 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1212667281 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=-1598837183 B=2078152183 C=-67125257, expected=-67125257
+Flag test  passed for A=-1598837183 B=2078152183 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1598837183 B=2078152183 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1954793450 B=956903282 C=151529490, expected=151529490
+Flag test  passed for A=-1954793450 B=956903282 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1954793450 B=956903282 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1362535842 B=1911577059 C=549041217, expected=549041217
+Flag test  passed for A=1362535842 B=1911577059 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=1362535842 B=1911577059 op_set=5, Flag=0000, expected=0000
+Test passed for A=-917962094 B=-439439157 op_set=7, error=001001
+Test passed for A=873035112 B=-1732973007 op_set=4, error=100100
+Data test  passed for A=-1429092267 B=950241649 C=-1915633380, expected=-1915633380
+Flag test  passed for A=-1429092267 B=950241649 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-1429092267 B=950241649 op_set=5, Flag=1101, expected=1101
+Test passed for A=0 B=-421427507 op_set=0, error=010010
+Data test  passed for A=71372040 B=-1055342974 C=-983970934, expected=-983970934
+Flag test  passed for A=71372040 B=-1055342974 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=71372040 B=-1055342974 op_set=4, Flag=0001, expected=0001
+Test passed for A=-1618962369 B=-670567760 op_set=2, error=001001
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=5, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=5, Flag=0010, expected=0010
+Test passed for A=1443819436 B=-1726468046 op_set=7, error=001001
+Data test  passed for A=-1 B=0 C=1, expected=1
+Flag test  passed for A=-1 B=0 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=0 op_set=5, Flag=1000, expected=1000
+Test passed for A=0 B=-602482504 op_set=3, error=001001
+Test passed for A=-1 B=-2062460918 op_set=7, error=001001
+Data test  passed for A=-964195699 B=1693137353 C=-420496435, expected=-420496435
+Flag test  passed for A=-964195699 B=1693137353 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-964195699 B=1693137353 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1 B=-636297548 op_set=0, error=100100
+Test passed for A=437467444 B=298239267 op_set=7, error=001001
+Data test  passed for A=-1 B=378643245 C=378643245, expected=378643245
+Flag test  passed for A=-1 B=378643245 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1 B=378643245 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=417886513 B=792118622 C=1073673599, expected=1073673599
+Flag test  passed for A=417886513 B=792118622 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=417886513 B=792118622 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1 B=1510942644 C=1510942643, expected=1510942643
+Flag test  passed for A=-1 B=1510942644 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=1510942644 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=121271054 B=-1 C=-121271055, expected=-121271055
+Flag test  passed for A=121271054 B=-1 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=121271054 B=-1 op_set=5, Flag=0001, expected=0001
+Test passed for A=841793892 B=839551844 op_set=2, error=001001
+Test passed for A=605469000 B=-985343862 op_set=0, error=010010
+Data test  passed for A=-419695411 B=-1 C=-419695412, expected=-419695412
+Flag test  passed for A=-419695411 B=-1 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-419695411 B=-1 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=-1241974165 B=1442784171 C=-167773205, expected=-167773205
+Flag test  passed for A=-1241974165 B=1442784171 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1241974165 B=1442784171 op_set=1, Flag=0001, expected=0001
+Test passed for A=-236150045 B=1587359677 op_set=2, error=001001
+Data test  passed for A=-318823207 B=-518367038 C=-837190245, expected=-837190245
+Flag test  passed for A=-318823207 B=-518367038 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-318823207 B=-518367038 op_set=4, Flag=1001, expected=1001
+Test passed for A=-1 B=-262558496 op_set=2, error=001001
+Test passed for A=-1345247649 B=-1898170851 op_set=4, error=100100
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=5, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=5, Flag=0010, expected=0010
+Test passed for A=320340774 B=0 op_set=2, error=001001
+Data test  passed for A=-2101901819 B=-2069305335 C=-2034242035, expected=-2034242035
+Flag test  passed for A=-2101901819 B=-2069305335 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-2101901819 B=-2069305335 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1238530964 B=-1245331349 C=-1274707864, expected=-1274707864
+Flag test  passed for A=-1238530964 B=-1245331349 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1238530964 B=-1245331349 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=1482210736 B=-73418505 C=-1555629241, expected=-1555629241
+Flag test  passed for A=1482210736 B=-73418505 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=1482210736 B=-73418505 op_set=5, Flag=0001, expected=0001
+Test passed for A=1386303909 B=-1410809769 op_set=2, error=001001
+Data test  passed for A=991032182 B=-1 C=-1, expected=-1
+Flag test  passed for A=991032182 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=991032182 B=-1 op_set=1, Flag=0001, expected=0001
+Test passed for A=0 B=664331087 op_set=2, error=001001
+Test passed for A=1514519988 B=-1899322851 op_set=2, error=001001
+Data test  passed for A=1136727431 B=591815494 C=54526214, expected=54526214
+Flag test  passed for A=1136727431 B=591815494 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1136727431 B=591815494 op_set=0, Flag=0000, expected=0000
+Test passed for A=862819174 B=1326760350 op_set=0, error=010010
+Test passed for A=707786068 B=710303572 op_set=0, error=010010
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=1, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=1, Flag=0010, expected=0010
+Data test  passed for A=380923181 B=-1018307450 C=-637384269, expected=-637384269
+Flag test  passed for A=380923181 B=-1018307450 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=380923181 B=-1018307450 op_set=4, Flag=0001, expected=0001
+Test passed for A=895779690 B=1546321336 op_set=3, error=001001
+Data test  passed for A=-134296849 B=-1 C=-134296850, expected=-134296850
+Flag test  passed for A=-134296849 B=-1 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-134296849 B=-1 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=1349146528 B=531205951 C=1609293759, expected=1609293759
+Flag test  passed for A=1349146528 B=531205951 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1349146528 B=531205951 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-2066437623 B=-730119512 C=1336318111, expected=1336318111
+Flag test  passed for A=-2066437623 B=-730119512 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-2066437623 B=-730119512 op_set=5, Flag=0000, expected=0000
+Test passed for A=-1430128043 B=-1891015138 op_set=3, error=001001
+Data test  passed for A=-1 B=-348068138 C=-348068139, expected=-348068139
+Flag test  passed for A=-1 B=-348068138 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-1 B=-348068138 op_set=4, Flag=1001, expected=1001
+Data test  passed for A=-1 B=-1832751067 C=-1832751067, expected=-1832751067
+Flag test  passed for A=-1 B=-1832751067 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1832751067 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=541580608 B=0 C=541580608, expected=541580608
+Flag test  passed for A=541580608 B=0 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=541580608 B=0 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1 B=1527542710 C=1527542709, expected=1527542709
+Flag test  passed for A=-1 B=1527542710 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=1527542710 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=5, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=5, Flag=0010, expected=0010
+Data test  passed for A=-84900619 B=-1 C=-1, expected=-1
+Flag test  passed for A=-84900619 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-84900619 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-1389902758 C=-1389902758, expected=-1389902758
+Flag test  passed for A=-1 B=-1389902758 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1389902758 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=1894619105 B=315494693 C=1928304613, expected=1928304613
+Flag test  passed for A=1894619105 B=315494693 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1894619105 B=315494693 op_set=1, Flag=0000, expected=0000
+Test passed for A=-1 B=-1816502233 op_set=4, error=010010
+Data test  passed for A=-1131133319 B=0 C=1131133319, expected=1131133319
+Flag test  passed for A=-1131133319 B=0 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1131133319 B=0 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=-809984353 B=1414828968 C=1141936776, expected=1141936776
+Flag test  passed for A=-809984353 B=1414828968 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-809984353 B=1414828968 op_set=0, Flag=0000, expected=0000
+Test passed for A=1691538377 B=1117085061 op_set=2, error=001001
+Data test  passed for A=1122213253 B=-1176934285 C=-67371529, expected=-67371529
+Flag test  passed for A=1122213253 B=-1176934285 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1122213253 B=-1176934285 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1141836168 B=1261372822 C=1328483742, expected=1328483742
+Flag test  passed for A=1141836168 B=1261372822 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1141836168 B=1261372822 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1705754060 B=-1 C=-1, expected=-1
+Flag test  passed for A=-1705754060 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1705754060 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1917835237 B=-1908830180 C=-1883654113, expected=-1883654113
+Flag test  passed for A=-1917835237 B=-1908830180 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1917835237 B=-1908830180 op_set=1, Flag=0001, expected=0001
+Test passed for A=0 B=0 op_set=3, error=100100
+Test passed for A=0 B=-630594892 op_set=3, error=010010
+Data test  passed for A=401096495 B=754970969 C=82325769, expected=82325769
+Flag test  passed for A=401096495 B=754970969 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=401096495 B=754970969 op_set=0, Flag=0000, expected=0000
+Test passed for A=-828978531 B=-534689600 op_set=5, error=100100
+Data test  passed for A=0 B=-1512476597 C=-1512476597, expected=-1512476597
+Flag test  passed for A=0 B=-1512476597 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1512476597 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1223294865 B=1115150212 C=1080153984, expected=1080153984
+Flag test  passed for A=1223294865 B=1115150212 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1223294865 B=1115150212 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=617891657 B=-1981928429 C=-1364036772, expected=-1364036772
+Flag test  passed for A=617891657 B=-1981928429 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=617891657 B=-1981928429 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-638000973 B=0 C=-638000973, expected=-638000973
+Flag test  passed for A=-638000973 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-638000973 B=0 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=0 B=359185194 C=359185194, expected=359185194
+Flag test  passed for A=0 B=359185194 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=0 B=359185194 op_set=1, Flag=0000, expected=0000
+Test passed for A=781678941 B=2003460590 op_set=5, error=100100
+Data test  passed for A=-1136257928 B=-1 C=-1136257928, expected=-1136257928
+Flag test  passed for A=-1136257928 B=-1 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1136257928 B=-1 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=0 B=-1 C=-1, expected=-1
+Flag test  passed for A=0 B=-1 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=1697129930 B=781498205 C=-1816339161, expected=-1816339161
+Flag test  passed for A=1697129930 B=781498205 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=1697129930 B=781498205 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=-1892484578 B=990362998 C=184727574, expected=184727574
+Flag test  passed for A=-1892484578 B=990362998 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1892484578 B=990362998 op_set=0, Flag=0000, expected=0000
+Test passed for A=1705540043 B=1845293531 op_set=1, error=010010
+Test passed for A=275661600 B=34061060 op_set=4, error=100100
+Test passed for A=0 B=-1 op_set=1, error=100100
+Data test  passed for A=-916050798 B=-1563557819 C=-647507021, expected=-647507021
+Flag test  passed for A=-916050798 B=-1563557819 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-916050798 B=-1563557819 op_set=5, Flag=1001, expected=1001
+Test passed for A=-722834775 B=-818807650 op_set=4, error=100100
+Data test  passed for A=-1 B=0 C=-1, expected=-1
+Flag test  passed for A=-1 B=0 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=0 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1611345344 B=-1514585525 C=96759819, expected=96759819
+Flag test  passed for A=1611345344 B=-1514585525 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1611345344 B=-1514585525 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=1572331963 B=1082796417 C=1082270081, expected=1082270081
+Flag test  passed for A=1572331963 B=1082796417 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1572331963 B=1082796417 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-650979150 B=1502422963 C=-2141565183, expected=-2141565183
+Flag test  passed for A=-650979150 B=1502422963 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-650979150 B=1502422963 op_set=5, Flag=1101, expected=1101
+Test passed for A=604049736 B=-256352031 op_set=3, error=001001
+Data test  passed for A=2121451004 B=-671595345 C=-342529, expected=-342529
+Flag test  passed for A=2121451004 B=-671595345 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=2121451004 B=-671595345 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-797503840 B=124444430 C=-679485522, expected=-679485522
+Flag test  passed for A=-797503840 B=124444430 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-797503840 B=124444430 op_set=1, Flag=0001, expected=0001
+Test passed for A=-2033029619 B=328282407 op_set=7, error=001001
+Data test  passed for A=976066932 B=2122260988 C=-1196639376, expected=-1196639376
+Flag test  passed for A=976066932 B=2122260988 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=976066932 B=2122260988 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=-539214145 B=-1345981857 C=-1882967521, expected=-1882967521
+Flag test  passed for A=-539214145 B=-1345981857 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-539214145 B=-1345981857 op_set=0, Flag=0001, expected=0001
+Test passed for A=-1062737791 B=-1 op_set=1, error=010010
+Test passed for A=-45332230 B=-40664837 op_set=3, error=001001
+Data test  passed for A=211165465 B=-751479642 C=1310720, expected=1310720
+Flag test  passed for A=211165465 B=-751479642 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=211165465 B=-751479642 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1 B=697637715 C=-1, expected=-1
+Flag test  passed for A=-1 B=697637715 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=697637715 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-137365777 B=-153571603 C=-154622227, expected=-154622227
+Flag test  passed for A=-137365777 B=-153571603 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-137365777 B=-153571603 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-1 B=1490525617 C=-1, expected=-1
+Flag test  passed for A=-1 B=1490525617 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=1490525617 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1301283228 B=-1866911711 C=1126772357, expected=1126772357
+Flag test  passed for A=-1301283228 B=-1866911711 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-1301283228 B=-1866911711 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=2066005494 B=878690152 C=805616992, expected=805616992
+Flag test  passed for A=2066005494 B=878690152 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=2066005494 B=878690152 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1977024492 B=-1211053457 C=765971035, expected=765971035
+Flag test  passed for A=-1977024492 B=-1211053457 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-1977024492 B=-1211053457 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=-72683785 B=595074886 C=522391101, expected=522391101
+Flag test  passed for A=-72683785 B=595074886 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-72683785 B=595074886 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=2102088698 B=2051821044 C=-141057554, expected=-141057554
+Flag test  passed for A=2102088698 B=2051821044 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=2102088698 B=2051821044 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=430498611 B=6805248 C=437303859, expected=437303859
+Flag test  passed for A=430498611 B=6805248 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=430498611 B=6805248 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=1851161564 B=943861104 C=-907300460, expected=-907300460
+Flag test  passed for A=1851161564 B=943861104 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=1851161564 B=943861104 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=-1802393047 B=133216527 C=76589065, expected=76589065
+Flag test  passed for A=-1802393047 B=133216527 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1802393047 B=133216527 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1 B=1264284054 C=1264284053, expected=1264284053
+Flag test  passed for A=-1 B=1264284054 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=1264284054 op_set=4, Flag=1000, expected=1000
+Test passed for A=-2094866938 B=-1 op_set=7, error=001001
+Data test  passed for A=-1523056566 B=-1 C=-1523056566, expected=-1523056566
+Flag test  passed for A=-1523056566 B=-1 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1523056566 B=-1 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=621099338 B=-1 C=-1, expected=-1
+Flag test  passed for A=621099338 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=621099338 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=0 B=551337793 C=551337793, expected=551337793
+Flag test  passed for A=0 B=551337793 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=0 B=551337793 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=1143801736 B=-421218099 C=-1565019835, expected=-1565019835
+Flag test  passed for A=1143801736 B=-421218099 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=1143801736 B=-421218099 op_set=5, Flag=0001, expected=0001
+Test passed for A=-1 B=955178353 op_set=5, error=100100
+Data test  passed for A=-1983927277 B=-1241456020 C=1069583999, expected=1069583999
+Flag test  passed for A=-1983927277 B=-1241456020 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-1983927277 B=-1241456020 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=0 B=-1431624619 C=-1431624619, expected=-1431624619
+Flag test  passed for A=0 B=-1431624619 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1431624619 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=2133288958 B=931728751 C=-1201560207, expected=-1201560207
+Flag test  passed for A=2133288958 B=931728751 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=2133288958 B=931728751 op_set=5, Flag=1001, expected=1001
+Test passed for A=0 B=2048822260 op_set=5, error=010010
+Data test  passed for A=-371886381 B=-1938742760 C=-1566856379, expected=-1566856379
+Flag test  passed for A=-371886381 B=-1938742760 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-371886381 B=-1938742760 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=0 B=1456373677 C=1456373677, expected=1456373677
+Flag test  passed for A=0 B=1456373677 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1456373677 op_set=5, Flag=0000, expected=0000
+Test passed for A=2090455033 B=1684406728 op_set=0, error=100100
+Data test  passed for A=-1536407480 B=0 C=1536407480, expected=1536407480
+Flag test  passed for A=-1536407480 B=0 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1536407480 B=0 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=1904651235 B=-1 C=1904651234, expected=1904651234
+Flag test  passed for A=1904651235 B=-1 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1904651235 B=-1 op_set=4, Flag=1000, expected=1000
+Test passed for A=1745514448 B=1158029706 op_set=3, error=010010
+Test passed for A=-1204610960 B=811134816 op_set=2, error=001001
+Data test  passed for A=658489166 B=1742558159 C=1744830415, expected=1744830415
+Flag test  passed for A=658489166 B=1742558159 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=658489166 B=1742558159 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=0 B=-1185565070 C=0, expected=0
+Flag test  passed for A=0 B=-1185565070 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=-1185565070 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=-899054956 B=0 C=-899054956, expected=-899054956
+Flag test  passed for A=-899054956 B=0 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-899054956 B=0 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1280631192 B=1326223262 C=-1688112842, expected=-1688112842
+Flag test  passed for A=1280631192 B=1326223262 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=1280631192 B=1326223262 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=2085628920 B=-961739635 C=1123889285, expected=1123889285
+Flag test  passed for A=2085628920 B=-961739635 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=2085628920 B=-961739635 op_set=4, Flag=1000, expected=1000
+Test passed for A=-442322229 B=-673069393 op_set=3, error=001001
+Data test  passed for A=472002360 B=0 C=-472002360, expected=-472002360
+Flag test  passed for A=472002360 B=0 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=472002360 B=0 op_set=5, Flag=1001, expected=1001
+Test passed for A=-1 B=-900120428 op_set=7, error=001001
+Test passed for A=281199905 B=311787301 op_set=3, error=100100
+Data test  passed for A=500367675 B=0 C=500367675, expected=500367675
+Flag test  passed for A=500367675 B=0 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=500367675 B=0 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=191063830 B=-1877769184 C=-1686705354, expected=-1686705354
+Flag test  passed for A=191063830 B=-1877769184 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=191063830 B=-1877769184 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=0 B=-516821310 C=-516821310, expected=-516821310
+Flag test  passed for A=0 B=-516821310 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-516821310 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-896403307 B=-1 C=-896403307, expected=-896403307
+Flag test  passed for A=-896403307 B=-1 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-896403307 B=-1 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-1762907603 B=45799685 C=-1717107918, expected=-1717107918
+Flag test  passed for A=-1762907603 B=45799685 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1762907603 B=45799685 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1 B=874788712 C=874788711, expected=874788711
+Flag test  passed for A=-1 B=874788712 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-1 B=874788712 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=1974993387 B=0 C=1974993387, expected=1974993387
+Flag test  passed for A=1974993387 B=0 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1974993387 B=0 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=-1681001929 B=691312978 C=-1140982921, expected=-1140982921
+Flag test  passed for A=-1681001929 B=691312978 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1681001929 B=691312978 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1100513155 B=-1015383930 C=85129225, expected=85129225
+Flag test  passed for A=1100513155 B=-1015383930 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1100513155 B=-1015383930 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=-1705591756 B=-1169816972 C=-1168720268, expected=-1168720268
+Flag test  passed for A=-1705591756 B=-1169816972 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1705591756 B=-1169816972 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1184663438 B=-114517262 op_set=2, error=001001
+Test passed for A=1714888652 B=-1003636600 op_set=5, error=010010
+Data test  passed for A=1095912322 B=-968885620 C=-2064797942, expected=-2064797942
+Flag test  passed for A=1095912322 B=-968885620 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=1095912322 B=-968885620 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=-93475084 B=-945012593 C=-1184001, expected=-1184001
+Flag test  passed for A=-93475084 B=-945012593 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-93475084 B=-945012593 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1059763071 B=-1964856299 op_set=7, error=001001
+Data test  passed for A=1709375435 B=455998774 C=-1253376661, expected=-1253376661
+Flag test  passed for A=1709375435 B=455998774 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=1709375435 B=455998774 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=593893190 B=-1648492485 C=2052581621, expected=2052581621
+Flag test  passed for A=593893190 B=-1648492485 op_set=5, Flag=0100, expected=0100
+CRC test  passed for A=593893190 B=-1648492485 op_set=5, Flag=0100, expected=0100
+Test passed for A=-148849426 B=1236582803 op_set=7, error=001001
+Data test  passed for A=-227474716 B=-497673020 C=-270198304, expected=-270198304
+Flag test  passed for A=-227474716 B=-497673020 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-227474716 B=-497673020 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=958479218 B=-1 C=958479218, expected=958479218
+Flag test  passed for A=958479218 B=-1 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=958479218 B=-1 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1461605807 B=1522277813 C=-84033547, expected=-84033547
+Flag test  passed for A=-1461605807 B=1522277813 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1461605807 B=1522277813 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=1371359139 C=1371359139, expected=1371359139
+Flag test  passed for A=-1 B=1371359139 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1 B=1371359139 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1450049964 B=-880297321 C=-537936961, expected=-537936961
+Flag test  passed for A=1450049964 B=-880297321 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1450049964 B=-880297321 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1728528335 B=-553144130 C=-1744797648, expected=-1744797648
+Flag test  passed for A=-1728528335 B=-553144130 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1728528335 B=-553144130 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-1414975913 C=-1414975913, expected=-1414975913
+Flag test  passed for A=-1 B=-1414975913 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1414975913 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=1513521588 B=0 C=1513521588, expected=1513521588
+Flag test  passed for A=1513521588 B=0 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1513521588 B=0 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=-2139509760 B=0 C=0, expected=0
+Flag test  passed for A=-2139509760 B=0 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=-2139509760 B=0 op_set=0, Flag=0010, expected=0010
+Test passed for A=-1178034061 B=-1800764375 op_set=0, error=100100
+Data test  passed for A=-1888008674 B=914748269 C=-973260405, expected=-973260405
+Flag test  passed for A=-1888008674 B=914748269 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1888008674 B=914748269 op_set=4, Flag=0001, expected=0001
+Test passed for A=0 B=234520347 op_set=2, error=001001
+Data test  passed for A=1734198734 B=1258654614 C=-1302113948, expected=-1302113948
+Flag test  passed for A=1734198734 B=1258654614 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=1734198734 B=1258654614 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=-452245302 B=1140548999 C=-402952753, expected=-402952753
+Flag test  passed for A=-452245302 B=1140548999 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-452245302 B=1140548999 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1768934355 B=373791532 C=-1395142823, expected=-1395142823
+Flag test  passed for A=-1768934355 B=373791532 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1768934355 B=373791532 op_set=4, Flag=0001, expected=0001
+Test passed for A=288718114 B=-101591821 op_set=7, error=001001
+Test passed for A=1099789187 B=518199101 op_set=2, error=001001
+Data test  passed for A=1556845497 B=-1 C=1556845497, expected=1556845497
+Flag test  passed for A=1556845497 B=-1 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1556845497 B=-1 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=909644652 B=1414512552 C=-1970810092, expected=-1970810092
+Flag test  passed for A=909644652 B=1414512552 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=909644652 B=1414512552 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=1294432666 B=1090722178 C=-1909812452, expected=-1909812452
+Flag test  passed for A=1294432666 B=1090722178 op_set=4, Flag=0101, expected=0101
+CRC test  passed for A=1294432666 B=1090722178 op_set=4, Flag=0101, expected=0101
+Data test  passed for A=1324233629 B=2118782972 C=1313473436, expected=1313473436
+Flag test  passed for A=1324233629 B=2118782972 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1324233629 B=2118782972 op_set=0, Flag=0000, expected=0000
+Test passed for A=-269757217 B=-322513703 op_set=3, error=001001
+Data test  passed for A=-2041032692 B=1611223488 C=-430353972, expected=-430353972
+Flag test  passed for A=-2041032692 B=1611223488 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-2041032692 B=1611223488 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1090122113 B=-1482905521 C=-402785841, expected=-402785841
+Flag test  passed for A=1090122113 B=-1482905521 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1090122113 B=-1482905521 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=1369085347 C=-1, expected=-1
+Flag test  passed for A=-1 B=1369085347 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=1369085347 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1000318840 B=2090547193 op_set=5, error=010010
+Data test  passed for A=206827288 B=260750111 C=266075935, expected=266075935
+Flag test  passed for A=206827288 B=260750111 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=206827288 B=260750111 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=904509291 B=-1093730691 C=885569129, expected=885569129
+Flag test  passed for A=904509291 B=-1093730691 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=904509291 B=-1093730691 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1263109014 B=-2055045109 C=-791936095, expected=-791936095
+Flag test  passed for A=1263109014 B=-2055045109 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=1263109014 B=-2055045109 op_set=4, Flag=0001, expected=0001
+Test passed for A=143631121 B=-940178801 op_set=1, error=010010
+Data test  passed for A=87414538 B=-1115538821 C=-1028124283, expected=-1028124283
+Flag test  passed for A=87414538 B=-1115538821 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=87414538 B=-1115538821 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1763723731 B=-488079675 C=-150995219, expected=-150995219
+Flag test  passed for A=-1763723731 B=-488079675 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1763723731 B=-488079675 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-6051073 B=-1361021347 C=-1354970274, expected=-1354970274
+Flag test  passed for A=-6051073 B=-1361021347 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-6051073 B=-1361021347 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=0 B=-450369846 C=-450369846, expected=-450369846
+Flag test  passed for A=0 B=-450369846 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-450369846 op_set=4, Flag=0001, expected=0001
+Test passed for A=1805574615 B=516400957 op_set=2, error=010010
+Data test  passed for A=-173839637 B=1766210002 C=1940049639, expected=1940049639
+Flag test  passed for A=-173839637 B=1766210002 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-173839637 B=1766210002 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=349475625 B=-1 C=349475624, expected=349475624
+Flag test  passed for A=349475625 B=-1 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=349475625 B=-1 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=162833171 B=-1823999962 C=-1678247113, expected=-1678247113
+Flag test  passed for A=162833171 B=-1823999962 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=162833171 B=-1823999962 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1 B=-1898411491 op_set=7, error=001001
+Test passed for A=-350934826 B=2030472178 op_set=7, error=001001
+Test passed for A=-949868914 B=-914847598 op_set=7, error=001001
+Data test  passed for A=-70331657 B=-148268306 C=-218599963, expected=-218599963
+Flag test  passed for A=-70331657 B=-148268306 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-70331657 B=-148268306 op_set=4, Flag=1001, expected=1001
+Test passed for A=-1561899451 B=2135745022 op_set=3, error=010010
+Data test  passed for A=-745053017 B=-2109173756 C=-2113929212, expected=-2113929212
+Flag test  passed for A=-745053017 B=-2109173756 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-745053017 B=-2109173756 op_set=0, Flag=0001, expected=0001
+Test passed for A=0 B=-1 op_set=2, error=100100
+Data test  passed for A=0 B=-1395778471 C=-1395778471, expected=-1395778471
+Flag test  passed for A=0 B=-1395778471 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1395778471 op_set=1, Flag=0001, expected=0001
+Test passed for A=-218091802 B=-963722099 op_set=2, error=010010
+Data test  passed for A=502034747 B=1737951695 C=1235916948, expected=1235916948
+Flag test  passed for A=502034747 B=1737951695 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=502034747 B=1737951695 op_set=5, Flag=0000, expected=0000
+Test passed for A=-1 B=-1506375604 op_set=0, error=010010
+Data test  passed for A=-739423065 B=203275544 C=855040, expected=855040
+Flag test  passed for A=-739423065 B=203275544 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-739423065 B=203275544 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-238274333 B=0 C=238274333, expected=238274333
+Flag test  passed for A=-238274333 B=0 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-238274333 B=0 op_set=5, Flag=1000, expected=1000
+Test passed for A=913139564 B=-2018285553 op_set=5, error=010010
+Test passed for A=-1 B=1749545424 op_set=3, error=001001
+Data test  passed for A=397528367 B=-874298729 C=-537669697, expected=-537669697
+Flag test  passed for A=397528367 B=-874298729 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=397528367 B=-874298729 op_set=1, Flag=0001, expected=0001
+Test passed for A=273917728 B=-148271890 op_set=7, error=001001
+Data test  passed for A=-1830923227 B=962533234 C=-1142990985, expected=-1142990985
+Flag test  passed for A=-1830923227 B=962533234 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1830923227 B=962533234 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-633589068 B=39102212 C=-594486856, expected=-594486856
+Flag test  passed for A=-633589068 B=39102212 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-633589068 B=39102212 op_set=4, Flag=0001, expected=0001
+Test passed for A=-803018592 B=1501749683 op_set=3, error=001001
+Data test  passed for A=-1884512737 B=1849440220 C=-35072517, expected=-35072517
+Flag test  passed for A=-1884512737 B=1849440220 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1884512737 B=1849440220 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1977590764 B=-1698924491 C=-1977591788, expected=-1977591788
+Flag test  passed for A=-1977590764 B=-1698924491 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-1977590764 B=-1698924491 op_set=0, Flag=0001, expected=0001
+Test passed for A=-227504924 B=1730128334 op_set=1, error=010010
+Test passed for A=1558842297 B=1381454244 op_set=3, error=001001
+Data test  passed for A=-2038163443 B=-2090792442 C=-2113927164, expected=-2113927164
+Flag test  passed for A=-2038163443 B=-2090792442 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-2038163443 B=-2090792442 op_set=0, Flag=0001, expected=0001
+Data test  passed for A=711689044 B=-293704996 C=-293606436, expected=-293606436
+Flag test  passed for A=711689044 B=-293704996 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=711689044 B=-293704996 op_set=1, Flag=0001, expected=0001
+Test passed for A=-795438943 B=-1 op_set=1, error=010010
+Data test  passed for A=-1683521481 B=0 C=-1683521481, expected=-1683521481
+Flag test  passed for A=-1683521481 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1683521481 B=0 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-1400551847 B=793864030 C=738281048, expected=738281048
+Flag test  passed for A=-1400551847 B=793864030 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1400551847 B=793864030 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=0 B=1797362134 C=1797362134, expected=1797362134
+Flag test  passed for A=0 B=1797362134 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1797362134 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=-222405915 B=-1 C=-222405915, expected=-222405915
+Flag test  passed for A=-222405915 B=-1 op_set=0, Flag=0001, expected=0001
+CRC test  passed for A=-222405915 B=-1 op_set=0, Flag=0001, expected=0001
+Test passed for A=1696010698 B=765677403 op_set=1, error=010010
+Test passed for A=686430545 B=-1099466116 op_set=1, error=010010
+Data test  passed for A=0 B=-537871169 C=-537871169, expected=-537871169
+Flag test  passed for A=0 B=-537871169 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-537871169 op_set=5, Flag=0001, expected=0001
+Test passed for A=1222825873 B=-1214890385 op_set=7, error=001001
+Test passed for A=-1074101121 B=-133275920 op_set=2, error=001001
+Data test  passed for A=-1165257611 B=203935000 C=1369192611, expected=1369192611
+Flag test  passed for A=-1165257611 B=203935000 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1165257611 B=203935000 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=-1954218473 B=-1 C=-1, expected=-1
+Flag test  passed for A=-1954218473 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1954218473 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-2003453423 B=-1275106201 C=728347222, expected=728347222
+Flag test  passed for A=-2003453423 B=-1275106201 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-2003453423 B=-1275106201 op_set=5, Flag=0000, expected=0000
+Test passed for A=-2035215347 B=-334215464 op_set=4, error=010010
+Data test  passed for A=-709070165 B=711352148 C=2380288, expected=2380288
+Flag test  passed for A=-709070165 B=711352148 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-709070165 B=711352148 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-2093325818 B=1849150940 C=-281022498, expected=-281022498
+Flag test  passed for A=-2093325818 B=1849150940 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-2093325818 B=1849150940 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-491944763 C=-491944762, expected=-491944762
+Flag test  passed for A=-1 B=-491944763 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-1 B=-491944763 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=466402615 B=1678280136 C=2144124415, expected=2144124415
+Flag test  passed for A=466402615 B=1678280136 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=466402615 B=1678280136 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=197097751 B=-1723382734 C=151470098, expected=151470098
+Flag test  passed for A=197097751 B=-1723382734 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=197097751 B=-1723382734 op_set=0, Flag=0000, expected=0000
+Test passed for A=0 B=-1623484866 op_set=2, error=001001
+Data test  passed for A=496663355 B=109984525 C=76167945, expected=76167945
+Flag test  passed for A=496663355 B=109984525 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=496663355 B=109984525 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-1320400286 B=575125828 C=1895526114, expected=1895526114
+Flag test  passed for A=-1320400286 B=575125828 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-1320400286 B=575125828 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=-810742113 B=604140360 C=-206601753, expected=-206601753
+Flag test  passed for A=-810742113 B=604140360 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-810742113 B=604140360 op_set=4, Flag=0001, expected=0001
+Test passed for A=1739899343 B=-109267726 op_set=5, error=010010
+Data test  passed for A=1627231169 B=461383479 C=2080225271, expected=2080225271
+Flag test  passed for A=1627231169 B=461383479 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=1627231169 B=461383479 op_set=1, Flag=0000, expected=0000
+Data test  passed for A=-1396912039 B=0 C=-1396912039, expected=-1396912039
+Flag test  passed for A=-1396912039 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1396912039 B=0 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-272252705 B=-887376234 C=-1159628939, expected=-1159628939
+Flag test  passed for A=-272252705 B=-887376234 op_set=4, Flag=1001, expected=1001
+CRC test  passed for A=-272252705 B=-887376234 op_set=4, Flag=1001, expected=1001
+Test passed for A=-1047716733 B=1131038598 op_set=7, error=010010
+Data test  passed for A=-1986106861 B=-1474207152 C=-1447073197, expected=-1447073197
+Flag test  passed for A=-1986106861 B=-1474207152 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1986106861 B=-1474207152 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1236803476 B=2090189305 C=872792168, expected=872792168
+Flag test  passed for A=-1236803476 B=2090189305 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1236803476 B=2090189305 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=499450171 B=-685231954 C=-185781783, expected=-185781783
+Flag test  passed for A=499450171 B=-685231954 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=499450171 B=-685231954 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-2072829432 B=0 C=-2072829432, expected=-2072829432
+Flag test  passed for A=-2072829432 B=0 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-2072829432 B=0 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=158182162 B=-961678195 C=2990080, expected=2990080
+Flag test  passed for A=158182162 B=-961678195 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=158182162 B=-961678195 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=0 B=-497626940 C=-497626940, expected=-497626940
+Flag test  passed for A=0 B=-497626940 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-497626940 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=1995827693 B=-1 C=1995827692, expected=1995827692
+Flag test  passed for A=1995827693 B=-1 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1995827693 B=-1 op_set=4, Flag=1000, expected=1000
+Test passed for A=-497712444 B=397758255 op_set=2, error=001001
+Data test  passed for A=-1 B=2128465405 C=-1, expected=-1
+Flag test  passed for A=-1 B=2128465405 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=2128465405 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1501615540 B=-237918493 C=-134238481, expected=-134238481
+Flag test  passed for A=-1501615540 B=-237918493 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1501615540 B=-237918493 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-274040609 B=0 C=0, expected=0
+Flag test  passed for A=-274040609 B=0 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=-274040609 B=0 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=-1 B=2089691129 C=2089691129, expected=2089691129
+Flag test  passed for A=-1 B=2089691129 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=-1 B=2089691129 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=457232182 B=-372743981 C=155205650, expected=155205650
+Flag test  passed for A=457232182 B=-372743981 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=457232182 B=-372743981 op_set=0, Flag=0000, expected=0000
+Test passed for A=-1068123008 B=432051507 op_set=0, error=100100
+Test passed for A=-1 B=-1165251467 op_set=5, error=010010
+Data test  passed for A=0 B=-1792798678 C=-1792798678, expected=-1792798678
+Flag test  passed for A=0 B=-1792798678 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-1792798678 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-1 C=-1, expected=-1
+Flag test  passed for A=-1 B=-1 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1 B=-1 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1 B=-436340021 C=-436340020, expected=-436340020
+Flag test  passed for A=-1 B=-436340021 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-1 B=-436340021 op_set=5, Flag=1001, expected=1001
+Test passed for A=-590932807 B=-106516749 op_set=2, error=010010
+Data test  passed for A=1987706860 B=238446364 C=-1749260496, expected=-1749260496
+Flag test  passed for A=1987706860 B=238446364 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=1987706860 B=238446364 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=-1993042926 B=483867961 C=-1509174965, expected=-1509174965
+Flag test  passed for A=-1993042926 B=483867961 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=-1993042926 B=483867961 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=1079861120 B=-1525337526 C=-446857270, expected=-446857270
+Flag test  passed for A=1079861120 B=-1525337526 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1079861120 B=-1525337526 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1979038187 B=-1490284978 C=623118410, expected=623118410
+Flag test  passed for A=1979038187 B=-1490284978 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1979038187 B=-1490284978 op_set=0, Flag=0000, expected=0000
+Test passed for A=677530448 B=-1 op_set=2, error=100100
+Test passed for A=251062557 B=1813331928 op_set=2, error=100100
+Data test  passed for A=-463018296 B=97496843 C=-437260341, expected=-437260341
+Flag test  passed for A=-463018296 B=97496843 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-463018296 B=97496843 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=0 B=0 C=0, expected=0
+Flag test  passed for A=0 B=0 op_set=4, Flag=0010, expected=0010
+CRC test  passed for A=0 B=0 op_set=4, Flag=0010, expected=0010
+Data test  passed for A=-536222528 B=-874759529 C=-337772841, expected=-337772841
+Flag test  passed for A=-536222528 B=-874759529 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-536222528 B=-874759529 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1491138482 B=1848531420 C=-955297394, expected=-955297394
+Flag test  passed for A=-1491138482 B=1848531420 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-1491138482 B=1848531420 op_set=5, Flag=1101, expected=1101
+Test passed for A=-1 B=-653716814 op_set=4, error=010010
+Data test  passed for A=564448067 B=394145070 C=958593137, expected=958593137
+Flag test  passed for A=564448067 B=394145070 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=564448067 B=394145070 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=1673004487 B=892355434 C=556794178, expected=556794178
+Flag test  passed for A=1673004487 B=892355434 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1673004487 B=892355434 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=0 B=1262485910 C=0, expected=0
+Flag test  passed for A=0 B=1262485910 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=1262485910 op_set=0, Flag=0010, expected=0010
+Test passed for A=1109694340 B=0 op_set=2, error=010010
+Data test  passed for A=-523723071 B=-857046375 C=-333323304, expected=-333323304
+Flag test  passed for A=-523723071 B=-857046375 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-523723071 B=-857046375 op_set=5, Flag=1001, expected=1001
+Test passed for A=-794526047 B=-334554920 op_set=7, error=001001
+Data test  passed for A=-482455354 B=1918161892 C=-209792026, expected=-209792026
+Flag test  passed for A=-482455354 B=1918161892 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-482455354 B=1918161892 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1 B=-1392689063 op_set=2, error=001001
+Data test  passed for A=-1571841468 B=-1640648644 C=-1098925444, expected=-1098925444
+Flag test  passed for A=-1571841468 B=-1640648644 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1571841468 B=-1640648644 op_set=1, Flag=0001, expected=0001
+Test passed for A=436537652 B=492584762 op_set=7, error=001001
+Test passed for A=1851176924 B=2008490991 op_set=3, error=001001
+Data test  passed for A=1256994197 B=805737312 C=266496, expected=266496
+Flag test  passed for A=1256994197 B=805737312 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1256994197 B=805737312 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=454992694 B=-417785138 C=-872777832, expected=-872777832
+Flag test  passed for A=454992694 B=-417785138 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=454992694 B=-417785138 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=1867196894 B=-1 C=1867196894, expected=1867196894
+Flag test  passed for A=1867196894 B=-1 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1867196894 B=-1 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=374074156 B=-1636605892 C=373514284, expected=373514284
+Flag test  passed for A=374074156 B=-1636605892 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=374074156 B=-1636605892 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=493122874 B=360289578 C=853412452, expected=853412452
+Flag test  passed for A=493122874 B=360289578 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=493122874 B=360289578 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=-222856987 B=630208843 C=407351856, expected=407351856
+Flag test  passed for A=-222856987 B=630208843 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=-222856987 B=630208843 op_set=4, Flag=1000, expected=1000
+Test passed for A=-1626802114 B=-989279094 op_set=3, error=001001
+Test passed for A=-877283177 B=299025699 op_set=2, error=001001
+Data test  passed for A=-1143523721 B=-1904306148 C=-1073758593, expected=-1073758593
+Flag test  passed for A=-1143523721 B=-1904306148 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-1143523721 B=-1904306148 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=525019966 B=156611346 C=155263762, expected=155263762
+Flag test  passed for A=525019966 B=156611346 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=525019966 B=156611346 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-2055732726 B=-91692811 C=-466177, expected=-466177
+Flag test  passed for A=-2055732726 B=-91692811 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-2055732726 B=-91692811 op_set=1, Flag=0001, expected=0001
+Test passed for A=1898617826 B=1657365445 op_set=0, error=010010
+Data test  passed for A=-125542671 B=380426029 C=-22224899, expected=-22224899
+Flag test  passed for A=-125542671 B=380426029 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-125542671 B=380426029 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=0 B=130886927 C=0, expected=0
+Flag test  passed for A=0 B=130886927 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=130886927 op_set=0, Flag=0010, expected=0010
+Test passed for A=0 B=-705246037 op_set=5, error=010010
+Data test  passed for A=-570675013 B=0 C=0, expected=0
+Flag test  passed for A=-570675013 B=0 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=-570675013 B=0 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=402562863 B=-1046919549 C=-1449482412, expected=-1449482412
+Flag test  passed for A=402562863 B=-1046919549 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=402562863 B=-1046919549 op_set=5, Flag=0001, expected=0001
+Test passed for A=369666860 B=-1106497412 op_set=0, error=100100
+Data test  passed for A=2027622385 B=-215798042 C=-67424265, expected=-67424265
+Flag test  passed for A=2027622385 B=-215798042 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=2027622385 B=-215798042 op_set=1, Flag=0001, expected=0001
+Test passed for A=-1465688495 B=0 op_set=3, error=001001
+Test passed for A=0 B=-1292509083 op_set=7, error=010010
+Data test  passed for A=1316412316 B=-1227756435 C=88655881, expected=88655881
+Flag test  passed for A=1316412316 B=-1227756435 op_set=4, Flag=1000, expected=1000
+CRC test  passed for A=1316412316 B=-1227756435 op_set=4, Flag=1000, expected=1000
+Data test  passed for A=-101300493 B=-267265312 C=-165964819, expected=-165964819
+Flag test  passed for A=-101300493 B=-267265312 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-101300493 B=-267265312 op_set=5, Flag=1001, expected=1001
+Test passed for A=-1 B=-27780356 op_set=4, error=100100
+Data test  passed for A=808714080 B=971167603 C=1779881683, expected=1779881683
+Flag test  passed for A=808714080 B=971167603 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=808714080 B=971167603 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=-1255138198 B=-1532174775 C=-277036577, expected=-277036577
+Flag test  passed for A=-1255138198 B=-1532174775 op_set=5, Flag=1001, expected=1001
+CRC test  passed for A=-1255138198 B=-1532174775 op_set=5, Flag=1001, expected=1001
+Data test  passed for A=-2100358139 B=-1 C=2100358138, expected=2100358138
+Flag test  passed for A=-2100358139 B=-1 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-2100358139 B=-1 op_set=5, Flag=0000, expected=0000
+Data test  passed for A=1460172206 B=0 C=1460172206, expected=1460172206
+Flag test  passed for A=1460172206 B=0 op_set=4, Flag=0000, expected=0000
+CRC test  passed for A=1460172206 B=0 op_set=4, Flag=0000, expected=0000
+Data test  passed for A=-1834431451 B=-841254245 C=1619281600, expected=1619281600
+Flag test  passed for A=-1834431451 B=-841254245 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-1834431451 B=-841254245 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=1992710125 B=-2081944057 C=-135372817, expected=-135372817
+Flag test  passed for A=1992710125 B=-2081944057 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=1992710125 B=-2081944057 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=0 B=1972949995 C=1972949995, expected=1972949995
+Flag test  passed for A=0 B=1972949995 op_set=1, Flag=0000, expected=0000
+CRC test  passed for A=0 B=1972949995 op_set=1, Flag=0000, expected=0000
+Test passed for A=-1075976065 B=0 op_set=2, error=001001
+Data test  passed for A=-809283937 B=-1755136466 C=1730546893, expected=1730546893
+Flag test  passed for A=-809283937 B=-1755136466 op_set=4, Flag=1100, expected=1100
+CRC test  passed for A=-809283937 B=-1755136466 op_set=4, Flag=1100, expected=1100
+Data test  passed for A=-89153291 B=1202299791 C=-5266433, expected=-5266433
+Flag test  passed for A=-89153291 B=1202299791 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-89153291 B=1202299791 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=-1582937533 B=737239895 C=-1974789868, expected=-1974789868
+Flag test  passed for A=-1582937533 B=737239895 op_set=5, Flag=1101, expected=1101
+CRC test  passed for A=-1582937533 B=737239895 op_set=5, Flag=1101, expected=1101
+Data test  passed for A=-740205401 B=2013391344 C=-69075465, expected=-69075465
+Flag test  passed for A=-740205401 B=2013391344 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-740205401 B=2013391344 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=416437041 B=-528443711 C=-112006670, expected=-112006670
+Flag test  passed for A=416437041 B=-528443711 op_set=4, Flag=0001, expected=0001
+CRC test  passed for A=416437041 B=-528443711 op_set=4, Flag=0001, expected=0001
+Data test  passed for A=-460130615 B=1957934057 C=-189532183, expected=-189532183
+Flag test  passed for A=-460130615 B=1957934057 op_set=1, Flag=0001, expected=0001
+CRC test  passed for A=-460130615 B=1957934057 op_set=1, Flag=0001, expected=0001
+Data test  passed for A=1161378186 B=-1928546278 C=84424714, expected=84424714
+Flag test  passed for A=1161378186 B=-1928546278 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1161378186 B=-1928546278 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=1317411229 B=-946749809 C=1182800013, expected=1182800013
+Flag test  passed for A=1317411229 B=-946749809 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=1317411229 B=-946749809 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=-198737176 B=117301005 C=316038181, expected=316038181
+Flag test  passed for A=-198737176 B=117301005 op_set=5, Flag=1000, expected=1000
+CRC test  passed for A=-198737176 B=117301005 op_set=5, Flag=1000, expected=1000
+Data test  passed for A=0 B=1535455671 C=0, expected=0
+Flag test  passed for A=0 B=1535455671 op_set=0, Flag=0010, expected=0010
+CRC test  passed for A=0 B=1535455671 op_set=0, Flag=0010, expected=0010
+Data test  passed for A=993037174 B=1691386313 C=537952576, expected=537952576
+Flag test  passed for A=993037174 B=1691386313 op_set=0, Flag=0000, expected=0000
+CRC test  passed for A=993037174 B=1691386313 op_set=0, Flag=0000, expected=0000
+Data test  passed for A=0 B=-784078174 C=-784078174, expected=-784078174
+Flag test  passed for A=0 B=-784078174 op_set=5, Flag=0001, expected=0001
+CRC test  passed for A=0 B=-784078174 op_set=5, Flag=0001, expected=0001
+Data test  passed for A=-271619873 B=-144552210 C=127067663, expected=127067663
+Flag test  passed for A=-271619873 B=-144552210 op_set=5, Flag=0000, expected=0000
+CRC test  passed for A=-271619873 B=-144552210 op_set=5, Flag=0000, expected=0000
+Test passed for A=1671053255 B=0 op_set=7, error=001001
+Test passed for A=-734890328 B=-247157534 op_set=3, error=001001
+PASSED
+Simulation complete via $finish(1) at time 3528480 NS + 0
+./alu_tb.sv:195 		$finish;
+xcelium> ^C
 xcelium> exit
-TOOL:	xrun	19.09-s003: Exiting on Oct 25, 2021 at 22:30:37 CEST  (total: 23:43:28)
+TOOL:	xrun	19.09-s003: Exiting on Oct 28, 2021 at 01:46:08 CEST  (total: 00:01:02)

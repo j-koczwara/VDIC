@@ -1,2 +1,2 @@
-s1(24Oct2021:19:35:25):  xrun -compile -l xrun_compile.log -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright 
-s2(24Oct2021:19:35:25):  xrun -elaborate -l xrun_elaborate.log -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs_gui +access+r +gui +overwrite -nocopyright 
+s1(28Oct2021:01:48:54):  xrun -compile -l xrun_compile.log -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs +overwrite -nocopyright 
+s2(28Oct2021:01:48:54):  xrun -elaborate -l xrun_elaborate.log -F tb.f -v93 -define DEBUG +nowarnDSEM2009 +nowarnDSEMEL +nowarnCGDEFN -xmlibdirname INCA_libs +overwrite -nocopyright 
