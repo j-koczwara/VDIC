@@ -6,8 +6,8 @@
 ./xcelium.d/run.lnx86.19.09.d
 -RUNMODE
 -sv
-lab01/alu/mtm_Alu.vp
-lab01/alu_tb.sv
+lab02/alu/mtm_Alu.vp
+lab02/alu_tb.sv
 -CDSLIB
 ./xcelium.d/run.lnx86.19.09.d/cdsrun.lib
 -HDLVAR

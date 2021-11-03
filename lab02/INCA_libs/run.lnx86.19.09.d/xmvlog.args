@@ -9,8 +9,6 @@
 ./INCA_libs/AMSD
 ./alu/mtm_Alu.vp
 ./alu_tb.sv
--DEFINE
-DEBUG
 -NOWARN
 DSEM2009
 -NOWARN

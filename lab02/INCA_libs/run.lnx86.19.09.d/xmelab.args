@@ -15,6 +15,10 @@ DSEMEL
 -NOWARN
 CGDEFN
 -NOCOPYRIGHT
+-COVERAGE
+all
+-COVFILE
+xrun_covfile.txt
 -MESSAGES
 -XLMODE
 ./INCA_libs/run.lnx86.19.09.d

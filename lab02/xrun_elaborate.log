@@ -1,4 +1,4 @@
-TOOL:	xrun	19.09-s003: Started on Oct 31, 2021 at 10:08:28 CET
+TOOL:	xrun	19.09-s003: Started on Nov 04, 2021 at 00:14:52 CET
 xrun
 	-elaborate
 	-l xrun_elaborate.log
@@ -7,36 +7,52 @@ xrun
 			alu/mtm_Alu.vp
 		alu_tb.sv
 	-v93
-	-define DEBUG
 	+nowarnDSEM2009
 	+nowarnDSEMEL
 	+nowarnCGDEFN
 	-xmlibdirname INCA_libs
 	+overwrite
 	-nocopyright
+	-coverage all
+	-covoverwrite
+	-covfile xrun_covfile.txt
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Top level design units:
 		top
+
+	Extracting FSMs for coverage:
+		worklib.mtm_Alu
+		worklib.top
+	Total FSMs extracted = 0
 	Building instance overlay tables: .................... Done
+	Enabling instrumentation for coverage types: block expression FSM toggle functional
 	Generating native compiled code:
-			streams:   7, words:  3942
-			streams:   9, words: 25571
-			streams:   7, words:  3261
-		worklib.top:sv <0x6f9b97de>
-			streams:  19, words: 28310
+			streams:   7, words:  3972
+			streams:   9, words: 25661
+			streams:   7, words:  3321
+		worklib.top:sv <0x50d574a9>
+			streams:  27, words: 87437
+xmelab: *W,COVNOEN: By default, toggle coverage is not supported for systemverilog static arrays of enumerated nets and variables. To enable toggle coverage of these objects, specify the 'set_toggle_scoring -sv_enum enable_mda' command in the coverage configuration file.
+	bit         [10:0]  result [4:0];
+	                         |
+xmelab: *W,COVMDD (./alu_tb.sv,61|26): Toggle coverage for bit, logic, reg, wire, enum and struct multi-dimensional static arrays and vectors is not supported by default. To enable toggle coverage for enum multi-dimensional static arrays specify 'set_toggle_scoring -sv_enum enable_mda' and for other multi-dimensional static arrays, specify 'set_toggle_scoring -sv_mda [<max_bit_base2_exponent>] [-sv_mda_of_struct]' ccf command in the coverage configuration file.
 	Building instance specific data structures.
+	Performing constant object marking (COM) analysis.
+xmelab: *W,OBINRGT: (File: ./alu_tb.sv, Line : 116): Some of the values in bin range '[1 : 4294967294]' of bin 'top.zeros_or_ones_on_ops.a_leg.others' are not within the possible values that coverpoint can store. Range will be modified to '[1 : 2147483647]'.
+xmelab: *W,OBINRGT: (File: ./alu_tb.sv, Line : 122): Some of the values in bin range '[1 : 4294967294]' of bin 'top.zeros_or_ones_on_ops.b_leg.others' are not within the possible values that coverpoint can store. Range will be modified to '[1 : 2147483647]'.
 	Loading native compiled code:     .................... Done
 	Design hierarchy summary:
 		                 Instances  Unique
 		Modules:                 5       5
-		Registers:             138     138
+		Registers:             137     137
 		Scalar wires:            7       -
 		Vectored wires:          2       -
 		Always blocks:          12      12
-		Initial blocks:          3       3
+		Initial blocks:          4       4
 		Pseudo assignments:      1       1
 		Assertions:              5       5
+		Covergroup Instances:    0       4
 		Simulation timescale:  1ps
 	Writing initial simulation snapshot: worklib.top:sv
-TOOL:	xrun	19.09-s003: Exiting on Oct 31, 2021 at 10:08:29 CET  (total: 00:00:01)
+TOOL:	xrun	19.09-s003: Exiting on Nov 04, 2021 at 00:14:53 CET  (total: 00:00:01)

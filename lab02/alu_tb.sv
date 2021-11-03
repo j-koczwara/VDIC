@@ -32,7 +32,7 @@ module top;
 		sub_op                   = 3'b101,
 		notused2_op              = 3'b010,
 		notused3_op              = 3'b011,
-		notused7_op              = 3'b111
+		reset_op                 = 3'b111
 
 	} operation_t;
 
@@ -51,7 +51,7 @@ module top;
 	bit signed        [31:0]  B;
 	bit signed        [31:0]  C;
 	bit                 clk;
-	bit                 reset, rst_n;
+	bit                 rst_n;
 	bit         [3:0]   crc;
 	operation_t         op_set;
 	bit         [3:0]   data_len;
@@ -61,7 +61,7 @@ module top;
 	bit         [10:0]  result [4:0];
 	bit                 crc_ok;
 	bit         [10:0]  data_package=11'b00111111111;
-
+	bit         [3:0]   expected_flag;
 //------------------------------------------------------------------------------
 // DUT instantiation
 //------------------------------------------------------------------------------
@@ -74,6 +74,245 @@ module top;
 		.sin  (sin), //serial data input
 		.sout (sout) //serial data output
 	);
+
+//------------------------------------------------------------------------------
+// Coverage block
+//------------------------------------------------------------------------------
+
+// Covergroup checking the op codes and theri sequences
+	covergroup op_cov;
+
+		option.name = "cg_op_cov";
+
+		coverpoint op_set {
+			// #A1 test all operations
+			bins A1_single_cycle[] = {[and_op : reset_op ]};
+
+			// #A2 two operations in row
+			bins A2_twoops[]       = ([and_op:sub_op] [* 2]);
+
+			// #A3 test all operations after reset
+			bins A3_rst_opn[]      = (reset_op => [and_op : sub_op]);
+
+			// #A4 test reset after all operations
+			bins A4_opn_rst[]      = ([add_op:sub_op] => reset_op);
+
+
+		}
+
+	endgroup
+
+// Covergroup checking for min and max arguments of the ALU
+	covergroup zeros_or_ones_on_ops;
+
+		option.name = "cg_zeros_or_ones_on_ops";
+
+		all_ops : coverpoint op_set {
+			ignore_bins null_ops = {reset_op, notused2_op, notused3_op};
+		}
+
+		a_leg: coverpoint A {
+			bins zeros = {'h00000000};
+			bins others= {['h00000001:'hFFFFFFFE]};
+			bins ones  = {-1};
+		}
+
+		b_leg: coverpoint B {
+			bins zeros = {'h00000000};
+			bins others= {['h00000001:'hFFFFFFFE]};
+			bins ones  = {-1};
+		}
+
+		B_op_00_FF: cross a_leg, b_leg, all_ops {
+
+			// #B1 simulate all zero input for all the operations
+
+			bins B1_add_00          = binsof (all_ops) intersect {add_op} &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B1_and_00          = binsof (all_ops) intersect {and_op} &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B1_or_00          = binsof (all_ops) intersect {or_op} &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B1_sub_00          = binsof (all_ops) intersect {sub_op} &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			// #B2 simulate all one input for all the operations
+
+			bins B2_add_FF          = binsof (all_ops) intersect {add_op} &&
+			(binsof (a_leg.ones) || binsof (b_leg.ones));
+
+			bins B2_and_FF          = binsof (all_ops) intersect {and_op} &&
+			(binsof (a_leg.ones) || binsof (b_leg.ones));
+
+			bins B2_or_FF          = binsof (all_ops) intersect {or_op} &&
+			(binsof (a_leg.ones) || binsof (b_leg.ones));
+
+			bins B2_sub_FF          = binsof (all_ops) intersect {sub_op} &&
+			(binsof (a_leg.ones) || binsof (b_leg.ones));
+
+
+			// #B3 simulate all one input A and B for all the operations
+
+			bins B3_add_FF          = binsof (all_ops) intersect {add_op} &&
+			(binsof (a_leg.ones) && binsof (b_leg.ones));
+
+			bins B3_and_FF          = binsof (all_ops) intersect {and_op} &&
+			(binsof (a_leg.ones) && binsof (b_leg.ones));
+
+			bins B3_or_FF          = binsof (all_ops) intersect {or_op} &&
+			(binsof (a_leg.ones) && binsof (b_leg.ones));
+
+			bins B3_sub_FF          = binsof (all_ops) intersect {sub_op} &&
+			(binsof (a_leg.ones) && binsof (b_leg.ones));
+
+			// #B4 simulate all zero input A and B for all the operations
+
+			bins B4_add_00          = binsof (all_ops) intersect {add_op} &&
+			(binsof (a_leg.zeros) && binsof (b_leg.zeros));
+
+			bins B4_and_00         = binsof (all_ops) intersect {and_op} &&
+			(binsof (a_leg.zeros) && binsof (b_leg.zeros));
+
+			bins B4_or_00         = binsof (all_ops) intersect {or_op} &&
+			(binsof (a_leg.zeros) && binsof (b_leg.zeros));
+
+			bins B4_sub_00         = binsof (all_ops) intersect {sub_op} &&
+			(binsof (a_leg.zeros) && binsof (b_leg.zeros));
+
+
+
+			ignore_bins others_only =
+			binsof(a_leg.others) && binsof(b_leg.others);
+		}
+
+	endgroup
+
+
+// Covergroup checking for flags
+	covergroup flags_cov;
+
+		option.name = "cg_flags";
+
+		all_ops : coverpoint op_set {
+			ignore_bins null_ops = {reset_op, notused2_op, notused3_op};
+		}
+
+		flag_leg: coverpoint expected_flag {
+			bins carry = {'b1000};
+			bins overflow = {'b0100};
+			bins zero  = {'b0010};
+			bins negative = {'b0001};
+			bins others  = {'b1100, 'b1010, 'b1001, 'b0110, 'b0101};
+		}
+
+
+		Flags: cross flag_leg, all_ops {
+
+			// #C1 simulate Overflow flag
+
+			bins C1_add_overflow          = binsof (all_ops) intersect {add_op} &&
+			(binsof (flag_leg.overflow));
+
+			bins C1_sub_overflow            = binsof (all_ops) intersect {sub_op} &&
+			(binsof (flag_leg.overflow));
+
+			// #C2 simulate carry flag
+
+			bins C2_add_carry           = binsof (all_ops) intersect {add_op} &&
+			(binsof (flag_leg.carry));
+
+			bins C2_sub_carry            = binsof (all_ops) intersect {sub_op} &&
+			(binsof (flag_leg.carry));
+
+			// #C3 negative flag
+
+			bins C3_add_negative           = binsof (all_ops) intersect {add_op} &&
+			(binsof (flag_leg.negative));
+
+			bins C3_sub_negative            = binsof (all_ops) intersect {sub_op} &&
+			(binsof (flag_leg.negative));
+
+			bins C3_and_negative           = binsof (all_ops) intersect {and_op} &&
+			(binsof (flag_leg.negative));
+
+			bins C3_or_negative            = binsof (all_ops) intersect {or_op} &&
+			(binsof (flag_leg.negative));
+
+
+			// #C4 zero flag
+
+			bins C4_add_zero           = binsof (all_ops) intersect {add_op} &&
+			(binsof (flag_leg.zero));
+
+			bins C4_sub_zero            = binsof (all_ops) intersect {sub_op} &&
+			(binsof (flag_leg.zero));
+
+			bins C4_and_zero           = binsof (all_ops) intersect {and_op} &&
+			(binsof (flag_leg.zero));
+
+			bins C4_or_zero            = binsof (all_ops) intersect {or_op} &&
+			(binsof (flag_leg.zero));
+
+
+//        ignore_bins others_only =
+//        binsof(flag_leg.others);
+			ignore_bins overflow_or = binsof (all_ops) intersect {or_op} &&
+			binsof(flag_leg.overflow);
+			ignore_bins overflow_and = binsof (all_ops) intersect {and_op} &&
+			binsof(flag_leg.overflow);
+			ignore_bins carry_or = binsof (all_ops) intersect {or_op} &&
+			binsof(flag_leg.carry);
+			ignore_bins carry_and = binsof (all_ops) intersect {and_op} &&
+			binsof(flag_leg.carry);
+		}
+
+	endgroup
+
+// Covergroup checking for errors
+	covergroup errors_cov;
+
+		option.name = "cg_errors";
+
+		data_len_leg: coverpoint data_len {
+			bins less_D1  = {7};
+			bins more_D2  = {9};
+		}
+		crc_leg: coverpoint crc_ok {
+			bins crc_error_D3 = {0};
+		}
+
+		ops_leg : coverpoint op_set {
+			bins error_ops_D4 = {notused2_op, notused3_op};
+		}
+		
+		multiple_errors_D5: cross crc_leg, data_len_leg, ops_leg;
+
+	endgroup
+
+	errors_cov                  ec;
+	op_cov                      oc;
+	zeros_or_ones_on_ops        c_00_FF;
+	flags_cov                   fc;
+
+	initial begin : coverage
+		oc      = new();
+		c_00_FF = new();
+		fc      = new();
+		ec      = new();
+		forever begin : sample_cov
+			@(posedge clk);
+			oc.sample();
+			c_00_FF.sample();
+			fc.sample();
+			ec.sample();
+		end
+
+	end : coverage
+
+
 //------------------------------------------------------------------------------
 // Clock generator
 //------------------------------------------------------------------------------
@@ -100,11 +339,11 @@ module top;
 			A             = get_data();
 			B             = get_data();
 			{crc, crc_ok} = get_crc(A,B,op_set);
-			reset         = get_rst();
 			data_len      = get_data_len();
 			BA={B,A};
+			expected_flag=get_expected_flag(A, B, op_set);
 
-			case(reset)
+			case(op_set==reset_op)
 				1: begin
 					reset_alu();
 				end
@@ -139,7 +378,7 @@ module top;
 
 //------------------------
 // Result check
-					if(crc_ok==1'b0 || data_len!=8 || op_set==notused2_op || op_set==notused3_op || op_set==notused7_op) begin //error expected
+					if(crc_ok==1'b0 || data_len!=8 || op_set==notused2_op || op_set==notused3_op ) begin //error expected
 						error_expexted=get_expected_error(crc_ok, data_len, op_set);
 						assert(result[0][10]===0 && result[0][9]===1 )begin //Error check
 
@@ -186,25 +425,25 @@ module top;
 							`endif
 								$display("FAILED");
 							end
-							assert(get_expected_flag(A, B, op_set)==flag_out)begin //Flag check
+							assert(expected_flag==flag_out)begin //Flag check
 							`ifdef DG
-								$display("Flag test  passed for A=%0d B=%0d op_set=%0d, Flag=%4b, expected=%4b", A, B,op_set, flag_out,get_expected_flag(A, B, op_set));
+								$display("Flag test  passed for A=%0d B=%0d op_set=%0d, Flag=%4b, expected=%4b", A, B,op_set, flag_out,expected_flag);
 							`endif
 							end
 							else begin
 							`ifdef DG
-								$display(" Flag test FAILED for A=%0d B=%0d,  C=%0d ,op_set=%3b, Flag=%4b expected=%4b", A, B, C, op_set, flag_out,get_expected_flag(A, B, op_set));
+								$display(" Flag test FAILED for A=%0d B=%0d,  C=%0d ,op_set=%3b, Flag=%4b expected=%4b", A, B, C, op_set, flag_out,expected_flag);
 							`endif
 								$display("FAILED");
 							end
 							assert(CRC37(C, flag_out)==result[4][3:1])begin //CRC check
 								`ifdef DG
-								$display("CRC test  passed for A=%0d B=%0d op_set=%0d, Flag=%4b, expected=%4b", A, B,op_set, flag_out,get_expected_flag(A, B, op_set));
+								$display("CRC test  passed for A=%0d B=%0d op_set=%0d, Flag=%4b, expected=%4b", A, B,op_set, flag_out,expected_flag);
 								`endif
 							end
 							else begin
 							   `ifdef DG
-								$display("CRC test FAILED for A=%0d B=%0d ,C=%0d, op_set=%3b, Flag=%4b expected=%4b", A, B, C, op_set, flag_out ,get_expected_flag(A, B, op_set));
+								$display("CRC test FAILED for A=%0d B=%0d ,C=%0d, op_set=%3b, Flag=%4b expected=%4b", A, B, C, op_set, flag_out ,expected_flag);
 							   `endif
 								$display("FAILED");
 							end
@@ -252,18 +491,6 @@ module top;
 
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// get reset function
-//------------------------------------------------------------------------------
-	function bit get_rst();
-		randcase
-			90:     return '0;
-			10:     return '1;
-		endcase
-
-	endfunction : get_rst
-
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // get reset function
@@ -285,7 +512,7 @@ module top;
 	function operation_t get_op();
 		operation_t         op;
 		bit                 ok;
-		ok=randomize(op) with {op dist {and_op:=3, sub_op:=3, or_op:=3, add_op:=3, notused2_op:=1, notused3_op:=1, notused7_op:=1 };};
+		ok=randomize(op) with {op dist {and_op:=3, sub_op:=3, or_op:=3, add_op:=3, notused2_op:=1, notused3_op:=1, reset_op:=1 };};
 		return op;
 
 	endfunction : get_op
@@ -382,7 +609,7 @@ module top;
 
 //------------------------------------------------------------------------------
 // get error function
-//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------zeros
 
 	function error_flag get_error(bit [10:0] P);
 		begin
@@ -415,7 +642,7 @@ module top;
 				error[0]= ERR_DATA;
 			if (crc_ok==0)
 				error[1]= ERR_CRC;
-			if (OP==notused2_op || OP==notused3_op || OP==notused7_op)
+			if (OP==notused2_op || OP==notused3_op )
 				error[2]= ERR_OP;
 			return error;
 
