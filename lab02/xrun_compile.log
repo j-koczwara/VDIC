@@ -1,4 +1,4 @@
-TOOL:	xrun	19.09-s003: Started on Nov 04, 2021 at 00:14:52 CET
+TOOL:	xrun	19.09-s003: Started on Nov 04, 2021 at 15:57:12 CET
 xrun
 	-compile
 	-l xrun_compile.log
@@ -25,4 +25,4 @@ file: ./alu/mtm_Alu.vp
 file: ./alu_tb.sv
 	module worklib.top:sv
 		errors: 0, warnings: 0
-TOOL:	xrun	19.09-s003: Exiting on Nov 04, 2021 at 00:14:52 CET  (total: 00:00:00)
+TOOL:	xrun	19.09-s003: Exiting on Nov 04, 2021 at 15:57:12 CET  (total: 00:00:00)

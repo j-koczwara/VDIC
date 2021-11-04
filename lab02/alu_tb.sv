@@ -44,24 +44,25 @@ module top;
 
 	} error_flag;
 
-	typedef error_flag [2:0] error_flag_array;
-	error_flag_array          error_expexted;
-	error_flag                error;
+
+
 	bit signed        [31:0]  A;
 	bit signed        [31:0]  B;
-	bit signed        [31:0]  C;
+
 	bit                 clk;
 	bit                 rst_n;
 	bit         [3:0]   crc;
 	operation_t         op_set;
 	bit         [3:0]   data_len;
-	bit         [3:0]   flag_out;
+
 	bit         [98:0]  data_in;
 	bit         [63:0]  BA;
 	bit         [10:0]  result [4:0];
 	bit                 crc_ok;
 	bit         [10:0]  data_package=11'b00111111111;
 	bit         [3:0]   expected_flag;
+	bit                 done;
+
 //------------------------------------------------------------------------------
 // DUT instantiation
 //------------------------------------------------------------------------------
@@ -86,7 +87,7 @@ module top;
 
 		coverpoint op_set {
 			// #A1 test all operations
-			bins A1_single_cycle[] = {[and_op : reset_op ]};
+			bins A1_all_ops[] = {[and_op : reset_op ]};
 
 			// #A2 two operations in row
 			bins A2_twoops[]       = ([and_op:sub_op] [* 2]);
@@ -113,13 +114,11 @@ module top;
 
 		a_leg: coverpoint A {
 			bins zeros = {'h00000000};
-			bins others= {['h00000001:'hFFFFFFFE]};
 			bins ones  = {-1};
 		}
 
 		b_leg: coverpoint B {
 			bins zeros = {'h00000000};
-			bins others= {['h00000001:'hFFFFFFFE]};
 			bins ones  = {-1};
 		}
 
@@ -182,10 +181,6 @@ module top;
 			bins B4_sub_00         = binsof (all_ops) intersect {sub_op} &&
 			(binsof (a_leg.zeros) && binsof (b_leg.zeros));
 
-
-
-			ignore_bins others_only =
-			binsof(a_leg.others) && binsof(b_leg.others);
 		}
 
 	endgroup
@@ -211,62 +206,63 @@ module top;
 
 		Flags: cross flag_leg, all_ops {
 
-			// #C1 simulate Overflow flag
-
-			bins C1_add_overflow          = binsof (all_ops) intersect {add_op} &&
-			(binsof (flag_leg.overflow));
+			//  simulate Overflow flag
 
 			bins C1_sub_overflow            = binsof (all_ops) intersect {sub_op} &&
 			(binsof (flag_leg.overflow));
 
-			// #C2 simulate carry flag
+			//  simulate carry flag
 
 			bins C2_add_carry           = binsof (all_ops) intersect {add_op} &&
 			(binsof (flag_leg.carry));
 
-			bins C2_sub_carry            = binsof (all_ops) intersect {sub_op} &&
+			bins C3_sub_carry            = binsof (all_ops) intersect {sub_op} &&
 			(binsof (flag_leg.carry));
 
-			// #C3 negative flag
+			// negative flag
 
-			bins C3_add_negative           = binsof (all_ops) intersect {add_op} &&
+			bins C4_add_negative           = binsof (all_ops) intersect {add_op} &&
 			(binsof (flag_leg.negative));
 
-			bins C3_sub_negative            = binsof (all_ops) intersect {sub_op} &&
+			bins C5_sub_negative            = binsof (all_ops) intersect {sub_op} &&
 			(binsof (flag_leg.negative));
 
-			bins C3_and_negative           = binsof (all_ops) intersect {and_op} &&
+			bins C6_and_negative           = binsof (all_ops) intersect {and_op} &&
 			(binsof (flag_leg.negative));
 
-			bins C3_or_negative            = binsof (all_ops) intersect {or_op} &&
+			bins C7_or_negative            = binsof (all_ops) intersect {or_op} &&
 			(binsof (flag_leg.negative));
 
 
-			// #C4 zero flag
+			//  zero flag
 
-			bins C4_add_zero           = binsof (all_ops) intersect {add_op} &&
+			bins C8_add_zero           = binsof (all_ops) intersect {add_op} &&
 			(binsof (flag_leg.zero));
 
-			bins C4_sub_zero            = binsof (all_ops) intersect {sub_op} &&
+			bins C9_sub_zero            = binsof (all_ops) intersect {sub_op} &&
 			(binsof (flag_leg.zero));
 
-			bins C4_and_zero           = binsof (all_ops) intersect {and_op} &&
+			bins C10_and_zero           = binsof (all_ops) intersect {and_op} &&
 			(binsof (flag_leg.zero));
 
-			bins C4_or_zero            = binsof (all_ops) intersect {or_op} &&
+			bins C11_or_zero            = binsof (all_ops) intersect {or_op} &&
 			(binsof (flag_leg.zero));
 
 
-//        ignore_bins others_only =
-//        binsof(flag_leg.others);
 			ignore_bins overflow_or = binsof (all_ops) intersect {or_op} &&
 			binsof(flag_leg.overflow);
 			ignore_bins overflow_and = binsof (all_ops) intersect {and_op} &&
+			binsof(flag_leg.overflow);
+			ignore_bins overflow_add = binsof (all_ops) intersect {add_op} &&
 			binsof(flag_leg.overflow);
 			ignore_bins carry_or = binsof (all_ops) intersect {or_op} &&
 			binsof(flag_leg.carry);
 			ignore_bins carry_and = binsof (all_ops) intersect {and_op} &&
 			binsof(flag_leg.carry);
+			ignore_bins others_or = binsof (all_ops) intersect {or_op} &&
+			binsof(flag_leg.others);
+			ignore_bins others_and = binsof (all_ops) intersect {and_op} &&
+			binsof(flag_leg.others);
 		}
 
 	endgroup
@@ -287,7 +283,7 @@ module top;
 		ops_leg : coverpoint op_set {
 			bins error_ops_D4 = {notused2_op, notused3_op};
 		}
-		
+
 		multiple_errors_D5: cross crc_leg, data_len_leg, ops_leg;
 
 	endgroup
@@ -335,6 +331,7 @@ module top;
 	initial begin : tester
 		reset_alu();
 		repeat (10000) begin : tester_main
+
 			op_set        = get_op();
 			A             = get_data();
 			B             = get_data();
@@ -343,11 +340,13 @@ module top;
 			BA={B,A};
 			expected_flag=get_expected_flag(A, B, op_set);
 
+
+
 			case(op_set==reset_op)
 				1: begin
 					reset_alu();
 				end
-				0:begin
+				default:begin
 					data_in=get_vector_to_send(BA, op_set, crc, data_len);
 					for (int i = 0; i < (11*(data_len%9)); i++) begin: serial_send
 						@(negedge clk);
@@ -375,96 +374,106 @@ module top;
 						if(result[i][10]===0 && result[i][9]===1 )
 							break;
 					end
-
-//------------------------
-// Result check
-					if(crc_ok==1'b0 || data_len!=8 || op_set==notused2_op || op_set==notused3_op ) begin //error expected
-						error_expexted=get_expected_error(crc_ok, data_len, op_set);
-						assert(result[0][10]===0 && result[0][9]===1 )begin //Error check
-
-
-							error=get_error(result[0]);
-
-							assert((error=== error_expexted[0])|| (error=== error_expexted[1])||(error=== error_expexted[2])) begin
-								`ifdef DG
-								$display("Test passed for A=%0d B=%0d op_set=%0d, error=%6b", A, B, op_set,error);
-								`endif
-							end
-							else begin
-								`ifdef DG
-								$display("Test FAILED for A=%0d B=%0d op_set=%3b, error=%6b, expected=%6b expected=%6b expected=%6b", A, B, op_set,error, error_expexted[0],error_expexted[1],error_expexted[2] );
-
-								`endif
-								$display("FAILED");
-
-							end
-						end
-						else begin
-							`ifdef DG
-							$display("Test FAILED expected error, no error received A=%0d B=%0d op_set=%0d, error=%6b, expected=%6b expected=%6b expected=%6b, datalen=%0d, crc_ok=0%b", A, B, op_set,error, error_expexted[0],error_expexted[1],error_expexted[2],data_len, crc_ok);
-							$display("crc = %0b, datalen= %0b , op2= %0b , op3= %0b, op7= %0b ",crc_ok==1'b0, data_len!=8, op_set==notused2_op,op_set==notused3_op,   op_set==notused7_op  );
-								`endif
-							$display("FAILED");
-
-						end
-
-					end
-					else begin
-						if (result[0][10]===0 && result[0][9]===0 )begin
-							C=get_C_data(result);
-							flag_out=get_flag(result[4]);
-
-							assert(get_expected_data(A, B, op_set)==C)begin //Data check
-							`ifdef DG
-								$display("Data test  passed for A=%0d B=%0d C=%0d, expected=%0d", A, B, C,get_expected_data(A, B, op_set));
-							`endif
-							end
-							else begin
-							`ifdef DG
-								$display("Data test FAILED for A=%0d B=%0d expected=%0d", A, B, C,get_expected_data(A, B, op_set));
-							`endif
-								$display("FAILED");
-							end
-							assert(expected_flag==flag_out)begin //Flag check
-							`ifdef DG
-								$display("Flag test  passed for A=%0d B=%0d op_set=%0d, Flag=%4b, expected=%4b", A, B,op_set, flag_out,expected_flag);
-							`endif
-							end
-							else begin
-							`ifdef DG
-								$display(" Flag test FAILED for A=%0d B=%0d,  C=%0d ,op_set=%3b, Flag=%4b expected=%4b", A, B, C, op_set, flag_out,expected_flag);
-							`endif
-								$display("FAILED");
-							end
-							assert(CRC37(C, flag_out)==result[4][3:1])begin //CRC check
-								`ifdef DG
-								$display("CRC test  passed for A=%0d B=%0d op_set=%0d, Flag=%4b, expected=%4b", A, B,op_set, flag_out,expected_flag);
-								`endif
-							end
-							else begin
-							   `ifdef DG
-								$display("CRC test FAILED for A=%0d B=%0d ,C=%0d, op_set=%3b, Flag=%4b expected=%4b", A, B, C, op_set, flag_out ,expected_flag);
-							   `endif
-								$display("FAILED");
-							end
-						end
-						else begin
-							$display("FAILED");
-							$finish;
-						end
-
-					end
-
-
+					
+					done=1'b1;
+					@(negedge clk);
 				end
-
 			endcase
-
-
+			if($get_coverage() == 100) break;
 		end: tester_main
 		$display("PASSED");
 		$finish;
+
 	end : tester
+
+//------------------------------------------------------------------------------
+// Scoreboard
+//------------------------------------------------------------------------------
+	always @(negedge clk) begin : scoreboard
+		error_flag                error_expected;
+		bit signed        [31:0]  C;
+		bit         [3:0]   flag_out;
+		if(done) begin:verify_result
+			done<=1'b0;
+			if(crc_ok==1'b0 || data_len!=8 || op_set==notused2_op || op_set==notused3_op ) begin //error expected
+				error_expected=get_expected_error(crc_ok, data_len, op_set);
+				assert(result[0][10]===0 && result[0][9]===1 )begin //Error check
+
+					assert(get_error(result[0])=== error_expected) begin
+								`ifdef DG
+						$display("Test passed for A=%0d B=%0d op_set=%0d, error=%6b", A, B, op_set,get_error(result[0]));
+								`endif
+					end
+					else begin
+								`ifdef DG
+						$display("Test FAILED for A=%0d B=%0d op_set=%3b, error=%6b, expected=%6b ", A, B, op_set,error, error_expected);
+
+								`endif
+						$display("FAILED");
+
+					end
+				end
+				else begin
+							`ifdef DG
+					$display("Test FAILED expected error, no error received A=%0d B=%0d op_set=%0d, error=%6b, expected=%6b, datalen=%0d, crc_ok=0%b", A, B, op_set,error, error_expected,data_len, crc_ok);
+					$display("crc = %0b, datalen= %0b , op2= %0b , op3= %0b ",crc_ok==1'b0, data_len!=8, op_set==notused2_op,op_set==notused3_op );
+								`endif
+					$display("FAILED");
+
+				end
+
+			end
+			else begin
+				if (result[0][10]===0 && result[0][9]===0 )begin
+					C=get_C_data(result);
+					flag_out=get_flag(result[4]);
+
+					assert(get_expected_data(A, B, op_set)==C)begin //Data check
+							`ifdef DG
+						$display("Data test  passed for A=%0d B=%0d C=%0d, expected=%0d", A, B, C,get_expected_data(A, B, op_set));
+							`endif
+					end
+					else begin
+							`ifdef DG
+						$display("Data test FAILED for A=%0d B=%0d expected=%0d", A, B, C,get_expected_data(A, B, op_set));
+							`endif
+						$display("FAILED");
+					end
+					assert(expected_flag==flag_out)begin //Flag check
+							`ifdef DG
+						$display("Flag test  passed for A=%0d B=%0d op_set=%0d, Flag=%4b, expected=%4b", A, B,op_set, flag_out,expected_flag);
+							`endif
+					end
+					else begin
+							`ifdef DG
+						$display(" Flag test FAILED for A=%0d B=%0d,  C=%0d ,op_set=%3b, Flag=%4b expected=%4b", A, B, C, op_set, flag_out,expected_flag);
+							`endif
+						$display("FAILED");
+					end
+					assert(CRC37(C, flag_out)==result[4][3:1])begin //CRC check
+								`ifdef DG
+						$display("CRC test  passed for A=%0d B=%0d op_set=%0d, Flag=%4b, expected=%4b", A, B,op_set, flag_out,expected_flag);
+								`endif
+					end
+					else begin
+							   `ifdef DG
+						$display("CRC test FAILED for A=%0d B=%0d ,C=%0d, op_set=%3b, Flag=%4b expected=%4b", A, B, C, op_set, flag_out ,expected_flag);
+							   `endif
+						$display("FAILED");
+					end
+				end
+				else begin
+					$display("FAILED");
+					$finish;
+				end
+
+			end
+
+
+		end
+
+
+	end: scoreboard
 //------------------------------------------------------------------------------
 // reset task
 //------------------------------------------------------------------------------
@@ -634,16 +643,16 @@ module top;
 // get expected error function
 //------------------------------------------------------------------------------
 
-	function error_flag_array get_expected_error(bit crc_ok, bit [3:0] data_len, operation_t OP);
-		error_flag_array error;
+	function error_flag get_expected_error(bit crc_ok, bit [3:0] data_len, operation_t OP);
+		error_flag error;
 		begin
-			error = '0;
+			error = CHECK_ERROR;
 			if (data_len!=8)
-				error[0]= ERR_DATA;
-			if (crc_ok==0)
-				error[1]= ERR_CRC;
-			if (OP==notused2_op || OP==notused3_op )
-				error[2]= ERR_OP;
+				error= ERR_DATA;
+			else if (crc_ok==0)
+				error= ERR_CRC;
+			else if (OP==notused2_op || OP==notused3_op )
+				error= ERR_OP;
 			return error;
 
 

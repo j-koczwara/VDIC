@@ -1,4 +1,4 @@
-TOOL:	xrun	19.09-s003: Started on Nov 04, 2021 at 00:14:53 CET
+TOOL:	xrun	19.09-s003: Started on Nov 04, 2021 at 15:57:12 CET
 xrun
 	-F tb.f
 		-F ./dut.f
@@ -23,8 +23,8 @@ xmsim: *W,RNDXCELON: Xceligen, the new SystemVerilog constraint solver is used. 
 xcelium> source /cad/XCELIUM1909/tools/xcelium/files/xmsimrc
 xcelium> run
 PASSED
-Simulation complete via $finish(1) at time 27894800 NS + 0
-./alu_tb.sv:466 		$finish;
+Simulation complete via $finish(1) at time 7494 US + 0
+./alu_tb.sv:385 		$finish;
 xcelium> exit
 See ./cov_work/scope/lab02/icc.com file for message(s) on coverage constant object marking
 
@@ -35,6 +35,6 @@ coverage setup:
   testname :  lab02
 
 coverage files:
-  model(design data) :  ./cov_work/scope/icc_5380c50b_0ce7267e.ucm
-  data               :  ./cov_work/scope/lab02/icc_5380c50b_0ce7267e.ucd
-TOOL:	xrun	19.09-s003: Exiting on Nov 04, 2021 at 00:14:58 CET  (total: 00:00:05)
+  model(design data) :  ./cov_work/scope/icc_6be1e114_1dad359c.ucm
+  data               :  ./cov_work/scope/lab02/icc_6be1e114_1dad359c.ucd
+TOOL:	xrun	19.09-s003: Exiting on Nov 04, 2021 at 15:57:15 CET  (total: 00:00:03)

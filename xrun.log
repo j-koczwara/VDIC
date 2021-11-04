@@ -1,5 +1,5 @@
 xrun: 19.09-s003: (c) Copyright 1995-2019 Cadence Design Systems, Inc.
-TOOL:	xrun	19.09-s003: Started on Nov 04, 2021 at 00:14:50 CET
+TOOL:	xrun	19.09-s003: Started on Nov 04, 2021 at 15:32:56 CET
 xrun
 	+elaborate
 	+sv
@@ -27,8 +27,8 @@ xmelab: *W,DSEMEL: This SystemVerilog design will be simulated as per IEEE 1800-
 			streams:   7, words:  3942
 			streams:   9, words: 25571
 			streams:   7, words:  3261
-		worklib.top:sv <0x575e8a13>
-			streams:  27, words: 30033
+		worklib.top:sv <0x7d445e8a>
+			streams:  29, words: 36800
 	Building instance specific data structures.
 	Loading native compiled code:     .................... Done
 	Design hierarchy summary:
@@ -37,11 +37,11 @@ xmelab: *W,DSEMEL: This SystemVerilog design will be simulated as per IEEE 1800-
 		Registers:             137     137
 		Scalar wires:            7       -
 		Vectored wires:          2       -
-		Always blocks:          12      12
+		Always blocks:          13      13
 		Initial blocks:          4       4
 		Pseudo assignments:      1       1
 		Assertions:              5       5
 		Covergroup Instances:    0       4
 		Simulation timescale:  1ps
 	Writing initial simulation snapshot: worklib.top:sv
-TOOL:	xrun	19.09-s003: Exiting on Nov 04, 2021 at 00:14:50 CET  (total: 00:00:00)
+TOOL:	xrun	19.09-s003: Exiting on Nov 04, 2021 at 15:32:58 CET  (total: 00:00:02)

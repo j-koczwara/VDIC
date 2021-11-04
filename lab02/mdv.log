@@ -83,3 +83,36 @@ file.xml.cant_open_malformed_xml: File /home/student/jkoczwara/VDIC/lab02/xrun_c
 [INFO ] 2021-11-04 00:15:02,188 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 46467
 [INFO ] 2021-11-04 00:15:06,615 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 35308
 [INFO ] 2021-11-04 00:15:14,726 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 43935
+[INFO ] 2021-11-04 14:11:38,249 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 41915
+[INFO ] 2021-11-04 14:11:42,384 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 33537
+[INFO ] 2021-11-04 14:11:54,331 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 34963
+[INFO ] 2021-11-04 14:53:46,116 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 42681
+[INFO ] 2021-11-04 14:53:50,232 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 43515
+[INFO ] 2021-11-04 14:53:57,485 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 37150
+[INFO ] 2021-11-04 15:00:36,576 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 41308
+[INFO ] 2021-11-04 15:00:41,282 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 36639
+[INFO ] 2021-11-04 15:00:51,924 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 36838
+[INFO ] 2021-11-04 15:13:33,039 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 41868
+[ERROR] 2021-11-04 15:13:33,191 [com.cadence.mdv.messaging.MDVASynchronicMessaging] [frontend-pool-1] - Cannot read directory 'cov_work/scope/merged_results'. Check if the directory has read permission, and rerun the command	   
+[ERROR] 2021-11-04 15:13:33,208 [com.cadence.mdv.messaging.MDVASynchronicMessaging] [frontend-pool-1] - Valid model file not found for run directory cov_work/scope/merged_results. Specify a valid run directory with correct ucm, ucd files and rerun the command.
+[INFO ] 2021-11-04 15:22:09,114 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 44869
+[INFO ] 2021-11-04 15:22:13,159 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 36355
+[INFO ] 2021-11-04 15:22:22,972 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 39538
+[INFO ] 2021-11-04 15:25:00,208 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 39929
+[INFO ] 2021-11-04 15:25:03,999 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 46701
+[INFO ] 2021-11-04 15:25:10,628 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 36983
+[INFO ] 2021-11-04 15:30:24,324 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 36085
+[INFO ] 2021-11-04 15:30:28,130 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 35428
+[INFO ] 2021-11-04 15:30:37,451 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 37328
+[INFO ] 2021-11-04 15:31:01,401 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 35547
+[INFO ] 2021-11-04 15:31:05,296 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 37353
+[INFO ] 2021-11-04 15:31:24,473 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 37740
+[INFO ] 2021-11-04 15:31:28,412 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 45084
+[INFO ] 2021-11-04 15:31:37,111 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 39313
+[INFO ] 2021-11-04 15:32:27,112 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 36579
+[INFO ] 2021-11-04 15:32:31,039 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 41472
+[INFO ] 2021-11-04 15:33:14,060 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 41011
+[INFO ] 2021-11-04 15:33:17,881 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 37070
+[INFO ] 2021-11-04 15:33:25,900 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 43786
+[INFO ] 2021-11-04 15:57:18,889 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 42782
+[INFO ] 2021-11-04 15:57:22,826 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 43751
