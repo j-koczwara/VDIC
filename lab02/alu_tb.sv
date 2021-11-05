@@ -273,18 +273,18 @@ module top;
 		option.name = "cg_errors";
 
 		data_len_leg: coverpoint data_len {
-			bins less_D1  = {7};
-			bins more_D2  = {9};
+			bins D1_less  = {7};
+			bins D2_more  = {9};
 		}
 		crc_leg: coverpoint crc_ok {
-			bins crc_error_D3 = {0};
+			bins D3_crc_error = {0};
 		}
 
 		ops_leg : coverpoint op_set {
-			bins error_ops_D4 = {notused2_op, notused3_op};
+			bins D4_error_ops = {notused2_op, notused3_op};
 		}
 
-		multiple_errors_D5: cross crc_leg, data_len_leg, ops_leg;
+		D5_multiple_errors: cross crc_leg, data_len_leg, ops_leg;
 
 	endgroup
 
