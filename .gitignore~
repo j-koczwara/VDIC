@@ -5,7 +5,7 @@ xrun.log
 **/*.log
 **/*.history
 **/INCA*/
-**/.key
+**/*.key
 **/cov*/
-**/.shm/
+**/*.shm/
 

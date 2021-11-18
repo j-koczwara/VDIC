@@ -1,23 +1,27 @@
-*I,RUNLD: Successfully loaded run /home/student/jkoczwara/VDIC/lab02/cov_work/scope/lab02.
+*I,RUNLD: Successfully loaded run /home/student/jkoczwara/VDIC/lab03/cov_work/scope/lab03.
 *I,MERGL1: Merging Simulation Coverage ...
 ----------------------------
 *I,MERGL1: Preparing target model ...
-*I,MERGL1: Reading model of primary run (cov_work/scope/lab02) as initial model: cov_work/scope/icc_6be1e114_1dad359c.ucm
+*I,MERGL1: Reading model of primary run (cov_work/scope/lab03) as initial model: cov_work/scope/icc_6e6853a3_65b7a495.ucm
 *I,MERGL1: Target model generated successfully.
 *I,MERGL1: Projecting Simulation ucd data into the target model ...
-*I,MERGL2:   cov_work/scope/lab02:
+*I,MERGL2:   cov_work/scope/lab03:
 *I,MERGL3:       Data is projected in to the target model.
 *I,MERGL1: Writing output database cov_work/scope/merged_results:
-*I,MERGL2:   Model: cov_work/scope/merged_results/icc_6be1e114_1dad359c.ucm
-*I,MERGL2:   Data : cov_work/scope/merged_results/icc_6be1e114_1dad359c.ucd
+*I,MERGL2:   Model: cov_work/scope/merged_results/icc_6e6853a3_65b7a495.ucm
+*I,MERGL2:   Data : cov_work/scope/merged_results/icc_6e6853a3_65b7a495.ucd
 *I,MERGL1: No Specman coverage databases found in the runs.
 Total conflicts during target model creation: 0
 Total items not merged                      : 0
 Total runs not considered during target model creation: 0
 Total runs not merged                                 : 0
-*I,RUNLD: Successfully loaded run /home/student/jkoczwara/VDIC/lab02/cov_work/scope/merged_results.
+*I,RUNLD: Successfully loaded run /home/student/jkoczwara/VDIC/lab03/cov_work/scope/merged_results.
 *W,REPDEP: This is a legacy report and no future enhancement is planned for this report. It is recommended that you use the 'report_metrics' command and generate a dynamic report.
 name                                     Overall Average      Overall Covered      Code Average         Code Covered         Fsm Average          Fsm Covered          Functional Average   Functional Covered   
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-top                                      95.93%               92.81% (1072/1155/27) 91.86%               92.07% (964/1047/27) n/a                  n/a                  100.00%              100.00% (108/108)    
+top                                      n/a                  n/a                  n/a                  n/a                  n/a                  n/a                  n/a                  n/a                  
+|--bfm                                   95.24%               97.79% (133/136/11)  95.24%               97.79% (133/136/11)  n/a                  n/a                  n/a                  n/a                  
+|--tester_i                              92.27%               93.84% (335/357)     92.27%               93.84% (335/357)     n/a                  n/a                  n/a                  n/a                  
+|--coverage_i                            100.00%              100.00% (189/189)    100.00%              100.00% (86/86)      n/a                  n/a                  100.00%              100.00% (103/103)    
+|--scoreboard_i                          95.84%               91.73% (355/387/16)  91.67%               91.62% (350/382/16)  n/a                  n/a                  100.00%              100.00% (5/5)        
 |--u_mtm_Alu                             98.21%               98.21% (55/56)       98.21%               98.21% (55/56)       n/a                  n/a                  n/a                  n/a                  
