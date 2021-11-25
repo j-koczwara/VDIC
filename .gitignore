@@ -9,3 +9,6 @@ xrun.log
 **/cov*/
 **/*.shm/
 **/.simvision/
+**/*~
+*~
+
