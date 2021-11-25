@@ -10,3 +10,4 @@ xrun.log
 **/*.shm/
 **/.simvision/
 **/*~
+*~
