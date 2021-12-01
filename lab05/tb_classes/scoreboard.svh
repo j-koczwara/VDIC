@@ -1,10 +1,17 @@
  `undef DEBUG
-class scoreboard;
+class scoreboard extends uvm_component;
+	`uvm_component_utils(scoreboard)
+
 	virtual alu_bfm bfm;
 
-	function new (virtual alu_bfm b);
-		bfm = b;
+	function new (string name, uvm_component parent);
+		super.new(name, parent);
 	endfunction : new
+
+	function void build_phase(uvm_phase phase);
+		if(!uvm_config_db #(virtual alu_bfm)::get(null, "*","bfm", bfm))
+			$fatal(1,"Failed to get BFM");
+	endfunction : build_phase
 //------------------------------------------------------------------------------
 // get error function
 //------------------------------------------------------------------------------
@@ -186,7 +193,7 @@ class scoreboard;
 //------------------------------------------------------------------------------
 // Scoreboard
 //------------------------------------------------------------------------------
-	task execute();
+	task run_phase(uvm_phase phase);
 		error_flag                error_expected;
 		bit signed        [31:0]  C;
 		bit         [3:0]   flag_out;

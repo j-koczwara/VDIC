@@ -1,15 +1,17 @@
-class tester;
+class random_tester extends base_tester;
 
-    virtual alu_bfm bfm;
+	`uvm_component_utils (random_tester)
 
-    function new (virtual alu_bfm b);
-        bfm = b;
-    endfunction : new
+
+	function new (string name, uvm_component parent);
+		super.new(name, parent);
+	endfunction : new
+
 
 //------------------------------------------------------------------------------
 // get data function
 //------------------------------------------------------------------------------
-	protected function [31:0] get_data();
+	function [31:0] get_data();
 		randcase
 			80:     return 32'($random);
 			10:     return '0;
@@ -24,7 +26,7 @@ class tester;
 //------------------------------------------------------------------------------
 // get reset function
 //------------------------------------------------------------------------------
-	protected function bit [3:0] get_data_len();
+	function bit [3:0] get_data_len();
 		randcase
 			90:     return 8;
 			5:      return 9;
@@ -38,7 +40,7 @@ class tester;
 //------------------------------------------------------------------------------
 // get op function
 //------------------------------------------------------------------------------
-	protected function operation_t get_op();
+	function operation_t get_op();
 		operation_t         op;
 		bit                 ok;
 		ok=std::randomize(op) with {op dist {and_op:=3, sub_op:=3, or_op:=3, add_op:=3, notused2_op:=1, notused3_op:=1, reset_op:=1 };};
@@ -51,7 +53,7 @@ class tester;
 //------------------------------------------------------------------------------
 // get vector to send
 //------------------------------------------------------------------------------
-	protected function bit [98:0] get_vector_to_send(bit [63:0] BA, operation_t OP, bit [3:0] crc, bit [4:0] data_len );
+	function bit [98:0] get_vector_to_send(bit [63:0] BA, operation_t OP, bit [3:0] crc, bit [4:0] data_len );
 		bit [98:0] vector_out;
 
 		for(int i = 0; i<data_len; i++)begin
@@ -71,7 +73,7 @@ class tester;
 // CRC68 function
 //------------------------------------------------------------------------------
 
-	protected function [3:0] CRC68(bit [31:0] A, bit [31:0] B, operation_t OP);
+	function [3:0] CRC68(bit [31:0] A, bit [31:0] B, operation_t OP);
 
 		reg [67:0] d;
 		reg [3:0]  c;
@@ -94,7 +96,7 @@ class tester;
 // get crc function
 //------------------------------------------------------------------------------
 
-	protected function [4:0] get_crc(bit [31:0] A, bit [31:0] B, operation_t OP);
+	function [4:0] get_crc(bit [31:0] A, bit [31:0] B, operation_t OP);
 		begin
 			bit [3:0] crc_out;
 			bit [3:0] crc_68;
@@ -116,38 +118,4 @@ class tester;
 //------------------------------------------------------------------------------
 
 
-	task execute();
-		bit [98:0] iVector;
-		bit signed    [31:0]  iA;
-		bit signed        [31:0]  iB;
-		operation_t op_set;
-		bit         [3:0]   crc;
-		bit                 crc_ok;
-		//bit         [98:0]  data_in;
-		bit         [63:0]  BA;
-		bit         [3:0]   idata_len;
-		bit        [10:0]  result [4:0];
-
-		bfm.reset_alu();
-		repeat (10000) begin : tester_main
-
-			op_set        = get_op();
-			iA             = get_data();
-			iB             = get_data();
-			{crc, crc_ok} = get_crc(iA,iB,op_set);
-			idata_len      = get_data_len();
-			BA={iB,iA};
-			iVector = get_vector_to_send(BA, op_set, crc, idata_len );
-			bfm.A      = iA;
-			bfm.B      = iB;
-			bfm.crc_ok = crc_ok;
-			bfm.send_op(iVector, idata_len,  op_set);
-			
-			
-			if($get_coverage() == 100) break;
-		end: tester_main
-		$display("PASSED");
-		$finish;
-
-	endtask 
 endclass

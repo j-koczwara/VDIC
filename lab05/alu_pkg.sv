@@ -1,6 +1,8 @@
 
 package alu_pkg;
-     typedef enum bit[2:0] {
+	import uvm_pkg::*;
+`include "uvm_macros.svh"
+	typedef enum bit[2:0] {
 		and_op                   = 3'b000,
 		or_op                    = 3'b001,
 		add_op                   = 3'b100,
@@ -9,18 +11,22 @@ package alu_pkg;
 		notused3_op              = 3'b011,
 		reset_op                 = 3'b111
 
-     } operation_t;
-	
-		typedef enum bit[5:0] {
+	} operation_t;
+
+	typedef enum bit[5:0] {
 		ERR_DATA                 = 6'b100100,
 		ERR_CRC                  = 6'b010010,
 		ERR_OP                   = 6'b001001,
 		CHECK_ERROR              = 6'b111111
 
-		} error_flag;
-	
+	} error_flag;
+
 `include "coverage.svh"
-`include "tester.svh"
+`include "base_tester.svh"
+`include "random_tester.svh"
+`include "add_tester.svh"   
 `include "scoreboard.svh"
-`include "testbench.svh"
+`include "env.svh"
+`include "random_test.svh"
+`include "add_test.svh"
 endpackage : alu_pkg
