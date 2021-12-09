@@ -11,7 +11,7 @@ class random_tester extends base_tester;
 //------------------------------------------------------------------------------
 // get data function
 //------------------------------------------------------------------------------
-	function [31:0] get_data();
+	protected function [31:0] get_data();
 		randcase
 			80:     return 32'($random);
 			10:     return '0;
@@ -26,7 +26,7 @@ class random_tester extends base_tester;
 //------------------------------------------------------------------------------
 // get reset function
 //------------------------------------------------------------------------------
-	function bit [3:0] get_data_len();
+	protected function bit [3:0] get_data_len();
 		randcase
 			90:     return 8;
 			5:      return 9;
@@ -40,7 +40,7 @@ class random_tester extends base_tester;
 //------------------------------------------------------------------------------
 // get op function
 //------------------------------------------------------------------------------
-	function operation_t get_op();
+	protected function operation_t get_op();
 		operation_t         op;
 		bit                 ok;
 		ok=std::randomize(op) with {op dist {and_op:=3, sub_op:=3, or_op:=3, add_op:=3, notused2_op:=1, notused3_op:=1, reset_op:=1 };};
@@ -50,30 +50,14 @@ class random_tester extends base_tester;
 
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// get vector to send
-//------------------------------------------------------------------------------
-	function bit [98:0] get_vector_to_send(bit [63:0] BA, operation_t OP, bit [3:0] crc, bit [4:0] data_len );
-		bit [98:0] vector_out;
 
-		for(int i = 0; i<data_len; i++)begin
-			vector_out[98-(i*11)-:11]={2'b00, BA[63-(i*8)-:8], 1'b1};
-
-		end
-		vector_out[10:0]={ 2'b01, 1'b0, OP, crc, 1'b1};
-
-		return vector_out;
-
-	endfunction : get_vector_to_send
-
-//------------------------------------------------------------------------------
 
 
 //------------------------------------------------------------------------------
 // CRC68 function
 //------------------------------------------------------------------------------
 
-	function [3:0] CRC68(bit [31:0] A, bit [31:0] B, operation_t OP);
+	protected function [3:0] CRC68(bit [31:0] A, bit [31:0] B, operation_t OP);
 
 		reg [67:0] d;
 		reg [3:0]  c;
@@ -96,7 +80,7 @@ class random_tester extends base_tester;
 // get crc function
 //------------------------------------------------------------------------------
 
-	function [4:0] get_crc(bit [31:0] A, bit [31:0] B, operation_t OP);
+	protected function [4:0] get_crc(bit [31:0] A, bit [31:0] B, operation_t OP);
 		begin
 			bit [3:0] crc_out;
 			bit [3:0] crc_68;

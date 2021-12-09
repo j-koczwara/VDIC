@@ -1,15 +1,14 @@
-class coverage extends uvm_component;
 
-	`uvm_component_utils(coverage)
+class coverage extends uvm_subscriber #(command_s);
+    `uvm_component_utils(coverage)
 
-	virtual alu_bfm bfm;
 
-	bit signed        [31:0]  A;
-	bit signed        [31:0]  B;
-	operation_t         op_set;
-	bit                 crc_ok;
-	bit         [3:0]   data_len;
-	bit         [3:0]   expected_flag;
+	protected bit signed        [31:0]  A;
+	protected bit signed        [31:0]  B;
+	protected operation_t         op_set;
+	protected bit                 crc_ok;
+	protected bit         [3:0]   data_len;
+	protected bit         [3:0]   expected_flag;
 
 	covergroup op_cov;
 
@@ -227,28 +226,22 @@ class coverage extends uvm_component;
 		flags_cov                   = new();
 	endfunction : new
 
-	function void build_phase(uvm_phase phase);
-		if(!uvm_config_db #(virtual alu_bfm)::get(null, "*","bfm", bfm))
-			$fatal(1,"Failed to get BFM");
-	endfunction : build_phase
 
 
-	task run_phase(uvm_phase phase);
-		forever begin : sample_cov
-			@(posedge bfm.clk);
-			A      = bfm.A;
-			B      = bfm.B;
-			op_set = bfm.op_set;
-			data_len=bfm.data_len;
-			crc_ok=bfm.crc_ok;
-			expected_flag=bfm.expected_flag;
-			errors_cov.sample();
-			op_cov.sample();
-			zeros_or_ones_on_ops.sample();
-			flags_cov.sample();
-		end
-	endtask
 
+	function void write(command_s t);
+
+		A      = t.A;
+		B      = t.B;
+		op_set = t.op;
+		data_len=t.data_len;
+		crc_ok=t.crc_ok;
+		expected_flag=t.expected_flag;
+		errors_cov.sample();
+		op_cov.sample();
+		zeros_or_ones_on_ops.sample();
+		flags_cov.sample();
+	endfunction : write
 
 
 endclass

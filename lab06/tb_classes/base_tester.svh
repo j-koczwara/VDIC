@@ -26,62 +26,48 @@ virtual class base_tester extends uvm_component;
 //`endif
 //`endif
 
-	`uvm_component_utils(base_tester)
+	//`uvm_component_utils(base_tester)
+	uvm_put_port #(command_s) command_port;
 
-	virtual alu_bfm bfm;
 
 	function new (string name, uvm_component parent);
 		super.new(name, parent);
 	endfunction : new
 
 	function void build_phase(uvm_phase phase);
-		if(!uvm_config_db #(virtual alu_bfm)::get(null, "*","bfm", bfm))
-			$fatal(1,"Failed to get BFM");
+		command_port = new("command_port", this);
 	endfunction : build_phase
 
-	pure virtual function operation_t get_op();
 
-	pure virtual function [31:0] get_data();
-	pure virtual function bit [3:0] get_data_len();
-	pure virtual function bit [98:0] get_vector_to_send(bit [63:0] BA, operation_t OP, bit [3:0] crc, bit [4:0] data_len );
-	pure virtual function [4:0] get_crc(bit [31:0] A, bit [31:0] B, operation_t OP);
-	
+
+	protected pure virtual function operation_t get_op();
+
+	protected pure virtual function [31:0] get_data();
+	protected pure virtual function bit [3:0] get_data_len();
+	protected pure virtual function [4:0] get_crc(bit [31:0] A, bit [31:0] B, operation_t OP);
+
 	task run_phase(uvm_phase phase);
-		bit [98:0] iVector;
-		bit signed    [31:0]  iA;
-		bit signed        [31:0]  iB;
-		operation_t op_set;
-		bit         [3:0]   crc;
-		bit                 crc_ok;
-		//bit         [98:0]  data_in;
-		bit         [63:0]  BA;
+	
 		bit         [3:0]   idata_len;
 		bit        [10:0]  result [4:0];
-
+		command_s command;
 		phase.raise_objection(this);
-
-		bfm.reset_alu();
+		command.op = reset_op;
+		command_port.put(command);
 
 		repeat (10000) begin : tester_main
 
-			op_set        = get_op();
-			iA             = get_data();
-			iB             = get_data();
-			{crc, crc_ok} = get_crc(iA,iB,op_set);
-			idata_len      = get_data_len();
-			BA={iB,iA};
-			iVector = get_vector_to_send(BA, op_set, crc, idata_len );
-			bfm.A      = iA;
-			bfm.B      = iB;
-			bfm.crc_ok = crc_ok;
-			bfm.send_op(iVector, idata_len,  op_set);
+			command.op            = get_op();
+			command.A             = get_data();
+			command.B             = get_data();
+			{command.crc, command.crc_ok} = get_crc(command.A ,command.B,command.op);
+			command.data_len      = get_data_len();
+			command_port.put(command);
 
-
-			if($get_coverage() == 100) break;
 		end: tester_main
-		
 
-//      #500;
+
+		#500;
 
 		phase.drop_objection(this);
 

@@ -13,24 +13,32 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-class add_tester extends random_tester;
+class result_monitor extends uvm_component;
+    `uvm_component_utils(result_monitor)
 
-    `uvm_component_utils(add_tester)
+    uvm_analysis_port #(result_s) ap;
 
-    function operation_t get_op();
-        return add_op;
-    endfunction : get_op
-    
-    function [31:0] get_data();
-		randcase
-			50:     return '0;
-			50:     return '1;
-		endcase
+    function void write_to_monitor(result_s r);
+//        $display ("RESULT MONITOR: resultA: 0x%0h",r);
+        ap.write(r);
+    endfunction : write_to_monitor
 
-	endfunction : get_data
+    function void build_phase(uvm_phase phase);
+        virtual alu_bfm bfm;
+        if(!uvm_config_db #(virtual alu_bfm)::get(null, "*","bfm", bfm))
+            $fatal(1, "Failed to get BFM");
+        bfm.result_monitor_h = this;
+        ap                   = new("ap",this);
+    endfunction : build_phase
 
     function new (string name, uvm_component parent);
         super.new(name, parent);
     endfunction : new
 
-endclass : add_tester
+endclass : result_monitor
+
+
+
+
+
+

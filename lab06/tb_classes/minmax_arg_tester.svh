@@ -18,7 +18,7 @@ class minmax_arg_tester extends random_tester;
     `uvm_component_utils(minmax_arg_tester)
 
     
-    function [31:0] get_data();
+    protected function [31:0] get_data();
 		randcase
 			50:     return '0;
 			50:     return '1;
