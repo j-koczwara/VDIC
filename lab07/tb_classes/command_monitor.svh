@@ -16,10 +16,10 @@
 class command_monitor extends uvm_component;
     `uvm_component_utils(command_monitor)
 
-    uvm_analysis_port #(command_s) ap;
-
-    function void build_phase(uvm_phase phase);
-        virtual alu_bfm bfm;
+    uvm_analysis_port #(random_command) ap;
+	virtual alu_bfm bfm;
+	
+    function void build_phase(uvm_phase phase);        
 
         if(!uvm_config_db #(virtual alu_bfm)::get(null, "*","bfm", bfm))
             $fatal(1, "Failed to get BFM");
@@ -30,9 +30,21 @@ class command_monitor extends uvm_component;
 
     endfunction : build_phase
 
-    function void write_to_monitor(command_s cmd);
+    function void write_to_monitor(bit [31:0] A, bit [31:0] B, operation_t op, bit   crc_ok, bit [3:0]   data_len,
+		bit  [3:0]   expected_flag);
+	    random_command cmd;
+	    cmd = new("cmd");
+	    cmd.A  = A;
+        cmd.B  = B;
+        cmd.op = op;
+	    cmd.crc_ok =crc_ok;
 
+	    cmd.data_len = data_len;
+	    cmd.expected_flag = expected_flag;
+	 //   cmd.done = done;
+	   
         ap.write(cmd);
+	    
     endfunction : write_to_monitor
 
     function new (string name, uvm_component parent);

@@ -41,6 +41,10 @@ DEBUG=""
 RUN_IMC=""
 start_time=0
 time_report=""
+# PASSED="PASSED"
+# FAILED="FAILED"
+PASSED="\033[32m\033[107mPASSED\033[0m"
+FAILED="\033[31m\033[107mFAILED\033[0m"
 #>>>
 #------------------------------------------------------------------------------
 # check input script arguments and env#<<<

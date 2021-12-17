@@ -20,14 +20,10 @@
 // irun requires abstract class when using virtual functions
 // note: irun warns about the virtual class instantiation, this will be an
 // error in future releases.
-virtual class base_tester extends uvm_component;
-//`else
-//class base_tester extends uvm_component;
-//`endif
-//`endif
+class tester extends uvm_component;
+	`uvm_component_utils (tester)
 
-	//`uvm_component_utils(base_tester)
-	uvm_put_port #(command_s) command_port;
+	uvm_put_port #(random_command) command_port;
 
 
 	function new (string name, uvm_component parent);
@@ -39,30 +35,23 @@ virtual class base_tester extends uvm_component;
 	endfunction : build_phase
 
 
-
-	protected pure virtual function operation_t get_op();
-
-	protected pure virtual function [31:0] get_data();
-	protected pure virtual function bit [3:0] get_data_len();
-	protected pure virtual function [4:0] get_crc(bit [31:0] A, bit [31:0] B, operation_t OP);
-
 	task run_phase(uvm_phase phase);
-	
-		bit         [3:0]   idata_len;
-		bit        [10:0]  result [4:0];
-		command_s command;
+
+		random_command command;
+
 		phase.raise_objection(this);
+
+		command = new("command");
 		command.op = reset_op;
 		command_port.put(command);
 
-		repeat (10000) begin : tester_main
+		command = random_command::type_id::create("command");
 
-			command.op            = get_op();
-			command.A             = get_data();
-			command.B             = get_data();
-			{command.crc, command.crc_ok} = get_crc(command.A ,command.B,command.op);
-			command.data_len      = get_data_len();
+		repeat (10) begin : tester_main
+
+			assert(command.randomize());
 			command_port.put(command);
+
 
 		end: tester_main
 
@@ -74,4 +63,4 @@ virtual class base_tester extends uvm_component;
 	endtask : run_phase
 
 
-endclass : base_tester
+endclass : tester

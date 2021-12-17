@@ -1,10 +1,20 @@
 
-class scoreboard extends uvm_subscriber #(result_s);
+class scoreboard extends uvm_subscriber #(result_transaction);
 	`uvm_component_utils(scoreboard)
 
+//------------------------------------------------------------------------------
+// local typedefs
+//------------------------------------------------------------------------------
+
+	typedef enum bit {
+		TEST_PASSED,
+		TEST_FAILED
+	} test_result;
+
+	protected test_result tr = TEST_PASSED; // the result of the current test
 
 	virtual alu_bfm bfm;
-	uvm_tlm_analysis_fifo #(command_s) cmd_f;
+	uvm_tlm_analysis_fifo #(random_command) cmd_f;
 
 	function new (string name, uvm_component parent);
 		super.new(name, parent);
@@ -46,7 +56,7 @@ class scoreboard extends uvm_subscriber #(result_s);
 	protected function error_flag get_expected_error(bit crc_ok, bit [3:0] data_len, operation_t OP);
 		error_flag error;
 		begin
-			error = CHECK_ERROR;
+			error = NO_ERROR;
 			if (data_len!=8)
 				error= ERR_DATA;
 			else if (crc_ok==0)
@@ -65,8 +75,29 @@ class scoreboard extends uvm_subscriber #(result_s);
 //------------------------------------------------------------------------------
 
 
+//------------------------------------------------------------------------------
+// print the PASSED/FAILED in color
+//------------------------------------------------------------------------------
+	protected function void print_test_result (test_result r);
+		if(tr == TEST_PASSED) begin
+			set_print_color(COLOR_BOLD_BLACK_ON_GREEN);
+			$write ("-----------------------------------\n");
+			$write ("----------- Test PASSED -----------\n");
+			$write ("-----------------------------------");
+			set_print_color(COLOR_DEFAULT);
+			$write ("\n");
+		end
+		else begin
+			set_print_color(COLOR_BOLD_BLACK_ON_RED);
+			$write ("-----------------------------------\n");
+			$write ("----------- Test FAILED -----------\n");
+			$write ("-----------------------------------");
+			set_print_color(COLOR_DEFAULT);
+			$write ("\n");
+		end
+	endfunction
 
-
+//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 // get expected data function
@@ -85,76 +116,59 @@ class scoreboard extends uvm_subscriber #(result_s);
 		end
 	endfunction
 
+
+	protected function result_transaction predict_result(random_command cmd);
+		result_transaction predicted; //TODO
+		predicted = new ("predicted");
+		predicted.error_flag = get_expected_error(cmd.crc_ok, cmd.data_len, cmd.op);
+		if(cmd.crc_ok==1'b0 || cmd.data_len!=8 || cmd.op==notused2_op || cmd.op==notused3_op ) begin
+			predicted.data_type = 2'b01;
+			predicted.C_data = get_expected_data(cmd.A, cmd.B, cmd.op);
+			predicted.flag_out = cmd.expected_flag;
+			predicted.CRC37 = CRC37(predicted.C_data, cmd.expected_flag);
+		end
+		else begin
+			predicted.data_type = 2'b00;
+			predicted.C_data = '0;
+			predicted.flag_out = '0;
+			predicted.CRC37 = '0;
+		end
+	endfunction
 //------------------------------------------------------------------------------
 // Scoreboard
 //------------------------------------------------------------------------------
-	function void write(result_s t );
-		command_s cmd;
-		error_flag                error_expected;
-		bit signed        [31:0]  C;
-		bit         [3:0]   flag_out;
-		bit         [3:0]   expected_flag;
-		cmd.op = notused2_op;
-		
-		expected_flag = cmd.expected_flag;
-		
-		if(cmd.done) begin:verify_result
-			cmd.done<=1'b0;
+	function void write(result_transaction t );
+		string data_str;
+		random_command cmd;
+		result_transaction predicted;
+		$display("sc");
+		do
+			if (!cmd_f.try_get(cmd))
+				$fatal(1, "Missing command in self checker");
+		while ((cmd.op == notused2_op) || (cmd.op == reset_op)|| (cmd.op == notused3_op));
+		predicted = predict_result(cmd);
 
-			if(cmd.crc_ok==1'b0 || cmd.data_len!=8 || cmd.op==notused2_op || cmd.op==notused3_op ) begin //error expected
-				error_expected=get_expected_error(cmd.crc_ok, cmd.data_len, cmd.op);
-				assert(t.data_type === 2'b01 )begin //Error check
-					//$display("Test failed for data_type = %2b", t.data_type );
-					assert(t.error_flag === error_expected) begin
-								
-					end
-					else begin								
-						$display("FAILED");
-					end
-				end
-				else begin							
-					$display("FAILED");
-				end
+		data_str  = { cmd.convert2string(),
+			" ==>  Actual " , t.convert2string(),
+			"/Predicted ",predicted.convert2string()};
 
-			end
-			else begin
-				if (t.data_type == 2'b00 )begin
-					C=t.C_data;
-					flag_out=t.flag_out;
-
-					assert(get_expected_data(cmd.A, cmd.B, cmd.op)==C)begin //Data check
-							
-					end
-					else begin							
-						$display("FAILED");
-					end
-					assert(expected_flag==flag_out)begin //Flag check
-							
-					end
-					else begin							
-						$display("FAILED");
-					end
-					assert(CRC37(C, flag_out)==t.CRC37)begin //CRC check
-								
-					end
-					else begin
-							 
-						$display("FAILED");
-					end
-				end
-				else begin
-					$display("FAILED");
-					$finish;
-				end
-
-			end
-
-
-		end: verify_result
-
+		if (!predicted.compare(t)) begin
+			`uvm_error("SELF CHECKER", {"FAIL: ",data_str})
+			tr = TEST_FAILED;
+		end
+		else
+			`uvm_info ("SELF CHECKER", {"PASS: ", data_str}, UVM_HIGH)
 
 	endfunction
 
+//------------------------------------------------------------------------------
+// report phase
+//------------------------------------------------------------------------------
+
+	function void report_phase(uvm_phase phase);
+		super.report_phase(phase);
+		print_test_result(tr);
+	endfunction : report_phase
 
 endclass
 

@@ -1,5 +1,6 @@
+import alu_pkg::*;
 interface alu_bfm;
-	import alu_pkg::*;
+
 
 	bit signed        [31:0]  A;
 	bit signed        [31:0]  B;
@@ -13,7 +14,7 @@ interface alu_bfm;
 	wire sout;
 	bit                 done;
 	bit         [10:0]  result [4:0];
-	bit         [10:0]  data_package=11'b00111111111;
+
 	bit         [3:0]   expected_flag;
 
 	error_flag                error_flag_out;
@@ -23,6 +24,9 @@ interface alu_bfm;
 	bit         [1:0]         data_type;
 
 	bit start;
+
+	command_monitor command_monitor_h;
+	result_monitor result_monitor_h;
 
 	initial begin
 		clk = 0;
@@ -45,6 +49,55 @@ interface alu_bfm;
 	endtask
 
 //------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+// CRC68 function
+//------------------------------------------------------------------------------
+
+	function [3:0] CRC68(bit [31:0] A, bit [31:0] B, operation_t OP);
+
+		reg [67:0] d;
+		reg [3:0]  c;
+		reg [3:0]  newcrc;
+		begin
+			d = {B, A, 1'b1, OP};
+			c = '0;
+
+			newcrc[0] = d[66] ^ d[64] ^ d[63] ^ d[60] ^ d[56] ^ d[55] ^ d[54] ^ d[53] ^ d[51] ^ d[49] ^ d[48] ^ d[45] ^ d[41] ^ d[40] ^ d[39] ^ d[38] ^ d[36] ^ d[34] ^ d[33] ^ d[30] ^ d[26] ^ d[25] ^ d[24] ^ d[23] ^ d[21] ^ d[19] ^ d[18] ^ d[15] ^ d[11] ^ d[10] ^ d[9] ^ d[8] ^ d[6] ^ d[4] ^ d[3] ^ d[0] ^ c[0] ^ c[2];
+			newcrc[1] = d[67] ^ d[66] ^ d[65] ^ d[63] ^ d[61] ^ d[60] ^ d[57] ^ d[53] ^ d[52] ^ d[51] ^ d[50] ^ d[48] ^ d[46] ^ d[45] ^ d[42] ^ d[38] ^ d[37] ^ d[36] ^ d[35] ^ d[33] ^ d[31] ^ d[30] ^ d[27] ^ d[23] ^ d[22] ^ d[21] ^ d[20] ^ d[18] ^ d[16] ^ d[15] ^ d[12] ^ d[8] ^ d[7] ^ d[6] ^ d[5] ^ d[3] ^ d[1] ^ d[0] ^ c[1] ^ c[2] ^ c[3];
+			newcrc[2] = d[67] ^ d[66] ^ d[64] ^ d[62] ^ d[61] ^ d[58] ^ d[54] ^ d[53] ^ d[52] ^ d[51] ^ d[49] ^ d[47] ^ d[46] ^ d[43] ^ d[39] ^ d[38] ^ d[37] ^ d[36] ^ d[34] ^ d[32] ^ d[31] ^ d[28] ^ d[24] ^ d[23] ^ d[22] ^ d[21] ^ d[19] ^ d[17] ^ d[16] ^ d[13] ^ d[9] ^ d[8] ^ d[7] ^ d[6] ^ d[4] ^ d[2] ^ d[1] ^ c[0] ^ c[2] ^ c[3];
+			newcrc[3] = d[67] ^ d[65] ^ d[63] ^ d[62] ^ d[59] ^ d[55] ^ d[54] ^ d[53] ^ d[52] ^ d[50] ^ d[48] ^ d[47] ^ d[44] ^ d[40] ^ d[39] ^ d[38] ^ d[37] ^ d[35] ^ d[33] ^ d[32] ^ d[29] ^ d[25] ^ d[24] ^ d[23] ^ d[22] ^ d[20] ^ d[18] ^ d[17] ^ d[14] ^ d[10] ^ d[9] ^ d[8] ^ d[7] ^ d[5] ^ d[3] ^ d[2] ^ c[1] ^ c[3];
+
+			return newcrc;
+		end
+	endfunction
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+// get crc function
+//------------------------------------------------------------------------------
+
+	function [3:0] get_crc(bit [31:0] A, bit [31:0] B, operation_t OP, bit crc_ok);
+		begin
+			bit [3:0] crc_out;
+			bit [3:0] crc_68;
+			crc_68 = CRC68(A,B,OP);
+			crc_out = 4'($random);
+			if (crc_ok == 1'b1) begin
+				return crc_68;
+			end
+			else begin
+				if(crc_out == crc_68)
+					return ~crc_out;
+				else
+					return crc_out;
+			end
+		end
+	endfunction
+
+//------------------------------------------------------------------------------
+
 
 //------------------------------------------------------------------------------
 // get expected flag function
@@ -110,16 +163,19 @@ interface alu_bfm;
 
 	function error_flag get_error(bit [10:0] P);
 		begin
-			if(^P[8:1]===0)
-				case(P[7:2])
-					6'b001001: return ERR_OP;
-					6'b100100: return ERR_DATA;
-					6'b010010: return ERR_CRC;
-
-					default:   return CHECK_ERROR;
-				endcase
+			if(P[10:9]=== 2'b00)
+				return NO_ERROR;
 			else
-				return CHECK_ERROR;
+				if(^P[8:1]===0)
+					case(P[7:2])
+						6'b001001: return ERR_OP;
+						6'b100100: return ERR_DATA;
+						6'b010010: return ERR_CRC;
+
+						default:   return NO_ERROR;
+					endcase
+				else
+					return NO_ERROR;
 		end
 
 	endfunction
@@ -170,20 +226,22 @@ interface alu_bfm;
 
 //------------------------------------------------------------------------------
 
-	task send_op(bit [31:0] iA, bit [31:0] iB, bit [3:0] crc, bit icrc_ok,  input bit [3:0] idata_len, input operation_t iop);
+	task send_op(bit [31:0] iA, bit [31:0] iB,  bit icrc_ok,  input bit [3:0] idata_len, input operation_t iop);
 
 		bit         [98:0]  data_in;
 		bit [63:0] BA;
-
-		A=iA;
-		B=iB;
-		BA={B,A};
+		bit [3:0] crc;
+		static bit         [10:0]  data_package=11'b00111111111;
+		A = iA;
+		B = iB;
+		BA = {B,A};
 		op_set = iop;
 		data_len = idata_len;
-		crc_ok =icrc_ok;
+		crc_ok = icrc_ok;
+		crc = get_crc(iA, iB, iop, icrc_ok);
 		data_in = get_vector_to_send(BA, iop, crc, idata_len );
 		expected_flag = get_expected_flag(iA, iB, iop);
-		
+
 		start= 1'b1;
 		@(posedge clk);
 
@@ -221,13 +279,22 @@ interface alu_bfm;
 					if(result[i][10]===0 && result[i][9]===1 )
 						break;
 				end
-				error_flag_out = get_error(result[0]);
-				C_data = get_C_data(result);
-				flag_out = get_flag(result[4]);
-				CRC37 = result[4][3:1];
 				data_type = {result[0][10], result[0][9]};
+				error_flag_out = get_error(result[0]);
+				if ( data_type === 2'b00 || data_type === 2'b10) begin
+					C_data = get_C_data(result);
+					flag_out = get_flag(result[4]);
+					CRC37 = result[4][3:1];
+				end
+				else begin
+					C_data = '0;
+					flag_out = '0;
+					CRC37 = '0;
+				end
+		
 				done=1'b1;
-				@(negedge clk);
+		
+				
 			end
 		endcase
 
@@ -235,26 +302,20 @@ interface alu_bfm;
 
 	endtask : send_op
 
-	command_monitor command_monitor_h;
+
 
 
 
 
 	always @(posedge clk) begin : op_monitor
 		static bit in_command = 0;
-		command_s command;
+		random_command command;
 		if (start) begin : start_high
 			if (!in_command) begin : new_command
-				command.A  <= A;
-				command.B  <= B;
-				command.op <= op_set;
-				command.crc_ok <= crc_ok;
-				command.data_len <= data_len;
-				command.done <= done;
-				command.expected_flag <= expected_flag;
 
-				command_monitor_h.write_to_monitor(command);
-				in_command = (command.op != notused2_op || command.op != notused3_op);
+				command_monitor_h.write_to_monitor(A,  B,  op_set,  crc_ok,  data_len,
+					expected_flag);
+				in_command = (op_set != notused2_op || op_set != notused3_op);
 			end : new_command
 		end : start_high
 
@@ -263,26 +324,24 @@ interface alu_bfm;
 	end : op_monitor
 
 	always @(negedge rst_n) begin : rst_monitor
-		command_s command;
-		command.op <= reset_op;
+		random_command command;
+		//command.op <= reset_op;
 		if (command_monitor_h != null) //guard against VCS time 0 negedge
-			command_monitor_h.write_to_monitor(command);
+			command_monitor_h.write_to_monitor(A,  B,  reset_op,  crc_ok,  data_len,
+				expected_flag);
 	end : rst_monitor
 
-	result_monitor result_monitor_h;
+
 
 	initial begin : result_monitor_thread
-		result_s rslt;
 		forever begin
 			@(posedge clk) ;
 			if (done) begin
-				rslt.C_data=C_data;
-				rslt.CRC37 = CRC37;
-				rslt.error_flag = error_flag_out;
-				rslt.flag_out = flag_out;
-				rslt.data_type = data_type;
-				result_monitor_h.write_to_monitor(rslt);
-				done = 1'b0;
+				$display("thr");
+				result_monitor_h.write_to_monitor( error_flag_out, C_data, flag_out, CRC37, data_type);
+				$display("done");
+				@(negedge done);
+
 			end
 		end
 	end : result_monitor_thread
