@@ -20,8 +20,8 @@ class random_command extends uvm_transaction;
 // transaction variables
 //------------------------------------------------------------------------------
 
-	rand bit [31:0]  A;
-	rand bit [31:0]  B;
+	rand bit signed [31:0]  A;
+	rand bit signed [31:0]  B;
 	rand operation_t op;
 	rand bit         crc_ok;
 	rand bit         [3:0]   data_len; 
@@ -33,8 +33,8 @@ class random_command extends uvm_transaction;
 //------------------------------------------------------------------------------
 
 	constraint data {
-		A dist {0:=1, [32'h00 : 32'hFFFFFFFE]:=1, 32'hFFFFFFFF:=1};
-		B dist {0:=1, [32'h00 : 32'hFFFFFFFE]:=1, 32'hFFFFFFFF:=1};
+		A dist {32'h00000000:=1, [32'h00000001 : 32'hFFFFFFFE]:=1,-1:=1};
+		B dist {32'h00000000:=1, [32'h00000001 : 32'hFFFFFFFE]:=1,-1:=1};
 		data_len dist {7:=1, 8:=8, 9:=1};
 		crc_ok dist   {0:=1, 1:=9};
 	}
@@ -60,7 +60,6 @@ class random_command extends uvm_transaction;
 		crc_ok = copied_transaction_h.crc_ok;
 		data_len = copied_transaction_h.data_len;
 		expected_flag = copied_transaction_h.expected_flag;
-		//done = copied_transaction_h.done;
 
 	endfunction : do_copy
 
@@ -95,7 +94,6 @@ class random_command extends uvm_transaction;
 			(compared_transaction_h.crc_ok == crc_ok)&&
 			(compared_transaction_h.data_len == data_len)&&
 			(compared_transaction_h.expected_flag == expected_flag);
-//			(compared_transaction_h.done == done);
 
 		return same;
 
@@ -104,7 +102,7 @@ class random_command extends uvm_transaction;
 
 	function string convert2string();
 		string s;
-		s = $sformatf("A: %2h  B: %2h op: %s", A, B, op.name());
+		s = $sformatf("A: %h  B: %h op: %s, data_len: %d, crc_ok: %b", A, B, op.name(), data_len, crc_ok );
 		return s;
 	endfunction : convert2string
 

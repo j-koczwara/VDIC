@@ -12,7 +12,8 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 	} test_result;
 
 	protected test_result tr = TEST_PASSED; // the result of the current test
-
+protected bit         [3:0]   expected_flag; //TODO
+	
 	virtual alu_bfm bfm;
 	uvm_tlm_analysis_fifo #(random_command) cmd_f;
 
@@ -118,21 +119,23 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 
 
 	protected function result_transaction predict_result(random_command cmd);
-		result_transaction predicted; //TODO
+		result_transaction predicted; 
 		predicted = new ("predicted");
 		predicted.error_flag = get_expected_error(cmd.crc_ok, cmd.data_len, cmd.op);
 		if(cmd.crc_ok==1'b0 || cmd.data_len!=8 || cmd.op==notused2_op || cmd.op==notused3_op ) begin
-			predicted.data_type = 2'b01;
-			predicted.C_data = get_expected_data(cmd.A, cmd.B, cmd.op);
-			predicted.flag_out = cmd.expected_flag;
-			predicted.CRC37 = CRC37(predicted.C_data, cmd.expected_flag);
-		end
-		else begin
-			predicted.data_type = 2'b00;
+			predicted.data_type = 2'b01;			
 			predicted.C_data = '0;
 			predicted.flag_out = '0;
 			predicted.CRC37 = '0;
 		end
+		else begin
+			predicted.data_type = 2'b00;
+			predicted.C_data = get_expected_data(cmd.A, cmd.B, cmd.op);
+			predicted.flag_out = cmd.expected_flag;
+			expected_flag = cmd.expected_flag; //TODO
+			predicted.CRC37 = CRC37(predicted.C_data, cmd.expected_flag);
+		end
+		return predicted;
 	endfunction
 //------------------------------------------------------------------------------
 // Scoreboard
@@ -141,11 +144,11 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 		string data_str;
 		random_command cmd;
 		result_transaction predicted;
-		$display("sc");
+		$display("sc"); //TODO
 		do
 			if (!cmd_f.try_get(cmd))
 				$fatal(1, "Missing command in self checker");
-		while ((cmd.op == notused2_op) || (cmd.op == reset_op)|| (cmd.op == notused3_op));
+		while ((cmd.op == reset_op));
 		predicted = predict_result(cmd);
 
 		data_str  = { cmd.convert2string(),

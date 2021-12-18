@@ -53,7 +53,7 @@ class result_transaction extends uvm_transaction;
 
 	function string convert2string();
 		string s;
-		s = $sformatf("C_data: %h, error_flag: %h, flag_out: %h, CRC37: %h, data_type: %b ",C_data, error_flag, flag_out, CRC37, data_type ); 
+		s = $sformatf("C_data: %h, error_flag: %b, flag_out: %b, CRC37: %h, data_type: %b ",C_data, error_flag, flag_out, CRC37, data_type ); 
 		return s;
 	endfunction : convert2string
 

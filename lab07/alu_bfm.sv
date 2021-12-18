@@ -243,15 +243,14 @@ interface alu_bfm;
 		expected_flag = get_expected_flag(iA, iB, iop);
 
 		start= 1'b1;
-		@(posedge clk);
-
+		
 		case(op_set==reset_op)
 			1: begin
 				reset_alu();
 			end
 			default:begin
 				@(posedge clk);
-				start = 1'b0;
+
 				//data_in=iVector;
 				for (int i = 0; i < (11*(data_len%9)); i++) begin: serial_send
 					@(negedge clk);
@@ -267,7 +266,7 @@ interface alu_bfm;
 						@(negedge clk);
 						sin = data_in[10-i];
 					end
-
+				start = 1'b0;
 
 				result='{default:0};
 				@(negedge sout);
@@ -291,10 +290,10 @@ interface alu_bfm;
 					flag_out = '0;
 					CRC37 = '0;
 				end
-		
+				@(negedge clk);
 				done=1'b1;
-		
-				
+
+
 			end
 		endcase
 
@@ -303,14 +302,11 @@ interface alu_bfm;
 	endtask : send_op
 
 
-
-
-
-
 	always @(posedge clk) begin : op_monitor
 		static bit in_command = 0;
 		random_command command;
 		if (start) begin : start_high
+			@(posedge clk);
 			if (!in_command) begin : new_command
 
 				command_monitor_h.write_to_monitor(A,  B,  op_set,  crc_ok,  data_len,
@@ -327,7 +323,7 @@ interface alu_bfm;
 		random_command command;
 		//command.op <= reset_op;
 		if (command_monitor_h != null) //guard against VCS time 0 negedge
-			command_monitor_h.write_to_monitor(A,  B,  reset_op,  crc_ok,  data_len,
+			command_monitor_h.write_to_monitor(A,  B,  reset_op,  1'b1,  8,
 				expected_flag);
 	end : rst_monitor
 
@@ -337,10 +333,9 @@ interface alu_bfm;
 		forever begin
 			@(posedge clk) ;
 			if (done) begin
-				$display("thr");
 				result_monitor_h.write_to_monitor( error_flag_out, C_data, flag_out, CRC37, data_type);
-				$display("done");
-				@(negedge done);
+				
+				done=1'b0;
 
 			end
 		end
