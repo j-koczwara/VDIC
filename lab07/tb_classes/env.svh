@@ -44,18 +44,13 @@ class env extends uvm_env;
 	endfunction : build_phase
 
 	function void connect_phase(uvm_phase phase);
-		/*driver_h.command_port.connect(command_f.get_export);
-		tester_h.command_port.connect(command_f.put_export);
-		result_monitor_h.ap.connect(scoreboard_h.analysis_export);
-		command_monitor_h.ap.connect(scoreboard_h.cmd_f.analysis_export);
-		command_monitor_h.ap.connect(coverage_h.analysis_export);*/
-	
-		//TODO
+
 		driver_h.command_port.connect(command_f.get_export);
         tester_h.command_port.connect(command_f.put_export);
-        command_f.put_ap.connect(coverage_h.analysis_export);
+        command_monitor_h.ap.connect(coverage_h.analysis_export);
         command_monitor_h.ap.connect(scoreboard_h.cmd_f.analysis_export);
         result_monitor_h.ap.connect(scoreboard_h.analysis_export);
+		
 	endfunction : connect_phase
 
 	function void end_of_elaboration_phase(uvm_phase phase);

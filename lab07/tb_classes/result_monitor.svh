@@ -40,7 +40,6 @@ class result_monitor extends uvm_component;
 
 
 		result_transaction result_t;
-		$display("monitor");
 		result_t        = new("result_t");
 		result_t.error_flag = error_flag;
 		result_t.C_data = C_data;
@@ -48,7 +47,6 @@ class result_monitor extends uvm_component;
 		result_t.CRC37 = CRC37;
 		result_t.data_type = data_type;
 		ap.write(result_t);
-		$display("done");
 	endfunction : write_to_monitor
 
 

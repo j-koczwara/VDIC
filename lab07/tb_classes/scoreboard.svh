@@ -12,7 +12,7 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 	} test_result;
 
 	protected test_result tr = TEST_PASSED; // the result of the current test
-protected bit         [3:0]   expected_flag; //TODO
+
 	
 	virtual alu_bfm bfm;
 	uvm_tlm_analysis_fifo #(random_command) cmd_f;
@@ -132,7 +132,6 @@ protected bit         [3:0]   expected_flag; //TODO
 			predicted.data_type = 2'b00;
 			predicted.C_data = get_expected_data(cmd.A, cmd.B, cmd.op);
 			predicted.flag_out = cmd.expected_flag;
-			expected_flag = cmd.expected_flag; //TODO
 			predicted.CRC37 = CRC37(predicted.C_data, cmd.expected_flag);
 		end
 		return predicted;
@@ -144,7 +143,6 @@ protected bit         [3:0]   expected_flag; //TODO
 		string data_str;
 		random_command cmd;
 		result_transaction predicted;
-		$display("sc"); //TODO
 		do
 			if (!cmd_f.try_get(cmd))
 				$fatal(1, "Missing command in self checker");

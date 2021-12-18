@@ -26,15 +26,15 @@ class random_command extends uvm_transaction;
 	rand bit         crc_ok;
 	rand bit         [3:0]   data_len; 
 	bit         [3:0]   expected_flag;
-	//bit                 done;
+	
 
 //------------------------------------------------------------------------------
 // constraints
 //------------------------------------------------------------------------------
 
 	constraint data {
-		A dist {32'h00000000:=1, [32'h00000001 : 32'hFFFFFFFE]:=1,-1:=1};
-		B dist {32'h00000000:=1, [32'h00000001 : 32'hFFFFFFFE]:=1,-1:=1};
+		A dist {32'h00000000:=1, [32'h00000001 : 32'hFFFFFFFE]:/1,-1:=1};
+		B dist {32'h00000000:=1, [32'h00000001 : 32'hFFFFFFFE]:/1,-1:=1};
 		data_len dist {7:=1, 8:=8, 9:=1};
 		crc_ok dist   {0:=1, 1:=9};
 	}

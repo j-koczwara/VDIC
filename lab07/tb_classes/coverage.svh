@@ -236,8 +236,7 @@ class coverage extends uvm_subscriber #(random_command);
 		op_set = t.op;
 		data_len=t.data_len;
 		crc_ok=t.crc_ok;
-		expected_flag=t.expected_flag;//TODO
-		$display("expected flag:%4b", expected_flag);
+		expected_flag=t.expected_flag;
 		errors_cov.sample();
 		op_cov.sample();
 		zeros_or_ones_on_ops.sample();
