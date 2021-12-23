@@ -2,18 +2,31 @@ module top;
 	import uvm_pkg::*;
 	import alu_pkg::*;
 	`include "uvm_macros.svh"
-	
-	mtm_Alu u_mtm_Alu (
-		.clk  (bfm.clk), //posedge active clock
-		.rst_n(bfm.rst_n), //synchronous reset active low
-		.sin  (bfm.sin), //serial data input
-		.sout (bfm.sout) //serial data output
+
+	alu_bfm    class_bfm();
+
+	mtm_Alu class_u_mtm_Alu (
+		.clk  (class_bfm.clk), //posedge active clock
+		.rst_n(class_bfm.rst_n), //synchronous reset active low
+		.sin  (class_bfm.sin), //serial data input
+		.sout (class_bfm.sout) //serial data output
 	);
-	alu_bfm    bfm();
+	alu_bfm    module_bfm();
+	
+	mtm_Alu module_u_mtm_Alu (
+		.clk  (module_bfm.clk), //posedge active clock
+		.rst_n(module_bfm.rst_n), //synchronous reset active low
+		.sin  (module_bfm.sin), //serial data input
+		.sout (module_bfm.sout) //serial data output
+	);
+// stimulus generator for module_dut
+		alu_tester_module stim_module(module_bfm);
 
-	initial begin
-		uvm_config_db #(virtual alu_bfm)::set(null, "*", "bfm", bfm);
-		run_test();
-	end
 
-endmodule : top
+		initial begin
+		uvm_config_db #(virtual alu_bfm)::set(null, "*", "class_bfm", class_bfm);
+		uvm_config_db #(virtual alu_bfm)::set(null, "*", "module_bfm", module_bfm);
+		run_test("dual_test");
+		end
+
+		endmodule : top

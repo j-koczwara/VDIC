@@ -24,10 +24,17 @@ class result_monitor extends uvm_component;
 	endfunction : new
 	
 	function void build_phase(uvm_phase phase);
-		if(!uvm_config_db #(virtual alu_bfm)::get(null, "*","bfm", bfm))
-			`uvm_fatal("RESULT MONITOR", "Failed to get BFM")
-		bfm.result_monitor_h = this;
-		ap                   = new("ap",this);
+		
+        // get the bfm 
+        alu_agent_config alu_agent_config_h;
+        if(!uvm_config_db #(alu_agent_config)::get(this, "","config", alu_agent_config_h))
+            `uvm_fatal("RESULT MONITOR", "Failed to get CONFIG");
+
+        // pass the result_monitor handler to the BFM
+        alu_agent_config_h.bfm.result_monitor_h = this;
+		
+        ap = new("ap",this);
+		
 	endfunction : build_phase
 
 	function void write_to_monitor(error_flag   error_flag,
