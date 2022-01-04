@@ -1,0 +1,109 @@
+Operating system: Linux
+                  0.0.0 Linux 2.6.32-754.33.1.el6.x86_64 #1 SMP Tue Aug 25 15:29:40 UTC 2020 x86_64
+CPU: x86
+     GenuineIntel family 6 model 85 stepping 4
+     1 CPU
+
+GPU: UNKNOWN
+
+Crash reason:  DUMP_REQUESTED
+Crash address: 0xf75a48ab
+Process uptime: not available
+
+Thread 0 (crashed)
+ 0  libcbreakpad.so + 0x298ab
+    eip = 0xf75a48ab   esp = 0xf72b8f00   ebp = 0xf72b8f88   ebx = 0xf75d5000
+    esi = 0xf75d5000   edi = 0xf72b9038   eax = 0x00000000   ecx = 0x00000001
+    edx = 0x00000000   efl = 0x0c760d9c
+    Found by: given as instruction pointer in context
+ 1  libcbreakpad.so + 0x27b74
+    eip = 0xf75a2b74   esp = 0xf72b8f90   ebp = 0xf72b90d8
+    Found by: previous frame's frame pointer
+ 2  xmsim!vserror + 0xad
+    eip = 0x090e5a5d   esp = 0xf72b90e0   ebp = 0xf72b93b8
+    Found by: previous frame's frame pointer
+ 3  xmsim!serror + 0x1a
+    eip = 0x090e6dda   esp = 0xf72b92e0   ebp = 0xf72b93b8   ebx = 0x00000000
+    esi = 0x00000018   edi = 0x00000000
+    Found by: call frame info
+ 4  xmsim!sv_seghandler + 0x988
+    eip = 0x085411b8   esp = 0xf72b9300   ebp = 0xf72b93b8   ebx = 0xf72b944c
+    esi = 0x00000018   edi = 0x00000000
+    Found by: call frame info
+ 5  linux-gate.so + 0x410
+    eip = 0xf7790410   esp = 0xf72b93c0   ebp = 0xffd95aa8   ebx = 0x0c8d6ec8
+    esi = 0x00000000   edi = 0xfffffa08
+    Found by: call frame info
+
+Loaded modules:
+0x0025d000 - 0x00286fff  libm-2.12.so  ???
+0x003af000 - 0x003c2fff  libz.so.1.2.3  ???
+0x00ba8000 - 0x00bc8fff  ld-2.12.so  ???
+0x00bcb000 - 0x00d5efff  libc-2.12.so  ???
+0x00d64000 - 0x00d68fff  libdl-2.12.so  ???
+0x00d76000 - 0x00d8efff  libpthread-2.12.so  ???
+0x08048000 - 0x0a4d3fff  xmsim  ???  (main)
+0xf3b62000 - 0xf3b77fff  libz_sh.so  ???
+0xf3b78000 - 0xf3b7afff  libz_sh.so  ???
+0xf3b7b000 - 0xf403ffff  libucis.so  ???
+0xf4040000 - 0xf4079fff  libucis.so  ???
+0xf4088000 - 0xf40ecfff  libuvmapi_sv.so  ???
+0xf40ed000 - 0xf40effff  libuvmapi_sv.so  ???
+0xf40f0000 - 0xf4169fff  libuvmapi_generic.so  ???
+0xf416a000 - 0xf416cfff  libuvmapi_generic.so  ???
+0xf416d000 - 0xf41defff  libcpi.so  ???
+0xf475b000 - 0xf4772fff  libsdi-verilog-nld.so  ???
+0xf4773000 - 0xf4791fff  libsdi2-sst2-nld.so  ???
+0xf4792000 - 0xf4810fff  libdwapi.so  ???
+0xf4811000 - 0xf4814fff  libdwapi.so  ???
+0xf4858000 - 0xf556cfff  librnc.so  ???
+0xf556d000 - 0xf5570fff  librnc.so  ???
+0xf557c000 - 0xf5585fff  libunicovdirmgr.so  ???
+0xf7303000 - 0xf748bfff  libStrapNC.so  ???
+0xf748c000 - 0xf74b7fff  libStrapNC.so  ???
+0xf74c3000 - 0xf7554fff  libdcapi.so  ???
+0xf7556000 - 0xf7563fff  libnss_files-2.12.so  ???
+0xf757b000 - 0xf75d6fff  libcbreakpad.so  ???  (WARNING: No symbols, libcbreakpad.so, E534BA7ACB58B2D1AC43D31B76D3ED460)
+0xf75e1000 - 0xf75fcfff  libgcc_s.so.1  ???
+0xf75fd000 - 0xf7773fff  libstdc++.so.6.0.22  ???
+0xf777c000 - 0xf7781fff  libuvmdpi.so  ???
+0xf7782000 - 0xf7785fff  _sv_export.so (deleted)  ???
+0xf7786000 - 0xf778cfff  libuvmpli.so  ???
+0xf7790000 - 0xf7790fff  linux-gate.so  ???  (WARNING: No symbols, linux-gate.so, 12EDD0F84EF40F585E55D90F1E58712E0)
+
+******BACKTRACE*****
+vserror [0x90e5a5d]
+serror [0x90e6dda]
+sv_seghandler [0x85411b8]
+sss_load_trg_data [0x85c6c9a]
+sss_trdrv_type [0x85be4f7]
+ssl_net_type [0x86b50fd]
+cov_tog_isvalid_net [0x8c2c47a]
+cov_tog_dump [0x8c35789]
+cov_data_create_instance.part.47 [0x8c7422a]
+sslu_traverse_scopes [0x8748310]
+sslu_traverse_scopes [0x8748c90]
+traverseAllDut.constprop.48 [0x8c560dd]
+cov_data_dump [0x8c75d9d]
+cover_dump [0x817429c]
+enter_ppe [0x80de7c5]
+exit_command [0x81091e7]
+cmd_wrapper [0x848aae2]
+TclInvokeStringCommand [0x8ab0e9c]
+Dispatch [0x8ab0925]
+TclNRRunCallbacks [0x8ab62b3]
+Tcl_EvalObjv [0x8ab632d]
+TclEvalEx [0x8ab88d3]
+Tcl_EvalEx [0x8ab8d2e]
+TclNREvalObjEx [0x8ab8ee5]
+TclEvalObjEx [0x8ab9144]
+Tcl_EvalObjEx [0x8ab9184]
+Tcl_RecordAndEvalObj [0x8b59d34]
+Tcl_RecordAndEval [0x8b59f14]
+cmd_tcl_run [0x848f401]
+wrap_cmd_tcl_run [0x80e0887]
+xncmain [0x80ef5ec]
+ncmain [0x80e25ff]
+main [0x97b3808]
+_start [0x8081d0d]
+******BACKTRACE END*****
