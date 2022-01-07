@@ -13,7 +13,7 @@ interface alu_bfm;
 	bit sin;
 	wire sout;
 	bit                 done;
-	bit         [10:0]  result [4:0];
+
 
 	bit         [3:0]   expected_flag;
 
@@ -226,12 +226,16 @@ interface alu_bfm;
 
 //------------------------------------------------------------------------------
 
-	task send_op(bit [31:0] iA, bit [31:0] iB,  bit icrc_ok,  input bit [3:0] idata_len, input operation_t iop);
+	task send_op(input bit [31:0] iA, input bit [31:0] iB,  input bit icrc_ok,  input bit [3:0] idata_len, input operation_t iop, output error_flag error_flag_out, output bit signed  [31:0]  C_data,
+	output bit         [3:0]         flag_out,
+	output bit         [2:0]         CRC37,
+	output bit         [1:0]         data_type);
 
 		bit         [98:0]  data_in;
 		bit [63:0] BA;
 		bit [3:0] crc;
 		static bit         [10:0]  data_package=11'b00111111111;
+		bit         [10:0]  result [4:0];
 		A = iA;
 		B = iB;
 		BA = {B,A};
@@ -303,12 +307,10 @@ interface alu_bfm;
 
 
 	always @(posedge clk) begin : op_monitor
-		static bit in_command = 0;
-		random_command command;
+		static bit in_command = 0;		
 		if (start) begin : start_high
 			@(posedge clk);
 			if (!in_command) begin : new_command
-
 				command_monitor_h.write_to_monitor(A,  B,  op_set,  crc_ok,  data_len,
 					expected_flag);
 				in_command = (op_set != notused2_op || op_set != notused3_op);
@@ -320,8 +322,7 @@ interface alu_bfm;
 	end : op_monitor
 
 	always @(negedge rst_n) begin : rst_monitor
-		random_command command;
-		//command.op <= reset_op;
+
 		if (command_monitor_h != null) //guard against VCS time 0 negedge
 			command_monitor_h.write_to_monitor(A,  B,  reset_op,  1'b1,  8,
 				expected_flag);

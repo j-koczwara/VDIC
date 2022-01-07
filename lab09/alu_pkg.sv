@@ -55,16 +55,21 @@ package alu_pkg;
 	endfunction
 
 
-`include "random_command.svh"
-`include "minmax_command.svh"
+`include "sequence_item.svh"
+`include "sequencer.svh"
+`include "random_sequence.svh"
+
+
 `include "result_transaction.svh"
 `include "coverage.svh"
-`include "tester.svh"
 `include "scoreboard.svh"
 `include "driver.svh"
 `include "command_monitor.svh"
 `include "result_monitor.svh"
 `include "env.svh"
+`include "alu_base_test.svh"
 `include "random_test.svh"
-`include "minmax_arg_test.svh"
+
+
+
 endpackage : alu_pkg

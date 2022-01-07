@@ -16,7 +16,7 @@
 class command_monitor extends uvm_component;
     `uvm_component_utils(command_monitor)
 
-    uvm_analysis_port #(random_command) ap;
+    uvm_analysis_port #(sequence_item) ap;
 	virtual alu_bfm bfm;
 	
     function void build_phase(uvm_phase phase);        
@@ -32,7 +32,7 @@ class command_monitor extends uvm_component;
 
     function void write_to_monitor(bit [31:0] A, bit [31:0] B, operation_t op, bit   crc_ok, bit [3:0]   data_len,
 		bit  [3:0]   expected_flag);
-	    random_command cmd;
+	    sequence_item cmd;
 	    cmd = new("cmd");
 	    cmd.A  = A;
         cmd.B  = B;

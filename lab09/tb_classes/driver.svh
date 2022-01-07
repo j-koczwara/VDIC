@@ -13,33 +13,55 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-class driver extends uvm_component;
-    `uvm_component_utils(driver)
+class driver extends uvm_driver#(sequence_item);
+	`uvm_component_utils(driver)
 
-    virtual alu_bfm bfm;
-    uvm_get_port #(random_command) command_port;
+	protected virtual alu_bfm bfm;
 	
-
+//------------------------------------------------------------------------------
+// constructor
+//------------------------------------------------------------------------------
+	function new (string name, uvm_component parent);
+		super.new(name, parent);
+	endfunction : new
 	
-    function void build_phase(uvm_phase phase);
-        if(!uvm_config_db #(virtual alu_bfm)::get(null, "*","bfm", bfm))
-            `uvm_fatal("DRIVER", "Failed to get BFM")
-        command_port = new("command_port",this);
-    endfunction : build_phase
+//------------------------------------------------------------------------------
+// build phase
+//------------------------------------------------------------------------------
 
-    task run_phase(uvm_phase phase);
-        random_command command;
-        
+	function void build_phase(uvm_phase phase);
+		if(!uvm_config_db #(virtual alu_bfm)::get(null, "*","bfm", bfm))
+			`uvm_fatal("DRIVER", "Failed to get BFM")
+	endfunction : build_phase
 
-        forever begin : command_loop
-            command_port.get(command);
-			bfm.send_op(command.A, command.B,  command.crc_ok, command.data_len,  command.op);
-        end : command_loop
-    endtask : run_phase
+//------------------------------------------------------------------------------
+// run phase
+//------------------------------------------------------------------------------
 
-    function new (string name, uvm_component parent);
-        super.new(name, parent);
-    endfunction : new
+	task run_phase(uvm_phase phase);
+		sequence_item command;
+		void'(begin_tr(command));
+
+		forever begin : command_loop
+			error_flag                error_flag;
+			bit signed  [31:0]        C_data;
+			bit         [3:0]         flag_out;
+			bit         [2:0]         CRC37;
+			bit         [1:0]         data_type;
+			
+			seq_item_port.get_next_item(command);
+			bfm.send_op(command.A, command.B,  command.crc_ok, command.data_len,  command.op, 
+				error_flag, C_data, flag_out, CRC37, data_type);
+			command.alu_error_flag =error_flag;
+			command.C_data = C_data;
+			command.flag_out = flag_out;
+			command.CRC37 = CRC37;
+			command.data_type = data_type;
+			seq_item_port.item_done();
+		end : command_loop
+	endtask : run_phase
+
+
 
 endclass : driver
 

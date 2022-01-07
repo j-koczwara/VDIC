@@ -1,5 +1,5 @@
 
-class coverage extends uvm_subscriber #(random_command);
+class coverage extends uvm_subscriber #(sequence_item);
     `uvm_component_utils(coverage)
 
 
@@ -229,7 +229,7 @@ class coverage extends uvm_subscriber #(random_command);
 
 
 
-	function void write(random_command t);
+	function void write(sequence_item t);
 
 		A      = t.A;
 		B      = t.B;

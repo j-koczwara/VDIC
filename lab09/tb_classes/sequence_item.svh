@@ -13,8 +13,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-class random_command extends uvm_transaction;
-	`uvm_object_utils(random_command)
+class sequence_item extends uvm_sequence_item;
+	//`uvm_object_utils(sequence_item)
 
 //------------------------------------------------------------------------------
 // transaction variables
@@ -24,9 +24,15 @@ class random_command extends uvm_transaction;
 	rand bit signed [31:0]  B;
 	rand operation_t op;
 	rand bit         crc_ok;
-	rand bit         [3:0]   data_len; 
+	rand bit         [3:0]   data_len;
 	bit         [3:0]   expected_flag;
-	
+
+	error_flag                alu_error_flag;
+	bit signed  [31:0]        C_data;
+	bit         [3:0]         flag_out;
+	bit         [2:0]         CRC37;
+	bit         [1:0]         data_type;
+
 
 //------------------------------------------------------------------------------
 // constraints
@@ -43,61 +49,20 @@ class random_command extends uvm_transaction;
 // transaction functions: do_copy, clone_me, do_compare, convert2string
 //------------------------------------------------------------------------------
 
-	function void do_copy(uvm_object rhs);
-		random_command copied_transaction_h;
+	`uvm_object_utils_begin(sequence_item)
+	`uvm_field_int(A, UVM_ALL_ON | UVM_DEC)
+	`uvm_field_int(B, UVM_ALL_ON | UVM_DEC)
+	`uvm_field_enum(operation_t, op, UVM_ALL_ON)
+	`uvm_field_int(crc_ok, UVM_ALL_ON | UVM_UNSIGNED)
+	`uvm_field_int(data_len, UVM_ALL_ON | UVM_DEC)
+	`uvm_field_int(expected_flag, UVM_ALL_ON)
+	`uvm_field_enum(error_flag, alu_error_flag, UVM_ALL_ON)
+	`uvm_field_int(C_data, UVM_ALL_ON | UVM_DEC)
+	`uvm_field_int(flag_out, UVM_ALL_ON)
+	`uvm_field_int(CRC37, UVM_ALL_ON)
+	`uvm_field_int(data_type, UVM_ALL_ON)
+`uvm_object_utils_end
 
-		if(rhs == null)
-			`uvm_fatal(" RANDOM COMMAND TRANSACTION", "Tried to copy from a null pointer")
-
-		super.do_copy(rhs); // copy all parent class data
-
-		if(!$cast(copied_transaction_h,rhs))
-			`uvm_fatal(" RANDOM COMMAND TRANSACTION", "Tried to copy wrong type.")
-
-		A  = copied_transaction_h.A;
-		B  = copied_transaction_h.B;
-		op = copied_transaction_h.op;
-		crc_ok = copied_transaction_h.crc_ok;
-		data_len = copied_transaction_h.data_len;
-		expected_flag = copied_transaction_h.expected_flag;
-
-	endfunction : do_copy
-
-
-	function random_command clone_me();
-
-		random_command clone;
-		uvm_object tmp;
-
-		tmp = this.clone();
-		$cast(clone, tmp);
-		return clone;
-
-	endfunction : clone_me
-
-
-	function bit do_compare(uvm_object rhs, uvm_comparer comparer);
-
-		random_command compared_transaction_h;
-		bit same;
-
-		if (rhs==null) `uvm_fatal("RANDOM TRANSACTION",
-				"Tried to do comparison to a null pointer");
-
-		if (!$cast(compared_transaction_h,rhs))
-			same = 0;
-		else
-			same = super.do_compare(rhs, comparer) &&
-			(compared_transaction_h.A == A) &&
-			(compared_transaction_h.B == B) &&
-			(compared_transaction_h.op == op) &&
-			(compared_transaction_h.crc_ok == crc_ok)&&
-			(compared_transaction_h.data_len == data_len)&&
-			(compared_transaction_h.expected_flag == expected_flag);
-
-		return same;
-
-	endfunction : do_compare
 
 
 	function string convert2string();
@@ -114,6 +79,6 @@ class random_command extends uvm_transaction;
 		super.new(name);
 	endfunction : new
 
-endclass : random_command
+endclass : sequence_item
 
 

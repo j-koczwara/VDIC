@@ -15,7 +15,7 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 
 	
 	virtual alu_bfm bfm;
-	uvm_tlm_analysis_fifo #(random_command) cmd_f;
+	uvm_tlm_analysis_fifo #(sequence_item) cmd_f;
 
 	function new (string name, uvm_component parent);
 		super.new(name, parent);
@@ -118,7 +118,7 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 	endfunction
 
 
-	protected function result_transaction predict_result(random_command cmd);
+	protected function result_transaction predict_result(sequence_item cmd);
 		result_transaction predicted; 
 		predicted = new ("predicted");
 		predicted.error_flag = get_expected_error(cmd.crc_ok, cmd.data_len, cmd.op);
@@ -141,7 +141,7 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 //------------------------------------------------------------------------------
 	function void write(result_transaction t );
 		string data_str;
-		random_command cmd;
+		sequence_item cmd;
 		result_transaction predicted;
 		do
 			if (!cmd_f.try_get(cmd))

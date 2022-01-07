@@ -13,23 +13,29 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-class random_test extends uvm_test;
+class random_test extends alu_base_test;
     `uvm_component_utils(random_test)
 
-      env env_h;
+//------------------------------------------------------------------------------
+// constructor
+//------------------------------------------------------------------------------
+      
+   function new(string name, uvm_component parent);
+      super.new(name,parent);
+   endfunction : new
 
-    function new (string name, uvm_component parent);
-        super.new(name,parent);
-    endfunction : new
+//------------------------------------------------------------------------------
+// run phase
+//------------------------------------------------------------------------------
 
-    function void build_phase(uvm_phase phase);
-        env_h = env::type_id::create("env_h",this);
-    endfunction : build_phase
-    
-    function void end_of_elaboration_phase(uvm_phase phase);
-        super.end_of_elaboration_phase(phase);
-        this.print(); // print test environment topology
-    endfunction : end_of_elaboration_phase
+   task run_phase(uvm_phase phase);
+      random_sequence random;
+      random = new("random");
+
+      phase.raise_objection(this);
+      random.start(sequencer_h);
+      phase.drop_objection(this);
+   endtask : run_phase
 
 endclass
 
