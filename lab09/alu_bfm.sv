@@ -226,10 +226,10 @@ interface alu_bfm;
 
 //------------------------------------------------------------------------------
 
-	task send_op(input bit [31:0] iA, input bit [31:0] iB,  input bit icrc_ok,  input bit [3:0] idata_len, input operation_t iop, output error_flag error_flag_out, output bit signed  [31:0]  C_data,
-	output bit         [3:0]         flag_out,
-	output bit         [2:0]         CRC37,
-	output bit         [1:0]         data_type);
+	task send_op(input bit [31:0] iA, input bit [31:0] iB,  input bit icrc_ok,  input bit [3:0] idata_len, input operation_t iop, output error_flag error_flag_out_f, output bit signed  [31:0]  C_data_f,
+	output bit         [3:0]         flag_out_f,
+	output bit         [2:0]         CRC37_f,
+	output bit         [1:0]         data_type_f);
 
 		bit         [98:0]  data_in;
 		bit [63:0] BA;
@@ -288,6 +288,7 @@ interface alu_bfm;
 					C_data = get_C_data(result);
 					flag_out = get_flag(result[4]);
 					CRC37 = result[4][3:1];
+					
 				end
 				else begin
 					C_data = '0;
@@ -296,7 +297,12 @@ interface alu_bfm;
 				end
 				@(negedge clk);
 				done=1'b1;
-
+				
+				C_data_f=C_data;
+				flag_out_f=flag_out;
+				CRC37_f=CRC37;
+				error_flag_out_f=error_flag_out;
+				data_type_f=data_type;
 
 			end
 		endcase
@@ -334,6 +340,7 @@ interface alu_bfm;
 		forever begin
 			@(posedge clk) ;
 			if (done) begin
+							
 				result_monitor_h.write_to_monitor( error_flag_out, C_data, flag_out, CRC37, data_type);
 				
 				done=1'b0;

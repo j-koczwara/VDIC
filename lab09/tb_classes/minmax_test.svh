@@ -13,54 +13,30 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-class random_sequence extends uvm_sequence #(sequence_item);
-    `uvm_object_utils(random_sequence)
-
-//------------------------------------------------------------------------------
-// local variables
-//------------------------------------------------------------------------------
-
-// not necessary, req is inherited
-//    sequence_item req;
-
-
+class minmax_test extends alu_base_test;
+    `uvm_component_utils(minmax_test)
 
 //------------------------------------------------------------------------------
 // constructor
 //------------------------------------------------------------------------------
-
-    function new(string name = "random_sequence");
-        super.new(name);
-    endfunction : new
+      
+   function new(string name, uvm_component parent);
+      super.new(name,parent);
+   endfunction : new
 
 //------------------------------------------------------------------------------
-// the sequence body
+// run phase
 //------------------------------------------------------------------------------
 
-    task body();
-        `uvm_info("SEQ_RANDOM","",UVM_MEDIUM)
+   task run_phase(uvm_phase phase);
+      minmax_sequence minmax;
+      minmax = new("minmax");
 
-//       req = sequence_item::type_id::create("req");
-        `uvm_create(req);
+      phase.raise_objection(this);
+      minmax.start(sequencer_h);
+      phase.drop_objection(this);
+   endtask : run_phase
 
-        repeat (5000) begin : random_loop
-//         start_item(req);
-//         assert(req.randomize());
-//         finish_item(req);
-            `uvm_rand_send(req)
-        end : random_loop
-    endtask : body
-
-
-endclass : random_sequence
-
-
-
-
-
-
-
-
-
+endclass
 
 

@@ -16,7 +16,7 @@
 
 #------------------------------------------------------------------------------
 # The list of tests; in GUI mode only the first test is started.
-TESTS=(random_test);
+TESTS=(minmax_test);
 #------------------------------------------------------------------------------
 # Default .f file
 FFILE="tb.f"

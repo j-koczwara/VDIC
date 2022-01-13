@@ -13,8 +13,8 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 
 	protected test_result tr = TEST_PASSED; // the result of the current test
 
-	
-	virtual alu_bfm bfm;
+
+	//virtual alu_bfm bfm;
 	uvm_tlm_analysis_fifo #(sequence_item) cmd_f;
 
 	function new (string name, uvm_component parent);
@@ -118,12 +118,12 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 	endfunction
 
 
-	protected function result_transaction predict_result(sequence_item cmd);
-		result_transaction predicted; 
+	local function result_transaction predict_result(sequence_item cmd);
+		result_transaction predicted;
 		predicted = new ("predicted");
 		predicted.error_flag = get_expected_error(cmd.crc_ok, cmd.data_len, cmd.op);
 		if(cmd.crc_ok==1'b0 || cmd.data_len!=8 || cmd.op==notused2_op || cmd.op==notused3_op ) begin
-			predicted.data_type = 2'b01;			
+			predicted.data_type = 2'b01;
 			predicted.C_data = '0;
 			predicted.flag_out = '0;
 			predicted.CRC37 = '0;
@@ -133,6 +133,8 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 			predicted.C_data = get_expected_data(cmd.A, cmd.B, cmd.op);
 			predicted.flag_out = cmd.expected_flag;
 			predicted.CRC37 = CRC37(predicted.C_data, cmd.expected_flag);
+		
+
 		end
 		return predicted;
 	endfunction
@@ -143,12 +145,13 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 		string data_str;
 		sequence_item cmd;
 		result_transaction predicted;
+	
+
 		do
 			if (!cmd_f.try_get(cmd))
 				$fatal(1, "Missing command in self checker");
 		while ((cmd.op == reset_op));
 		predicted = predict_result(cmd);
-
 		data_str  = { cmd.convert2string(),
 			" ==>  Actual " , t.convert2string(),
 			"/Predicted ",predicted.convert2string()};

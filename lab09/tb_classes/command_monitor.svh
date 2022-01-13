@@ -18,7 +18,11 @@ class command_monitor extends uvm_component;
 
     uvm_analysis_port #(sequence_item) ap;
 	virtual alu_bfm bfm;
-	
+
+//------------------------------------------------------------------------------
+// build_phase
+//------------------------------------------------------------------------------
+
     function void build_phase(uvm_phase phase);        
 
         if(!uvm_config_db #(virtual alu_bfm)::get(null, "*","bfm", bfm))
@@ -29,6 +33,15 @@ class command_monitor extends uvm_component;
         ap                    = new("ap",this);
 
     endfunction : build_phase
+    
+ //------------------------------------------------------------------------------
+// connect phase
+//------------------------------------------------------------------------------
+
+    function void connect_phase(uvm_phase phase);
+        bfm.command_monitor_h = this;
+    endfunction : connect_phase
+    
 
     function void write_to_monitor(bit [31:0] A, bit [31:0] B, operation_t op, bit   crc_ok, bit [3:0]   data_len,
 		bit  [3:0]   expected_flag);

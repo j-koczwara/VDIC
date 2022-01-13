@@ -58,6 +58,7 @@ package alu_pkg;
 `include "sequence_item.svh"
 `include "sequencer.svh"
 `include "random_sequence.svh"
+`include "minmax_sequence.svh"
 
 
 `include "result_transaction.svh"
@@ -69,6 +70,7 @@ package alu_pkg;
 `include "env.svh"
 `include "alu_base_test.svh"
 `include "random_test.svh"
+`include "minmax_test.svh"
 
 
 
